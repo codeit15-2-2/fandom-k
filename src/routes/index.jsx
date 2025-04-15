@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import GlobalLayout from '@layouts/GlobalLayout';
-import LandingPage from '@pages/LadingPage';
-import MainPage from '@pages/MainPage';
-import DetailPage from '@pages/DetailPage';
-import MyPage from '@pages/MyPage';
-import NotFoundPage from '@pages/NotFound';
+import LandingPage from '@pages/landing-page';
+import MainPage from '@pages/main-page';
+import DetailPage from '@pages/detail-page';
+import MyPage from '@pages/my-page';
+import NotFoundPage from '@pages/not-found-page';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <DetailPage />,
       },
       {
-        path: 'my',
+        path: 'mypage',
         element: <MyPage />,
       },
       {
