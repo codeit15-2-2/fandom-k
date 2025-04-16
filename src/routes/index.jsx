@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import GlobalLayout from '@layouts/GlobalLayout';
+import App from '../App';
 import LandingPage from '@pages/landing-page';
 import MainPage from '@pages/main-page';
 import DetailPage from '@pages/detail-page';
@@ -10,7 +10,7 @@ import NotFoundPage from '@pages/not-found-page';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <GlobalLayout />,
+    element: <App />,
     children: [
       {
         index: true,
