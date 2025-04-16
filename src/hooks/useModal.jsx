@@ -7,3 +7,5 @@ const useModal = () => {
 
   return { isOpen, open, close };
 };
+
+export default useModal;
