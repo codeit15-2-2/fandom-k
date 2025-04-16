@@ -1,12 +1,79 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: 'Pretendard', system-ui, sans-serif;
+
+  /* 색상 */
+  --color-navy: #272f3d;
+  --color-black: #02000e;
+
+  --color-gray-100: #34383f;
+  --color-gray-200: #535353;
+  --color-gray-300: #8b8e92;
+
+  --color-white: #f7f7f8;
+
+  --color-brand-1: #f96d69;
+  --color-brand-2: #fe5493;
+
+  /* 그라디언트 */
+  --background-gradient-brand: linear-gradient(to right, #f96d69, #fe5493);
+
+  /* 반응형 breakpoint */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+}
+
 @layer base {
   @font-face {
     font-family: 'Pretendard';
     src: url('/fonts/PretendardVariable.woff2') format('woff2');
   }
 
-  :root {
-    --font-sans: 'Pretendard', system-ui, sans-serif;
+  html {
+    font-size: 10px;
+  }
+}
+
+@layer components {
+  /* 기본값: PC, Tablet */
+  .title-text {
+    @apply text-[2.4rem] font-bold; /* 24px */
+  }
+
+  .sub-title-text {
+    @apply text-[2rem] font-bold; /* 20px */
+  }
+
+  .content-text {
+    @apply text-[1.6rem] font-normal; /* 16px */
+  }
+
+  .sub-content-text {
+    @apply text-[1.4rem] font-normal; /* 14px */
+  }
+
+  .caption-text {
+    @apply text-[1.2rem] font-normal; /* 12px */
+  }
+
+  /* 모바일 */
+  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
+    .title-text {
+      @apply text-[2rem]; /* 20px */
+    }
+
+    .sub-title-text {
+      @apply text-[1.6rem]; /* 16px */
+    }
+
+    .content-text {
+      @apply text-[1.4rem]; /* 14px */
+    }
+
+    .caption-text {
+      @apply text-[1.2rem]; /* 12px */
+    }
   }
 }
