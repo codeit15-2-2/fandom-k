@@ -100,7 +100,7 @@ const IdolList = ({
 
   return (
     <IdolContext.Provider value={contextValue}>
-      <div className='sub-content-text flex w-full items-center gap-4 bg-black [&>*:last-child]:ml-auto'>
+      <div className='sub-content-text flex w-full items-center gap-4 [&>*:last-child]:ml-auto'>
         <IdolImg selected={selectedId === id} />
         <IdolRank />
         {children}
