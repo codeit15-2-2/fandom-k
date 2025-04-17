@@ -15,11 +15,11 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
 
   return createPortal(
     <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 flex h-screen w-screen items-center justify-center bg-black/40'>
-      <div className='modal-content flex w-9/10 max-w-md min-w-64 flex-col bg-black p-10 text-white'>
-        <div className='relative flex justify-between'>
-          {title && <p className='content-text'>{title}</p>}
+      <div className='modal-content flex w-9/10 max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
+        <div className='relative mb-1 flex justify-between'>
+          {title && <p className='content-text relative'>{title}</p>}
           <button
-            className='content-text absolute -top-6 right-0 text-white'
+            className='content-text absolute right-0 cursor-pointer text-white'
             onClick={onClose}
           >
             &times;
