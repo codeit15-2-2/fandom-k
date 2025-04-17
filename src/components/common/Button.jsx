@@ -66,8 +66,9 @@ const Button = ({
   const disabledStyles =
     'bg-gray-300 text-white cursor-not-allowed pointer-events-none';
 
-  const InitailClassName = cn(
-    'flex items-center justify-center transition-all font-bold',
+  //디폴트클래스네임 + size + disabled true시 스타일 + rounded true시 스타일 + border true시 스타일+ 추가 클래스네임 prop
+  const InitialClassName = cn(
+    'flex items-center justify-center transition-all font-bold', //디폴트 클래스네임
     sizeStyles[size],
     disabled ? disabledStyles : colorStyles[color],
     rounded ? 'rounded-full' : 'rounded-sm',
@@ -76,7 +77,7 @@ const Button = ({
   );
 
   return (
-    <button onClick={onClick} className={InitailClassName} disabled={disabled}>
+    <button onClick={onClick} className={InitialClassName} disabled={disabled}>
       {icon && (
         <span className='flex items-center justify-center object-contain'>
           {icon}
