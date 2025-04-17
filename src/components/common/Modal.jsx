@@ -19,7 +19,7 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
         <div className='mb-3 flex justify-between'>
           {title && <p className='content-text'>{title}</p>}
           <button
-            className='content-text absolute top-9 right-10 cursor-pointer text-white'
+            className='content-text absolute top-9 right-10 cursor-pointer text-white/50'
             onClick={onClose}
           >
             &times;
