@@ -69,7 +69,7 @@ const Button = ({
   //디폴트클래스네임 + size + disabled true시 스타일 + rounded true시 스타일 + border true시 스타일+ 추가 클래스네임 prop
 
   const buttonClassNames = cn(
-    'flex items-center justify-center transition-all font-bold', //디폴트 클래스네임
+    'flex items-center justify-center transition-all font-bold sub-content-text ', //디폴트 클래스네임
     SIZE_STYLES[size],
     disabled ? DISABLED_STYLE : COLOR_STYLES[color],
     rounded ? 'rounded-full' : 'rounded-sm',
