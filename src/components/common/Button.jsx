@@ -5,7 +5,7 @@ import {
   COLOR_STYLES,
   DISABLED_STYLE,
 } from '@constants/buttonConstants';
-import spinnerIcon from '@assets/icons/Icon_spinner.svg';
+import Spinner from '@assets/icons/icon_spinner';
 /**
  * Button 컴포넌트
  *
@@ -105,15 +105,7 @@ const Button = ({
           {icon}
         </span>
       )}
-      {isLoading ? (
-        <img
-          src={spinnerIcon}
-          alt='로딩svg'
-          className='h-8 w-8 bg-transparent'
-        />
-      ) : (
-        btnText
-      )}
+      {isLoading ? <Spinner /> : btnText}
     </button>
   );
 };
