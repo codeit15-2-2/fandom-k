@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: 'Pretendard', system-ui, sans-serif;
+  --font-logo: 'Ahchangho';
 
   /* 색상 */
   --color-navy: #272f3d;
@@ -31,8 +32,14 @@
     src: url('/fonts/PretendardVariable.woff2') format('woff2');
   }
 
+  @font-face {
+    font-family: 'Anchangho';
+    src: url('/fonts/Anchangho.woff2') format('woff2');
+  }
+
   html {
     font-size: 10px;
+    @apply scroll-smooth;
   }
 }
 
@@ -79,5 +86,38 @@
     .caption-text {
       @apply text-[1.2rem]; /* 12px */
     }
+  }
+}
+
+@layer utilities {
+  .delay-500 {
+    transition-delay: 500ms;
+  }
+
+  .delay-1000 {
+    transition-delay: 1000ms;
+  }
+
+  .delay-1500 {
+    transition-delay: 1500ms;
+  }
+
+  .delay-2000 {
+    transition-delay: 2000ms;
+  }
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 1s ease-out 1s forwards;
   }
 }

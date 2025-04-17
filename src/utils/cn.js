@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 const cn = (...args) => {
-  return twMerge(clsx(...args));
+  const merged = twMerge(clsx(...args));
+  return merged;
 };
 
 export { cn };
