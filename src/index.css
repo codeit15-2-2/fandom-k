@@ -58,6 +58,10 @@
     @apply text-[1.2rem] font-normal; /* 12px */
   }
 
+  .bg-gradient-brand {
+    background: var(--background-gradient-brand);
+  }
+
   /* 모바일 */
   @media (max-width: calc(var(--breakpoint-md) - 1px)) {
     .title-text {
