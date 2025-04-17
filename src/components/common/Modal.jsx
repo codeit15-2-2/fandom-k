@@ -15,17 +15,19 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
 
   return createPortal(
     <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 flex h-screen w-screen items-center justify-center bg-black/40'>
-      <div className='modal-content flex w-9/10 max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
-        <div className='relative mb-1 flex justify-between'>
-          {title && <p className='content-text relative'>{title}</p>}
+      <div className='modal-content relative flex max-h-8/10 w-9/10 max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
+        <div className='mb-3 flex justify-between'>
+          {title && <p className='content-text'>{title}</p>}
           <button
-            className='content-text absolute right-0 cursor-pointer text-white'
+            className='content-text absolute top-9 right-10 cursor-pointer text-white'
             onClick={onClose}
           >
             &times;
           </button>
         </div>
-        <div className='my-4 flex items-center justify-center'>{children}</div>
+        <div className='my-4 flex items-center justify-center overflow-hidden py-3'>
+          {children}
+        </div>
         <button>버튼 컴포넌트 가져오기</button>
         {extra && (
           <span className='caption-text mt-2 text-center'>{extra}</span>
