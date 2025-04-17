@@ -5,6 +5,7 @@ import {
   COLOR_STYLES,
   DISABLED_STYLE,
 } from '@constants/buttonConstants';
+import spinnerIcon from '@assets/icons/Icon_spinner.svg';
 /**
  * Button 컴포넌트
  *
@@ -17,12 +18,13 @@ import {
  * @param {boolean} [border=false] - 버튼에 border를 부여할지(border를 주고싶으면 props를 넘길때 border라고만 적기)
  * @param {boolean} [disabled=false] - 버튼 비활성화 여부(props를 줄때 disabled라고만 적기)
  * @param {boolean} [rounded=false] - 버튼이 둥근형태일지 여부(props를 줄때 rounded라고만 적기)
- * @param {string} [btnType='button'] - 버튼의 type 속성 default는 'button' 
+ * @param {string} [btnType='button'] - 버튼의 type 속성 default는 'button'
+ * @param {boolean} [isLoading=false] - 로딩 상태 여부. true일 경우 버튼 텍스트 대신 로딩 아이콘 표시(isLoading같은 state를 넘겨주면됩니다)
  *
  * @returns {JSX.Element} <Button/>컴포넌트
  * 
  * 
- * 예시
+ * @example
  *   <Button
         className='mt-4 mb-4 ml-4' //추가 클래스네임
         btnText='확인'
@@ -41,7 +43,18 @@ import {
         color='gray'
         size='xs'
         rounded
-      />
+        />
+
+
+       <Button
+        className='mt-4 mb-4 ml-4'
+        btnText='확인'
+        color='gray'
+        size='xs'
+        rounded
+        isLoading={isLoading} //state를 Props로
+        />
+      
  */
 const Button = ({
   btnText, //버튼 텍스트
@@ -65,6 +78,8 @@ const Button = ({
   rounded = false, // 라운드 여부
 
   btnType = 'button', //submit,button등 type여부
+
+  isLoading = false, //로딩상태 여부
 }) => {
   //디폴트클래스네임 + size + disabled true시 스타일 + rounded true시 스타일 + border true시 스타일+ 추가 클래스네임 prop
 
@@ -74,6 +89,7 @@ const Button = ({
     disabled ? DISABLED_STYLE : COLOR_STYLES[color],
     rounded ? 'rounded-full' : 'rounded-sm',
     border && 'border',
+    isLoading && 'cursor-not-allowed pointer-events-none',
     className,
   );
 
@@ -89,7 +105,15 @@ const Button = ({
           {icon}
         </span>
       )}
-      {btnText}
+      {isLoading ? (
+        <img
+          src={spinnerIcon}
+          alt='로딩svg'
+          className='h-8 w-8 bg-transparent'
+        />
+      ) : (
+        btnText
+      )}
     </button>
   );
 };
