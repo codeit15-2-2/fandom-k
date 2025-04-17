@@ -1,9 +1,9 @@
 import { cn } from '@/utils/cn';
 
 const PROFILE_IMG_SIZE_STYLES = {
-  s: 'w-[7rem]',
-  m: 'w-[10rem]',
-  l: 'w-[12rem]',
+  s: 'w-[7rem] h-[7rem]',
+  m: 'w-[10rem] h-[10rem]',
+  l: 'w-[12rem] h-[12rem]',
 };
 
 /** 프로필 이미지 컴포넌트
