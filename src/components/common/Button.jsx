@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { cn } from '@/utils/cn';
 /**
  * Button 컴포넌트
  *
@@ -47,40 +47,33 @@ const Button = ({
   disabled = false, //버튼 비활성 여부
   rounded = false, // 라운드 여부
 }) => {
-  //사이즈 구분
+  //사이즈
   const sizeStyles = {
     xl: 'h-[43px] w-[477px] sub-content-text text-bold py-[9px]',
     l: 'h-[42px] w-[327px] sub-content-text text-bold py-[9px]',
     m: 'h-[42px] w-[295px] sub-content-text text-bold py-[9px]',
-    s: 'h-[40px] w-[234px] sub-content-text  text-bold py-[8px]',
-    xs: 'h-[31px] w-[142px] sub-content-text  text-bold py-[6px]',
+    s: 'h-[40px] w-[234px] sub-content-text text-bold py-[8px]',
+    xs: 'h-[31px] w-[142px] sub-content-text text-bold py-[6px]',
   };
 
-  //색상 구분
+  //컬러
   const colorStyles = {
-    gray: 'bg-gray-200 text-white cursor-pointer opacity-80', //더보기
+    gray: 'bg-gray-200 text-white cursor-pointer opacity-80',
     pink: 'bg-gradient-brand text-white cursor-pointer',
   };
 
-  //버튼 비활성화 여부
-  const isDisable = disabled
-    ? 'bg-gray-300 text-white cursor-not-allowed pointer-events-none'
-    : colorStyles[color];
+  //disabled가 props로 넘어올시 적용할 스타일
+  const disabledStyles =
+    'bg-gray-300 text-white cursor-not-allowed pointer-events-none';
 
-  //버튼 round 여부
-  const isRound = rounded ? 'rounded-full' : 'rounded-sm';
-
-  //디폴트 클래스네임 + 다른요소들로 하나의 문자열을 생성
-  const InitailClassName = [
+  const InitailClassName = cn(
     'flex items-center justify-center transition-all font-bold',
     sizeStyles[size],
-    isDisable,
-    isRound,
-    border ? 'border-1 border-white' : '',
+    disabled ? disabledStyles : colorStyles[color],
+    rounded ? 'rounded-full' : 'rounded-sm',
+    border && 'border-1 border-white',
     className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  );
 
   return (
     <button onClick={onClick} className={InitailClassName} disabled={disabled}>
