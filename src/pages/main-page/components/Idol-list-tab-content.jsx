@@ -14,9 +14,9 @@ const mockData = [
 
 const IdolListTabContent = ({ idolData, IdolList }) => {
   //idolData가 제대로 불러오지 않았을 경우 처리
-  // if (!idolData || idolData.length === 0) {
-  //   return <div>아이돌 정보가 없습니다.</div>;
-  // }
+  if (!idolData || idolData.length === 0) {
+    return <div>아이돌 정보가 없습니다.</div>;
+  }
   return (
     <>
       <div className='grid w-full grid-cols-1 gap-5 border-2 md:grid-cols-2'>
