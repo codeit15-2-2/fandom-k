@@ -1,6 +1,6 @@
 import { useCreditForm } from '@hooks/useCreditForm';
 import Input from '../common/Input';
-import Controller from './CreditController';
+import CreditController from './CreditController';
 import CreditIcon from '@assets/icons/icon_Credit';
 import { cn } from '@utils/cn';
 
@@ -78,7 +78,7 @@ const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
           <CreditIcon className='absolute top-1/2 right-8 h-10 w-10 -translate-y-1/2 object-contain' />
         }
       />
-      <Controller
+      <CreditController
         handleAddAmount={handleAddAmount}
         handleAddAll={handleAddAll}
         isDonate={isDonate}

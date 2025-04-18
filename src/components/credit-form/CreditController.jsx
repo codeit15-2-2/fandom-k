@@ -1,5 +1,5 @@
 /**
- * @component Controller
+ * @component CreditController
  *
  * @description 크레딧을 다루는 전체 틀에서 증감 버튼의 렌더링을 담당하는 컴포넌트
  *
@@ -11,7 +11,7 @@
  * @returns {JSX.Element}
  */
 
-const Controller = ({ handleAddAmount, handleAddAll, isDonate }) => {
+const CreditController = ({ handleAddAmount, handleAddAll, isDonate }) => {
   return (
     <div className='mt-8 mb-7.5 flex gap-3'>
       {[100, 500, 1000].map((value) => (
@@ -35,4 +35,4 @@ const Controller = ({ handleAddAmount, handleAddAll, isDonate }) => {
   );
 };
 
-export default Controller;
+export default CreditController;
