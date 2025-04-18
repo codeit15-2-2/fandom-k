@@ -7,11 +7,6 @@
  * @returns {JSX.Element}
  */
 
-const mockData = [
-  { id: 1, name: '아이돌1' },
-  { id: 2, name: '아이돌2' },
-];
-
 const IdolListTabContent = ({ idolData, IdolList }) => {
   //idolData가 제대로 불러오지 않았을 경우 처리
   if (!idolData || idolData.length === 0) {
