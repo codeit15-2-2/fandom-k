@@ -93,7 +93,7 @@ const IdolCardList = ({
   };
 
   const IdolCardWrapClassName = cn(
-    'w-full max-w-xs overflow-hidden bg-[var(--color-black)] text-[var(--color-white)]',
+    'w-full max-w-md overflow-hidden bg-[var(--color-black)] text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
 
