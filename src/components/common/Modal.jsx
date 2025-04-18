@@ -31,16 +31,17 @@ import { createPortal } from 'react-dom';
  */
 
 const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
-  if (!isOpen) return;
+  if (!isOpen) return null;
 
   return createPortal(
     <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 flex h-screen w-screen items-center justify-center bg-black/40'>
-      <div className='modal-content relative flex max-h-8/10 w-9/10 max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
+      <div className='modal-content relative flex max-h-[80%] w-[90%] max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
         <div className='mb-3 flex justify-between'>
           {title && <p className='content-text'>{title}</p>}
           <button
             className='content-text absolute top-9 right-10 cursor-pointer text-white/50'
             onClick={onClose}
+            aria-label='모달 닫기'
           >
             &times;
           </button>
