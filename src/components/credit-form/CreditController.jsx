@@ -1,3 +1,5 @@
+import { CREDIT_INCREASE } from '@constants/creditConstant';
+
 /**
  * @component CreditController
  *
@@ -14,13 +16,13 @@
 const CreditController = ({ handleAddAmount, handleAddAll, isDonate }) => {
   return (
     <div className='mt-8 mb-7.5 flex gap-3'>
-      {[100, 500, 1000].map((value) => (
+      {CREDIT_INCREASE.map((increasement) => (
         <button
           className='content-text bg-navy cursor-pointer rounded-2xl px-[2rem] py-[1rem] text-xl font-bold text-white hover:opacity-50'
-          key={value}
-          onClick={() => handleAddAmount(value)}
+          key={increasement}
+          onClick={() => handleAddAmount(increasement)}
         >
-          +{value}
+          +{increasement}
         </button>
       ))}
       {isDonate && (

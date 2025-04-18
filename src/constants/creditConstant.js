@@ -1,0 +1,5 @@
+const CREDIT_INCREASE = [100, 500, 1000];
+
+
+
+export {CREDIT_INCREASE};
