@@ -8,14 +8,14 @@ export default function Header() {
         <img
           src='src\assets\images\fandom-k-logo.webp'
           alt='Fandom-K logo'
-          className='h-[2rem]'
+          className='h-[2rem] sm:h-[2.2rem] md:h-[3.2rem]'
         />
       </div>
       <div className='flex items-center justify-center'>
         <img
           src='src\assets\images\empty-profile.webp'
           alt='empty profile Img'
-          className='h-[2rem] w-[2rem] rounded-full'
+          className='h-[3.2rem] w-[3.2rem] rounded-full'
         />
       </div>
     </header>
