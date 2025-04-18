@@ -45,6 +45,16 @@ const IdolCardList = ({
     'w-full max-w-xs overflow-hidden bg-[var(--color-black)] text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
+
+  return (
+    <IdolCardContext.Provider value={contextValue}>
+      <div className={IdolCardWrapClassName}>
+        <IdolCardImg />
+        <IdolCardText />
+        {children}
+      </div>
+    </IdolCardContext.Provider>
+  );
 };
 
 const IdolCardText = () => {
@@ -63,6 +73,21 @@ const IdolCardText = () => {
     <div className='pt-2 pb-6'>
       <p className={locationClassName}>{location}</p>
       <p className={titleClassName}>{title}</p>
+    </div>
+  );
+};
+
+const IdolCardImg = () => {
+  const { src, title, isHover } = useContext(IdolCardContext);
+
+  return (
+    <div className='relative w-full'>
+      <CardImg
+        className='rounded-2xl object-contain'
+        src={src}
+        alt={title}
+        isHover={isHover}
+      />
     </div>
   );
 };
