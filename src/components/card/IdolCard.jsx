@@ -2,11 +2,19 @@ import { useContext, createContext } from 'react';
 import { cn } from '@/utils/cn';
 import CardImg from '@components/common/CardImg';
 
+/**
+ * 카드 사이즈별 Tailwind 클래스 매핑
+ * - 's' : 소형 카드
+ * - 'm' : 중형 카드 (기본값)
+ */
 const CARD_SIZE_STYLE = {
   s: 'w-[15.8rem]',
   m: 'w-[28rem]',
 };
 
+/**
+ * IdolCardList 전체에서 공유되는 context 값
+ */
 const IdolCardContext = createContext({
   id: null,
   src: '',
@@ -19,6 +27,47 @@ const IdolCardContext = createContext({
   size: 'm',
 });
 
+/**
+ * 아이돌 카드 전체 컴포넌트 (기본카드와 후원카드를 함께 사용한 합성 컴포넌트입니다.)
+ * @component
+ * @param {Object} props
+ * @param {number} props.id - [기본카드 | 후원카드]]아이돌 ID
+ * @param {string} props.src - [기본카드 | 후원카드] 카드 이미지 URL
+ * @param {string} props.location - [기본카드 | 후원카드] 후원 장소
+ * @param {string} props.title - [기본카드 | 후원카드] 후원 제목
+ * @param {number} props.credit - [후원카드] 모인 후원 금액
+ * @param {number} props.daysLeft - [후원카드] 마감까지 남은 일수
+ * @param {Function} props.onClick - [후원카드] 상세 이동용 클릭 핸들러
+ * @param {boolean} props.isHover - [후원카드] 이미지 위 그라데이션 오버레이 여부
+ * @param {'s'|'m'} [props.size='m'] - [후원카드] 카드 사이즈
+ * @param {React.ReactNode} props.children - Slot으로 footer 추가
+ * 
+ * @example
+ * 1. 기본카드 사용법 예시
+ * <IdolCardList
+ *   id={10}
+ *   src={'~'}
+ *   location={'강남역 광고'}
+ *   title={'민지 2025 첫 광고'}
+ * ></IdolCardList>
+ * 
+ * @example
+ * 2. 후원카드 사용법 예시
+ * <IdolCardList
+ *   id={10}
+ *   src={'~'}
+ *   location={'강남역 광고'}
+ *   title={'민지 2025 첫 광고'}
+ *   credit={6000}
+ *   daysLeft={4}
+ *   size={'s'} - 기본형 'm'
+ *   isHover={true}
+ *   onClick={onClickDonate}
+ * >
+ *  <IdolCardList.IdolCardFooter />
+ * </IdolCardList>
+ * 
+ */
 const IdolCardList = ({
   id,
   src,
@@ -59,6 +108,11 @@ const IdolCardList = ({
   );
 };
 
+/**
+ * 카드 내부의 텍스트 영역
+ * - 후원 장소(location) 및 제목(title) 표시
+ * - 카드 크기(size)에 따라 폰트 스타일이 달라짐
+ */
 const IdolCardText = () => {
   const { location, title, size } = useContext(IdolCardContext);
 
@@ -79,6 +133,10 @@ const IdolCardText = () => {
   );
 };
 
+/**
+ * 카드 내부의 이미지 영역
+ * - context로부터 `src`, `title`, `isHover` 값을 받아 렌더링
+ */
 const IdolCardImg = () => {
   const { src, title, isHover } = useContext(IdolCardContext);
 
@@ -94,15 +152,17 @@ const IdolCardImg = () => {
   );
 };
 
+/**
+ * 카드 하단의 진행률 바 및 후원 금액 정보
+ * - 후원 금액, 남은 일수, 진행률 표시
+ */
 const IdolCardFooter = () => {
   const { credit, daysLeft, progress = 15 } = useContext(IdolCardContext);
 
   return (
     <>
       <div className='caption-text flex items-center justify-between pb-4'>
-        <span className='text-[var(--color-brand-1)]'>
-          ₩ {credit}
-        </span>
+        <span className='text-[var(--color-brand-1)]'>₩ {credit}</span>
 
         <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
       </div>
