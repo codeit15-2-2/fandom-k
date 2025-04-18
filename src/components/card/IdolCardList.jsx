@@ -1,4 +1,6 @@
 import { useContext, createContext } from 'react';
+import { cn } from '@/utils/cn';
+import CardImg from '@components/common/CardImg';
 
 const CARD_SIZE_STYLE = {
   s: 'w-[15.8rem]',
