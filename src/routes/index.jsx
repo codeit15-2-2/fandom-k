@@ -6,7 +6,7 @@ import MainPage from '@pages/main-page';
 import DetailPage from '@pages/detail-page';
 import MyPage from '@pages/my-page';
 import NotFoundPage from '@pages/not-found-page';
-import Female from '@pages/main-page/Female';
+import Female from '@pages/main-page/pages/Female';
 import Male from '@pages/main-page/pages/Male';
 
 const router = createBrowserRouter([

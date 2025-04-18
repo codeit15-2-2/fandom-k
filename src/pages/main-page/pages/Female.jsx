@@ -1,4 +1,4 @@
-import IdolListTabContent from './Idol-list-tab-content';
+import IdolListTabContent from '../components/Idol-list-tab-content';
 
 export default function Female() {
   return (

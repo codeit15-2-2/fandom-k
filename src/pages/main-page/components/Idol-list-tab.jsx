@@ -7,7 +7,7 @@ const IdolListTab = () => {
 
   //처음 진입 시, 자동으로 이달의 여자 아이돌 선택
   if (rootMatch) {
-    return <Navigate to='/female' replace />;
+    return <Navigate to='/main/female' replace />;
   }
 
   return (
