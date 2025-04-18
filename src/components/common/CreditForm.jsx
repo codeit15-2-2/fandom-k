@@ -3,34 +3,69 @@ import Input from './Input';
 import Controller from './Controller';
 import CreditIcon from '@assets/icons/creditIcon';
 
-const CreditForm = ({ isDonate = false, onSubmit }) => {
+/**
+ * @component
+ * 
+ * @param {number} credit 사용자의 현재 보유크레딧 ex)이 컴포넌트를 사용할 최상위 컴포넌트 DonateMordal,ChargeMordal컴포넌트에서 내려받음
+ * @param {Function} [onSubmit] 상위 컴포넌트에서 내려올 후원/충전관련 로직메소드
+ * @param {boolean} isDonate 후원모드여부 -> 후원모드일시 전액버튼 활성화 && 버튼텍스트 '후원하기'로 변경
+ *
+ *
+ * @example
+ *
+ * //사용법
+ *
+ * 추후 개발할 후원/충전모달에서 로컬스토리지에서 credit을 가져온뒤
+ * credit과 inputValue로 수행할 후원/충전 로직메소드를구현한뒤(ex:handleDonateCredit)
+ * CreditForm에 credit과 로직메소드를 props로 내려줌
+ * ex) <CreditForm isDonate  onSubmit={handleDonateCredit} credit={credit} />
+ *
+ *
+ *
+ *  //ChargeCreditMordal컴포넌트라고 가정
+ *   const [credit, setCredit] = useState(10000); //로컬스토리지에서 꺼내왔다 가정
+ *
+ *
+ *  //예시 충전 메소드
+ *  const handleCharge = (inputValue) => { //CreditForm의 handleClick메소드를 통해 inputValue를 파라미터로 건네받음
+ *  console.log(inputValue);
+ *     setCredit(credit + inputValue);//로컬스토리지에 적용하는 로직이라 가정
+ *  };
+ *
+ * return(
+ * <div>
+ *
+ * <CreditForm  onSubmit={handleCharge} credit={credit} />
+ * </div>
+ * )
+ *
+ *
+ * @returns {JSX.Element}
+ */
+
+const CreditForm = ({ isDonate = false, onSubmit, credit }) => {
   const {
-    credit,
-    setCredit,
     input,
     error,
     errMsg,
     handleInputChange,
     handleAddAmount,
     handleAddAll,
-    reset,
-  } = useCreditForm(1000, isDonate);
+    handleReset,
+  } = useCreditForm(credit, isDonate);
 
+  //충전/후원하기 버튼에 들어가는 메소드
   const handleClick = () => {
-    if (error || input === '') return;
-
-    const inputValue = Number(input);
-    onSubmit?.(inputValue);
-    if (!isDonate) {
-      setCredit((prev) => prev + inputValue);
-    } else {
-      setCredit((prev) => prev - inputValue);
+    if (error || input === '') {
+      return null;
     }
-    reset();
+    const inputValue = Number(input);
+    onSubmit?.(inputValue); //상위 컴포넌트에서의 충전/후원 로직메소드에 inputValue값을 파라미터로 전달
+    handleReset();
   };
 
   return (
-    <div className='w-full max-w-[429px] text-left text-white'>
+    <div className='w-full max-w-[43rem] text-left text-white'>
       <p className='sub-content-text'>내 크레딧: {credit.toLocaleString()}</p>
       <Input
         value={input}
@@ -50,7 +85,7 @@ const CreditForm = ({ isDonate = false, onSubmit }) => {
       <button
         onClick={handleClick}
         disabled={error || input === ''}
-        className='bg-gradient-brand cursor-pointer px-4 py-4'
+        className='bg-gradient-brand w-full cursor-pointer px-4 py-4'
       >
         {isDonate ? '후원하기' : '충전하기'}
       </button>

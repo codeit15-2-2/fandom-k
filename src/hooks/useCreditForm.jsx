@@ -1,49 +1,68 @@
 import { useState } from 'react';
 import { validateInput } from '@utils/validateInput';
 
-export const useCreditForm = (initialCredit = 0, isDonate = false) => {
-  const [credit, setCredit] = useState(initialCredit);
+/**
+ *
+ * @hook useCreditForm
+ * @description 크레딧Input관련 로직을 관리하는 커스텀훅
+ *
+ * @param {number} credit 사용자의 현재보유크레딧
+ * @param {boolean} isDonate CreditForm에서 내려받은 isDonate Boolean값(validate검증용)
+ *
+ * @returns
+ */
+
+export const useCreditForm = (credit, isDonate = false) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState('');
 
-  const validate = (value) => {
-    const { isError, errMsg } = validateInput(Number(value), credit, isDonate);
+  //validateInput을 통해 검증을 돌리고 error,errMsg state에 결과값 할당
+  const validate = (inputValue) => {
+    const { isError, errMsg } = validateInput(
+      Number(inputValue),
+      credit,
+      isDonate,
+    );
     setError(isError);
     setErrMsg(errMsg);
   };
 
-  const handleInputChange = (value) => {
-    setInput(value);
-    validate(value);
+  //input값 onchange메소드
+  const handleInputChange = (inputValue) => {
+    setInput(inputValue);
+    validate(inputValue);
   };
 
-  const handleAddAmount = (amount) => {
-    const nextValue = (Number(input) || 0) + amount;
-    setInput(String(nextValue));
-    validate(nextValue);
+  //+100 +500 +100 버튼에 들어가는 메소드
+  const handleAddAmount = (inputValue) => {
+    const nextInputValue = (Number(input) || 0) + inputValue;
+    setInput(String(nextInputValue));
+    validate(nextInputValue);
   };
 
+  //전액 버튼에 들어가는 메소드
   const handleAddAll = () => {
     setInput(String(credit));
     validate(credit);
   };
 
-  const reset = () => {
+  //input창/error/errMsg 초기화
+  const handleReset = () => {
     setInput('');
     setError(false);
     setErrMsg('');
   };
 
   return {
-    credit,
-    setCredit,
     input,
     error,
+    setError,
     errMsg,
+    setErrMsg,
     handleInputChange,
     handleAddAmount,
     handleAddAll,
-    reset,
+    handleReset,
   };
 };
