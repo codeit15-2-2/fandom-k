@@ -10,7 +10,7 @@ const MyCredit = ({ credit }) => {
           </p>
           <p className='flex items-center text-[2rem] font-bold text-white sm:text-[2.4rem]'>
             <Jewel />
-            {credit || '10,000'}
+            {credit || '0'}
           </p>
         </div>
         <div className='flex items-center'>
