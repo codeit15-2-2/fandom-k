@@ -1,5 +1,5 @@
 import { useContext, createContext } from 'react';
-import Selected from './Selected';
+import SelectedLayer from '../common/SelectedLayer';
 import ProfileImg from '@components/common/ProfileImg';
 
 const IdolContext = createContext({
@@ -115,7 +115,7 @@ const IdolImg = ({ selected }) => {
 
   return (
     <ProfileImg src={src} size='s'>
-      {selected && <Selected />}
+      {selected && <SelectedLayer />}
     </ProfileImg>
   );
 };
