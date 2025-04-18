@@ -1,15 +1,16 @@
 import { useCreditForm } from '@hooks/useCreditForm';
-import Input from './Input';
-import Controller from './Controller';
-import CreditIcon from '@assets/icons/creditIcon';
+import Input from '../common/Input';
+import Controller from './CreditController';
+import CreditIcon from '@assets/icons/icon_Credit';
+import { cn } from '@utils/cn';
 
 /**
  * @component
- * 
- * @param {number} credit 사용자의 현재 보유크레딧 ex)이 컴포넌트를 사용할 최상위 컴포넌트 DonateMordal,ChargeMordal컴포넌트에서 내려받음
- * @param {Function} [onSubmit] 상위 컴포넌트에서 내려올 후원/충전관련 로직메소드
- * @param {boolean} isDonate 후원모드여부 -> 후원모드일시 전액버튼 활성화 && 버튼텍스트 '후원하기'로 변경
  *
+ * @param {number} credit 사용자의 현재 보유크레딧 ex)이 컴포넌트를 사용할 최상위 컴포넌트 DonateMordal,ChargeMordal컴포넌트에서 내려받음
+ * @param {Function} [onClick] 상위 컴포넌트에서 내려올 후원/충전관련 로직메소드
+ * @param {boolean} isDonate 후원모드여부 -> 후원모드일시 전액버튼 활성화 && 버튼텍스트 '후원하기'로 변경
+ * @param {string} [className] - 추가적으로 적용할 className
  *
  * @example
  *
@@ -18,7 +19,7 @@ import CreditIcon from '@assets/icons/creditIcon';
  * 추후 개발할 후원/충전모달에서 로컬스토리지에서 credit을 가져온뒤
  * credit과 inputValue로 수행할 후원/충전 로직메소드를구현한뒤(ex:handleDonateCredit)
  * CreditForm에 credit과 로직메소드를 props로 내려줌
- * ex) <CreditForm isDonate  onSubmit={handleDonateCredit} credit={credit} />
+ * ex) <CreditForm isDonate  onClick={handleDonateCredit} credit={credit} />
  *
  *
  *
@@ -35,7 +36,7 @@ import CreditIcon from '@assets/icons/creditIcon';
  * return(
  * <div>
  *
- * <CreditForm  onSubmit={handleCharge} credit={credit} />
+ * <CreditForm  onClick={handleCharge} credit={credit} />
  * </div>
  * )
  *
@@ -43,7 +44,7 @@ import CreditIcon from '@assets/icons/creditIcon';
  * @returns {JSX.Element}
  */
 
-const CreditForm = ({ isDonate = false, onSubmit, credit }) => {
+const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
   const {
     input,
     error,
@@ -60,12 +61,12 @@ const CreditForm = ({ isDonate = false, onSubmit, credit }) => {
       return null;
     }
     const inputValue = Number(input);
-    onSubmit?.(inputValue); //상위 컴포넌트에서의 충전/후원 로직메소드에 inputValue값을 파라미터로 전달
+    onClick?.(inputValue); //상위 컴포넌트에서의 충전/후원 로직메소드에 inputValue값을 파라미터로 전달
     handleReset();
   };
 
   return (
-    <div className='w-full max-w-[43rem] text-left text-white'>
+    <div className={cn('w-full max-w-[43rem] text-left text-white', className)}>
       <p className='sub-content-text'>내 크레딧: {credit.toLocaleString()}</p>
       <Input
         value={input}
@@ -78,11 +79,11 @@ const CreditForm = ({ isDonate = false, onSubmit, credit }) => {
         }
       />
       <Controller
-        onAdd={handleAddAmount}
-        onAddAll={handleAddAll}
+        handleAddAmount={handleAddAmount}
+        handleAddAll={handleAddAll}
         isDonate={isDonate}
       />
-      <button
+      <button //공용 버튼 컴포넌트로 바꾸기
         onClick={handleClick}
         disabled={error || input === ''}
         className='bg-gradient-brand w-full cursor-pointer px-4 py-4'

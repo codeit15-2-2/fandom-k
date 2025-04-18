@@ -11,22 +11,22 @@
  * @returns {JSX.Element}
  */
 
-const Controller = ({ onAdd, onAddAll, isDonate }) => {
+const Controller = ({ handleAddAmount, handleAddAll, isDonate }) => {
   return (
     <div className='mt-8 mb-7.5 flex gap-3'>
       {[100, 500, 1000].map((value) => (
         <button
           className='content-text bg-navy cursor-pointer rounded-2xl px-[2rem] py-[1rem] text-xl font-bold text-white hover:opacity-50'
           key={value}
-          onClick={() => onAdd(value)}
+          onClick={() => handleAddAmount(value)}
         >
           +{value}
         </button>
       ))}
       {isDonate && (
         <button
-          className="content-text bg-navy hover:opacity-50' cursor-pointer rounded-2xl px-[2rem] py-[1rem] font-bold text-white"
-          onClick={onAddAll}
+          className="sub-content-text bg-navy hover:opacity-50' cursor-pointer rounded-2xl px-[2rem] py-[1rem] font-bold text-white"
+          onClick={handleAddAll}
         >
           전액
         </button>
