@@ -1,3 +1,10 @@
+import MyCredit from './components/MyCredit';
+
 export default function MainPage() {
-  return <div>Main</div>;
+  return (
+    <div>
+      Main
+      <MyCredit />
+    </div>
+  );
 }
