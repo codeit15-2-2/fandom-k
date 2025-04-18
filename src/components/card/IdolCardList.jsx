@@ -45,4 +45,24 @@ const IdolCardList = ({
     'w-full max-w-xs overflow-hidden bg-[var(--color-black)] text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
-}
+};
+
+const IdolCardText = () => {
+  const { location, title, size } = useContext(IdolCardContext);
+
+  const locationClassName = cn(
+    'mb-2 text-[var(--color-gray-300)]',
+    size === 's' ? 'caption-text' : 'content-text',
+  );
+
+  const titleClassName = cn(
+    size === 's' ? 'sub-content-text' : 'text-[1.8rem]',
+  );
+
+  return (
+    <div className='pt-2 pb-6'>
+      <p className={locationClassName}>{location}</p>
+      <p className={titleClassName}>{title}</p>
+    </div>
+  );
+};
