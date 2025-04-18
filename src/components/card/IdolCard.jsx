@@ -41,7 +41,7 @@ const IdolCardContext = createContext({
  * @param {boolean} props.isHover - [후원카드] 이미지 위 그라데이션 오버레이 여부
  * @param {'s'|'m'} [props.size='m'] - [후원카드] 카드 사이즈
  * @param {React.ReactNode} props.children - Slot으로 footer 추가
- * 
+ *
  * @example
  * 1. 기본카드 사용법 예시
  * <IdolCardList
@@ -50,7 +50,7 @@ const IdolCardContext = createContext({
  *   location={'강남역 광고'}
  *   title={'민지 2025 첫 광고'}
  * ></IdolCardList>
- * 
+ *
  * @example
  * 2. 후원카드 사용법 예시
  * <IdolCardList
@@ -66,7 +66,7 @@ const IdolCardContext = createContext({
  * >
  *  <IdolCardList.IdolCardFooter />
  * </IdolCardList>
- * 
+ *
  */
 const IdolCardList = ({
   id,
@@ -136,9 +136,10 @@ const IdolCardText = () => {
 /**
  * 카드 내부의 이미지 영역
  * - context로부터 `src`, `title`, `isHover` 값을 받아 렌더링
+ * - `isHover` 여부에 따라 후원 카드가 결정되면서 버튼 영역도 추가(버튼 컴포넌트로 변경 필요)
  */
 const IdolCardImg = () => {
-  const { src, title, isHover } = useContext(IdolCardContext);
+  const { src, title, isHover, onClick } = useContext(IdolCardContext);
 
   return (
     <div className='relative w-full'>
@@ -148,6 +149,14 @@ const IdolCardImg = () => {
         alt={title}
         isHover={isHover}
       />
+      {isHover && (
+        <button
+          onClick={onClick}
+          className='absolute bottom-[1rem] left-[50%] z-10 -translate-x-1/2 cursor-pointer bg-gradient-to-t from-[#F96D69] to-[#FF9D95] px-6 py-2 text-sm font-semibold text-white'
+        >
+          후원하기
+        </button>
+      )}
     </div>
   );
 };
