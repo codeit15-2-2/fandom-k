@@ -93,3 +93,32 @@ const IdolCardImg = () => {
     </div>
   );
 };
+
+const IdolCardFooter = () => {
+  const { credit, daysLeft, progress = 15 } = useContext(IdolCardContext);
+
+  return (
+    <>
+      <div className='caption-text flex items-center justify-between pb-4'>
+        <span className='text-[var(--color-brand-1)]'>
+          ₩ {credit}
+        </span>
+
+        <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
+      </div>
+
+      <div className='h-1 w-full overflow-hidden bg-[var(--color-white)]'>
+        <div
+          className='h-full bg-[var(--color-brand-1)]'
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+    </>
+  );
+};
+
+IdolCardList.IdolCardImg = IdolCardImg;
+IdolCardList.IdolCardText = IdolCardText;
+IdolCardList.IdolCardFooter = IdolCardFooter;
+
+export default IdolCardList;
