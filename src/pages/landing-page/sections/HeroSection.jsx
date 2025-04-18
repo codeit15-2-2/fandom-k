@@ -1,7 +1,6 @@
 import Button from '@pages/landing-page/components/Button';
 
-const gradient =
-  'bg-gradient-to-r from-pink-500 to-rose-400';
+const gradient = 'bg-gradient-to-r from-pink-500 to-rose-400';
 
 const HeroSection = () => {
   return (
@@ -24,12 +23,12 @@ const HeroSection = () => {
         </h1>
 
         <h2 className='mb-8 text-6xl/20 font-semibold'>
-          나를 설레게 했던 순간,
+          나를 설레게 했던 순간
           <br />
           이제는 내가 답할 차례
         </h2>
 
-        <Button />
+        <Button>시작하기</Button>
       </div>
     </section>
   );

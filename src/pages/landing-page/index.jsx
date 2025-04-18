@@ -7,7 +7,6 @@ import CreditSection from '@pages/landing-page/sections/CreditSection';
 export default function LandingPage() {
   return (
     <div className='relative h-screen w-screen bg-black'>
-      {/* 스크롤 콘텐츠 영역 */}
       <div className='h-screen w-screen snap-y snap-mandatory overflow-y-scroll'>
         <HeroSection />
         <FundingSection />
