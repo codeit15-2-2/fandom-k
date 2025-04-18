@@ -1,19 +1,19 @@
 import Button from '@pages/landing-page/components/Button';
 
-const gradient = 'bg-gradient-to-r from-pink-500 to-rose-400';
-const hoverGradient = 'hover:from-pink-400 hover:to-rose-300';
+const gradient =
+  'bg-gradient-to-r from-pink-500 to-rose-400';
 
-const Hero = () => {
+const HeroSection = () => {
   return (
     <section className='relative flex h-screen w-full snap-start snap-always flex-col items-center justify-center gap-12 overflow-hidden text-white'>
       {/* 배경 이미지 레이어 */}
-      <div className="absolute inset-0 bg-[url('/karina-1.jpeg')] bg-cover bg-fixed bg-center" />
+      <div className="absolute inset-0 bg-[url('https://velog.velcdn.com/images/justhighway/post/f96fa72b-d6cd-4c52-8e8f-6e8c11f0ea7d/image.jpeg')] bg-cover bg-fixed bg-center" />
 
       {/* 어두운 오버레이 */}
       <div className='absolute inset-0 bg-black/30' />
 
       {/* 하단 그라데이션 오버레이 */}
-      <div className='absolute right-0 bottom-0 left-0 h-1/3 bg-gradient-to-b from-transparent to-gray-900' />
+      <div className='absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-black' />
 
       {/* 콘텐츠 컨테이너 */}
       <div className='relative z-10 text-center'>
@@ -35,4 +35,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroSection;

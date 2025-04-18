@@ -18,7 +18,11 @@
   --color-brand-2: #fe5493;
 
   /* 그라디언트 */
-  --background-gradient-brand: linear-gradient(to right, #f96d69, #fe5493);
+  --background-gradient-brand: linear-gradient(
+    to right,
+    #f96d69,
+    #fe5493
+  );
 
   /* 반응형 breakpoint */
   --breakpoint-sm: 640px;
@@ -29,7 +33,8 @@
 @layer base {
   @font-face {
     font-family: 'Pretendard';
-    src: url('/fonts/PretendardVariable.woff2') format('woff2');
+    src: url('/fonts/PretendardVariable.woff2')
+      format('woff2');
   }
 
   @font-face {
@@ -90,34 +95,16 @@
 }
 
 @layer utilities {
-  .delay-500 {
-    transition-delay: 500ms;
-  }
-
-  .delay-1000 {
-    transition-delay: 1000ms;
-  }
-
-  .delay-1500 {
-    transition-delay: 1500ms;
-  }
-
-  .delay-2000 {
-    transition-delay: 2000ms;
-  }
-
-  @keyframes fade-in-up {
+  @keyframes draw {
     0% {
-      opacity: 0;
-      transform: translateY(20px);
+      stroke-dashoffset: 1000; /* 경로 길이에 맞게 설정 */
     }
     100% {
-      opacity: 1;
-      transform: translateY(0);
+      stroke-dashoffset: 0;
     }
   }
 
-  .animate-fade-in-up {
-    animation: fade-in-up 1s ease-out 1s forwards;
+  .animate-draw {
+    animation: draw 3s ease forwards;
   }
 }

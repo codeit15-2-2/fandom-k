@@ -3,7 +3,7 @@ export default {
   quoteProps: 'as-needed',
   jsxSingleQuote: true,
   semi: true,
-  printWidth: 60,
+  printWidth: 80,
   tabWidth: 2,
   useTabs: false,
   trailingComma: 'all',
