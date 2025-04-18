@@ -1,3 +1,5 @@
+import Jewel from '@assets/icons/icon_jewel';
+
 const MyCredit = ({ credit }) => {
   return (
     <>
@@ -6,7 +8,8 @@ const MyCredit = ({ credit }) => {
           <p className='caption-text text-white/60 sm:text-[1.6rem]'>
             내 크레딧
           </p>
-          <p className='text-[2rem] font-bold text-white sm:text-[2.4rem]'>
+          <p className='flex items-center text-[2rem] font-bold text-white sm:text-[2.4rem]'>
+            <Jewel />
             {credit || '10,000'}
           </p>
         </div>
