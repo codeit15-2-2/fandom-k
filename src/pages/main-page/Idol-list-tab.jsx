@@ -4,8 +4,8 @@ const IdolListTab = () => {
   const boysMatch = useMatch('/boys');
   const girlsMatch = useMatch('/girls');
   return (
-    <div class='flex h-screen w-screen flex-col items-center justify-center'>
-      <div className='flex w-1/2 justify-between'>
+    <div class='flex h-full w-1/2 flex-col'>
+      <div className='flex w-full justify-between'>
         <div class={`w-1/2 border-2 ${boysMatch ? 'bg-gray-400' : ''}`}>
           <Link to='boys'>Boys</Link>
         </div>
@@ -13,7 +13,11 @@ const IdolListTab = () => {
           <Link to='girls'>Girls</Link>
         </div>
       </div>
-      <Outlet />
+      <div className='grid h-full w-full grid-cols-2 border-2'>
+        <div>
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };
