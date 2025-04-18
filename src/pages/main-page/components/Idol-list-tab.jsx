@@ -14,22 +14,24 @@ const IdolListTab = () => {
   return (
     <div className='flex h-full max-w-5/8 flex-col bg-black'>
       <div className='sub-content-text flex h-[4.2rem] w-full items-center justify-between text-white'>
-        <div
+        <Link
+          to='female'
           className={cn(
             'flex h-full w-1/2 items-center justify-center',
             femaleMatch ? 'border-b border-white bg-white/10' : '',
           )}
         >
-          <Link to='female'>이달의 여자 아이돌</Link>
-        </div>
-        <div
+          <span>이달의 여자 아이돌</span>
+        </Link>
+        <Link
+          to='male'
           className={cn(
             'flex h-full w-1/2 items-center justify-center',
-            femaleMatch ? 'border-b border-white bg-white/10' : '',
+            maleMatch ? 'border-b border-white bg-white/10' : '',
           )}
         >
-          <Link to='male'>이달의 남자 아이돌</Link>
-        </div>
+          <span>이달의 남자 아이돌</span>
+        </Link>
       </div>
       <div>
         <Outlet />
