@@ -9,6 +9,7 @@ const AvatarProfileContext = createContext({
   src: '',
   name: '',
   group: '',
+  size: '',
   selectedIds: null,
   onItemClick: () => {},
 });
@@ -18,6 +19,7 @@ const AvatarProfile = ({
   src,
   name,
   group,
+  size = 'm',
   selectedIds = null,
   onItemClick,
   children,
@@ -27,6 +29,7 @@ const AvatarProfile = ({
     src,
     name,
     group,
+    size,
     selectedIds,
     onItemClick,
   };
@@ -50,18 +53,18 @@ const AvatarProfile = ({
   );
 };
 
-// 삭제 아이콘 컴포넌트
+// 삭제 버튼 컴포넌트
 const IdolRemoveButton = () => {
   return <RemoveButton />;
 };
 
 // 프로필 이미지 컴포넌트
 const IdolImg = ({ selected }) => {
-  const { src } = useContext(AvatarProfileContext);
+  const { size, src } = useContext(AvatarProfileContext);
 
   return (
     <div className='mb-4'>
-      <ProfileImg src={src} size='m'>
+      <ProfileImg src={src} size={size}>
         {selected && <SelectedLayer />}
       </ProfileImg>
     </div>
