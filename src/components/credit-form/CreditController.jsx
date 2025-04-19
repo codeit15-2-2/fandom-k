@@ -1,5 +1,4 @@
-import { CREDIT_INCREASE } from '@constants/creditConstant';
-
+const CREDIT_INCREASE = [100, 500, 1000];
 /**
  * @component CreditController
  *

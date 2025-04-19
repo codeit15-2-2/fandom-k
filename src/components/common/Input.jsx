@@ -1,9 +1,9 @@
 import { cn } from '@utils/cn';
 /**
- * 
+ *
  *
  * @component
- * 
+ *
  * @param {string} value - input창 value값
  * @param {(value: string) => void} onChange - 입력 값이 변경될 때 호출될 함수
  * @param {string} [errMsg] - 에러 상태일시 메세지
@@ -11,7 +11,7 @@ import { cn } from '@utils/cn';
  * @param {string} [placeholder] - placeholder설정
  * @param {React.ReactNode} [icon] - input창 안에 표시할 아이콘
  *
- * @returns {JSX.Element} 
+ * @returns {JSX.Element}
  *
  * @example
  * <Input
@@ -23,7 +23,6 @@ import { cn } from '@utils/cn';
  *   icon={<AvatarIcon className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white" />}
  * />
  */
-
 
 const Input = ({ value, onChange, errMsg, isError, placeholder, icon }) => {
   return (
