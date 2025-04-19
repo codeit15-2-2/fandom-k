@@ -1,5 +1,5 @@
 import { useContext, createContext } from 'react';
-import Selected from './Selected';
+import SelectedLayer from '../common/SelectedLayer';
 import ProfileImg from '@components/common/ProfileImg';
 
 const IdolContext = createContext({
@@ -25,15 +25,15 @@ const IdolContext = createContext({
 
 /**
  * 아이돌 리스트 컴포넌트 props (기본형과 투표형을 함께 사용하므로 아래의 자세한 사용법을 참고해주세요.)
- * @param {Object} props
- * @param {number} props.id - [기본형 | 투표형] 아이돌 id
- * @param {string} props.src - [기본형 | 투표형] 이미지
- * @param {number} props.rank - [기본형 | 투표형] 순위
- * @param {string} props.group - [기본형 | 투표형] 아이돌 그룹
- * @param {string} props.name - [기본형 | 투표형] 아이돌 이름
- * @param {number} props.votes - [기본형 | 투표형] 투표 수 (string으로 사용 시, 포맷 설정 함수에서 오류가 발생합니다.)
- * @param {number} [props.selectedId] - [투표형] 현재 선택된 아이돌 id (선택적)
- * @param {function} [props.onChange] - [투표형] selectedId 변경시 값 저장 이벤트 핸들러 (선택적)
+ * @typedef {Object} IdolListProps
+ * @property {number} props.id - [기본형 | 투표형] 아이돌 id
+ * @property {string} props.src - [기본형 | 투표형] 이미지
+ * @property {number} props.rank - [기본형 | 투표형] 순위
+ * @property {string} props.group - [기본형 | 투표형] 아이돌 그룹
+ * @property {string} props.name - [기본형 | 투표형] 아이돌 이름
+ * @property {number} props.votes - [기본형 | 투표형] 투표 수 (string으로 사용 시, 포맷 설정 함수에서 오류가 발생합니다.)
+ * @property {number} [props.selectedId] - [투표형] 현재 선택된 아이돌 id (선택적)
+ * @property {function} [props.onChange] - [투표형] selectedId 변경시 값 저장 이벤트 핸들러 (선택적)
  */
 /**
  * @example
@@ -115,7 +115,7 @@ const IdolImg = ({ selected }) => {
 
   return (
     <ProfileImg src={src} size='s'>
-      {selected && <Selected />}
+      {selected && <SelectedLayer />}
     </ProfileImg>
   );
 };

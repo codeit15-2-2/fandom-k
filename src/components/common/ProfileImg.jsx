@@ -15,7 +15,7 @@ const PROFILE_IMG_SIZE_STYLES = {
  * @example
  * <ProfileImg src={'~'} size="m" />
  * @example
- * <ProfileImg src={imgUrl} size="s">{selected && <Selected />}</ProfileImg>
+ * <ProfileImg src={imgUrl} size="s">{selected && <SelectedLayer />}</ProfileImg>
  */
 const ProfileImg = ({ src, size = 's', children }) => {
   const profileImgClassNames = cn(
