@@ -18,12 +18,8 @@
 
 const CardImg = ({ src, title, isHover }) => {
   return (
-    <div>
-      <img
-        src={src}
-        alt={title}
-        className='w-full rounded-2xl object-contain'
-      />
+    <div className='relative aspect-[1/1] w-full overflow-hidden rounded-2xl'>
+      <img src={src} alt={title} className='w-full object-contain' />
       {isHover && (
         <div className='absolute bottom-0 z-10 h-24 w-full bg-gradient-to-t from-black/100 to-transparent' />
       )}
