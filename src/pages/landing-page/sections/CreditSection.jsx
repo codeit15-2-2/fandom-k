@@ -17,7 +17,7 @@ const CreditSection = () => {
         )}
       />
       <div className='absolute inset-0 bg-black/30' />
-      <h1 className='font-bold-sm z-10 text-7xl/20 !text-shadow-lg/30 text-shadow-gray-800'>
+      <h1 className='font-bold-sm z-10 text-7xl/20 !text-shadow-lg/50 text-shadow-gray-800'>
         최애에게 반짝이는
         <br />
         기억을 안겨주세요

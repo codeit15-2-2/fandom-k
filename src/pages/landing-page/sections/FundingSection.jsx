@@ -1,3 +1,4 @@
+import Background from '@pages/landing-page/components/Background';
 import Button from '@pages/landing-page/components/Button';
 import SlideCard from '@pages/landing-page/components/SlideCard';
 
