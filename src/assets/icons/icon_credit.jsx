@@ -9,8 +9,8 @@ const Credit = () => {
     >
       <path d='M4.5 10L7 6.25L9.5 10L7 13.75L4.5 10Z' fill='white' />
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M7 0L13.875 9.84267L7 19.6506L0.125 9.84267L7 0ZM1.62982 9.84139L7 17.5025L12.3702 9.84139L7 2.1531L1.62982 9.84139Z'
         fill='url(#paint0_linear_465_2522)'
       />
@@ -23,8 +23,8 @@ const Credit = () => {
           y2='19.6506'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#FF8282' />
-          <stop offset='1' stop-color='#F96969' />
+          <stop stopColor='#FF8282' />
+          <stop offset='1' stopColor='#F96969' />
         </linearGradient>
       </defs>
     </svg>

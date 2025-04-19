@@ -94,7 +94,7 @@ const IdolCardList = ({
   };
 
   const IdolCardWrapClassName = cn(
-    'w-full max-w-md overflow-hidden bg-[var(--color-black)] text-[var(--color-white)]',
+    'w-full max-w-md overflow-hidden text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
 
@@ -143,9 +143,8 @@ const IdolCardImg = () => {
   const { src, title, isHover, onClick } = useContext(IdolCardContext);
 
   return (
-    <div className='relative w-full'>
+    <div className='relative'>
       <CardImg
-        className='rounded-2xl object-contain'
         src={src}
         alt={title}
         isHover={isHover}
@@ -174,7 +173,7 @@ const IdolCardFooter = () => {
       <div className='caption-text flex items-center justify-between pb-4'>
         <span className='flex items-center text-[var(--color-brand-1)]'>
             <Credit />
-          <p>{credit}</p>
+          <p className='pl-2'>{credit}</p>
         </span>
 
         <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
