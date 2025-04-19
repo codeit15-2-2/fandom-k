@@ -1,6 +1,7 @@
 import { useContext, createContext } from 'react';
 import { cn } from '@/utils/cn';
 import CardImg from '@components/common/CardImg';
+import Credit from '@assets/icons/icon_credit';
 
 /**
  * 카드 사이즈별 Tailwind 클래스 매핑
@@ -171,7 +172,10 @@ const IdolCardFooter = () => {
   return (
     <>
       <div className='caption-text flex items-center justify-between pb-4'>
-        <span className='text-[var(--color-brand-1)]'>₩ {credit}</span>
+        <span className='flex items-center text-[var(--color-brand-1)]'>
+            <Credit />
+          <p>{credit}</p>
+        </span>
 
         <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
       </div>
