@@ -19,7 +19,7 @@ const PROFILE_IMG_SIZE_STYLES = {
  */
 const ProfileImg = ({ src, size = 's', children }) => {
   const profileImgClassNames = cn(
-    'border-brand-1 aspect-square rounded-full border-1 p-1',
+    'border-brand-1 aspect-square rounded-full border-1 p-[0.4rem]',
     PROFILE_IMG_SIZE_STYLES[size],
   );
 
