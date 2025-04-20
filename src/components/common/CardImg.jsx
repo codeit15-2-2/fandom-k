@@ -1,9 +1,11 @@
+import { cn } from '@/utils/cn';
+
 /**
  * 카드에서 사용하는 이미지 컴포넌트입니다.
  *
  * - 전달받은 이미지(src, title)를 표시합니다.
- * - `children`이 존재할 경우, 이미지 위에 그라디언트 오버레이를 추가합니다.
- * - 오버레이할 콘텐츠(children)는 외부에서 absolute 포지션을 포함한 형태로 전달해야 합니다.
+ * - children이 존재할 경우, ::before 가상 요소를 통해 어두운 배경 그라디언트를 오버레이합니다.
+ * - children에는 버튼 등 오버레이 요소를 absolute 위치로 감싸서 전달할 수 있습니다.
  *
  * @param {Object} props
  * @param {string} props.src - 이미지의 URL
@@ -22,15 +24,16 @@
  */
 
 const CardImg = ({ src, title, children }) => {
+  const wrapperClassName = cn(
+    'relative aspect-[1/1] w-full overflow-hidden rounded-2xl',
+    children &&
+      "before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:z-[3] before:bg-[linear-gradient(0deg,_rgb(2,0,14)_0%,_rgba(2,0,14,0)_80%)]",
+  );
+
   return (
-    <div className='relative aspect-[1/1] w-full overflow-hidden rounded-2xl'>
+    <div className={wrapperClassName}>
       <img src={src} alt={title} className='w-full object-contain' />
-      {children && (
-        <>
-          <div className='absolute bottom-0 z-[1] h-24 w-full bg-gradient-to-t from-black/100 to-transparent' />
-          {children}
-        </>
-      )}
+      {children && children}
     </div>
   );
 };
