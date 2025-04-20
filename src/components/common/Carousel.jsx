@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
+import ChevronRight from '@assets/icons/icon_chevron-right';
+import ChevronLeft from '@assets/icons/icon_chevron-left';
 const data = [
   { id: 1, name: '지연' },
   { id: 2, name: '철수' },
@@ -48,9 +50,7 @@ const Carousel = (
 
   return (
     <>
-      <button onClick={() => changeIndex('next')}>다음 캐러셀</button>
-      <button onClick={() => changeIndex('prev')}>이전 캐러셀</button>
-      <div className='relative'>
+      <div className='relative overflow-hidden p-20'>
         <AnimatePresence
           initial={false}
           custom={back}
@@ -64,12 +64,24 @@ const Carousel = (
             animate='visible'
             exit='exit'
             transition={{ type: 'tween', duration: '1' }}
-            className='absolute grid w-full grid-cols-5'
+            className='absolute grid w-full grid-cols-5 px-10'
           >
             {currentItems.map((item) => (
               <motion.div key={item.id}>{item.name}</motion.div>
             ))}
           </motion.div>
+          <button
+            className='absolute right-0 cursor-pointer bg-gray-100/80 p-2'
+            onClick={() => changeIndex('next')}
+          >
+            <ChevronRight />
+          </button>
+          <button
+            className='absolute left-0 cursor-pointer bg-gray-100/80 p-2'
+            onClick={() => changeIndex('prev')}
+          >
+            <ChevronLeft />
+          </button>
         </AnimatePresence>
       </div>
     </>
