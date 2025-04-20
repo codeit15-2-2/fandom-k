@@ -1,41 +1,27 @@
 import { cn } from '@libs/cn';
-import { useCardAnimation } from '@pages/landing-page/hooks/useCardAnimation';
 
-const FundingCard = () => {
-  const {
-    elementRef,
-    cardStyle,
-    lightEffectStyle,
-    handleMouseMove,
-    handleMouseLeave,
-    handleMouseEnter,
-  } = useCardAnimation({ x: 30, y: 30 });
-
+const FundingCard = ({ image, title, location, rotate, translate }) => {
   return (
-    <div className='group relative perspective-[1000px]'>
-      <div
-        ref={elementRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        className={cn(
-          'relative flex h-[40rem] w-sm flex-col gap-2 overflow-hidden rounded-3xl',
-          'border-2 border-black will-change-transform',
-        )}
-        style={cardStyle}
-      >
-        <div className='h-full w-full overflow-hidden rounded-3xl bg-black'>
-          <img
-            src='https://velog.velcdn.com/images/justhighway/post/b62fb4e5-79b5-4ee6-a539-014d5fc72dd2/image.webp'
-            className='h-full w-full object-cover brightness-90'
-            alt='funding card'
-          />
-          {/* 광택 효과 */}
-          <div
-            className='pointer-events-none absolute inset-0 opacity-70 mix-blend-screen'
-            style={lightEffectStyle}
-          />
+    <div
+      className={cn(
+        'z-10 flex h-150 w-[25rem] flex-col overflow-hidden rounded-3xl text-white drop-shadow-2xl/30',
+        rotate,
+        translate,
+      )}
+    >
+      <div className='h-4/5 overflow-hidden rounded-t-3xl'>
+        <img
+          src={image}
+          alt='펀딩카드 연예인 이미지'
+          className='h-full w-full object-cover'
+        />
+      </div>
+      <div className='from-brand-1 to-brand-2 flex h-1/5 flex-col rounded-b-3xl bg-gradient-to-r p-4'>
+        <div className='flex justify-between'>
+          <p className='text-xl font-semibold'>{location}</p>
+          <p className='text-xl font-semibold text-white'>D-5</p>
         </div>
+        <h1 className='text-2xl leading-snug font-bold'>{title}</h1>
       </div>
     </div>
   );

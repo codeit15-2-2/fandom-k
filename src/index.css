@@ -2,7 +2,8 @@
 
 @theme {
   --font-sans: 'Pretendard', system-ui, sans-serif;
-  --font-logo: 'Ahchangho';
+  --font-dospilgi: 'DOSPilgiMedium';
+  --font-Hakgyoansim: 'HakgyoansimByeolbichhaneulTTF-B';
 
   /* 색상 */
   --color-navy: #272f3d;
@@ -33,8 +34,15 @@
   }
 
   @font-face {
-    font-family: 'Anchangho';
-    src: url('/fonts/Anchangho.woff2') format('woff2');
+    font-family: 'DOSPilgiMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/DOSPilgiMedium.woff2')
+      format('woff2');
+  }
+
+  @font-face {
+    font-family: 'HakgyoansimByeolbichhaneulTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimByeolbichhaneulTTF-B.woff2')
+      format('woff2');
   }
 
   html {
@@ -95,5 +103,13 @@
     .caption-text {
       @apply text-[1.2rem]; /* 12px */
     }
+  }
+
+  .text-stroke-black {
+    -webkit-text-stroke: 2px rgba(230, 60, 0, 0.5);
+  }
+
+  .text-stroke-white {
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
   }
 }
