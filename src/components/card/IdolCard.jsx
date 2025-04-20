@@ -24,49 +24,55 @@ const IdolCardContext = createContext({
   credit: 0,
   daysLeft: 0,
   onClick: () => {},
-  isHover: false,
   size: 'm',
+  button: null,
 });
 
 /**
- * 아이돌 카드 전체 컴포넌트 (기본카드와 후원카드를 함께 사용한 합성 컴포넌트입니다.)
+ * 아이돌 카드의 최상위 컴포넌트입니다.
+ * - 기본 카드 및 후원 카드 구성을 하나로 합성한 재사용 가능한 카드 컴포넌트입니다.
+ * - 내부적으로 context를 통해 하위 컴포넌트에 데이터를 공유합니다.
  * @component
+ * 
  * @param {Object} props
- * @param {number} props.id - [기본카드 | 후원카드]]아이돌 ID
+ * @param {number} props.id - [기본카드 | 후원카드] 아이돌 ID
  * @param {string} props.src - [기본카드 | 후원카드] 카드 이미지 URL
  * @param {string} props.location - [기본카드 | 후원카드] 후원 장소
  * @param {string} props.title - [기본카드 | 후원카드] 후원 제목
  * @param {number} props.credit - [후원카드] 모인 후원 금액
- * @param {number} props.daysLeft - [후원카드] 마감까지 남은 일수
- * @param {Function} props.onClick - [후원카드] 상세 이동용 클릭 핸들러
- * @param {boolean} props.isHover - [후원카드] 이미지 위 그라데이션 오버레이 여부
- * @param {'s'|'m'} [props.size='m'] - [후원카드] 카드 사이즈
- * @param {React.ReactNode} props.children - Slot으로 footer 추가
+ * @param {number} props.daysLeft - [후원카드] 후원 마감까지 남은 일수
+ * @param {Function} props.onClick - [후원카드] 버튼 클릭 시 실행되는 핸들러
+ * @param {'s'|'m'} props.size - [후원카드] 카드 크기 (기본값 'm')
+ * @param {() => JSX.Element} props.button - [후원카드] 이미지 위에 띄울 버튼 컴포넌트
+ * @param {React.ReactNode} props.children - [후원카드] 하단 푸터 등 커스텀 콘텐츠 영역
  *
  * @example
  * 1. 기본카드 사용법 예시
- * <IdolCardList
- *   id={10}
- *   src={'~'}
- *   location={'강남역 광고'}
- *   title={'민지 2025 첫 광고'}
- * ></IdolCardList>
+ *    <IdolCardList
+ *      id={10}
+ *      src={'~'}
+ *      location={'강남역 광고'}
+ *      title={'민지 2025 첫 광고'}
+ *    ></IdolCardList>
  *
  * @example
  * 2. 후원카드 사용법 예시
- * <IdolCardList
- *   id={10}
- *   src={'~'}
- *   location={'강남역 광고'}
- *   title={'민지 2025 첫 광고'}
- *   credit={6000}
- *   daysLeft={4}
- *   size={'s'} - 기본형 'm'
- *   isHover={true}
- *   onClick={onClickDonate}
- * >
- *  <IdolCardList.IdolCardFooter />
- * </IdolCardList>
+ *    <IdolCardList
+ *      id={10}
+ *      src={'~'}
+ *      location={'강남역 광고'}
+ *      title={'민지 2025 첫 광고'}
+ *      credit={6000}
+ *      daysLeft={4}
+ *      size={'s'} - 기본형 'm'
+ *      button={() => (
+ *        <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
+ *          <Button onClick={() => console.log('후원 클릭')} />
+ *        </div>
+ *      )}
+ *    >
+ *      <IdolCardList.IdolCardFooter />
+ *    </IdolCardList>
  *
  */
 const IdolCardList = ({
@@ -77,8 +83,8 @@ const IdolCardList = ({
   credit,
   daysLeft,
   onClick,
-  isHover = false,
   size = 'm',
+  button = null,
   children,
 }) => {
   const contextValue = {
@@ -89,8 +95,8 @@ const IdolCardList = ({
     credit,
     daysLeft,
     onClick,
-    isHover,
     size,
+    button,
   };
 
   const IdolCardWrapClassName = cn(
@@ -136,27 +142,18 @@ const IdolCardText = () => {
 
 /**
  * 카드 내부의 이미지 영역
- * - context로부터 `src`, `title`, `isHover` 값을 받아 렌더링
- * - `isHover` 여부에 따라 후원 카드가 결정되면서 버튼 영역도 추가(버튼 컴포넌트로 변경 필요)
+ * - context로부터 `src`, `title`, `button`, `onClick` 값을 받아 이미지와 오버레이 버튼을 렌더링합니다.
+ * - 버튼이 존재할 경우, 이미지 위에 그라디언트 레이어와 함께 버튼이 오버레이됩니다.
+ * - 버튼은 외부에서 JSX 컴포넌트로 전달되며, 클릭 핸들러(onClick)도 함께 전달됩니다.
  */
 const IdolCardImg = () => {
-  const { src, title, isHover, onClick } = useContext(IdolCardContext);
+  const { src, title, button: Button, onClick } = useContext(IdolCardContext);
 
   return (
     <div className='relative'>
-      <CardImg
-        src={src}
-        alt={title}
-        isHover={isHover}
-      />
-      {isHover && (
-        <button
-          onClick={onClick}
-          className='absolute bottom-[1rem] left-[50%] z-10 -translate-x-1/2 cursor-pointer bg-gradient-to-t from-[#F96D69] to-[#FF9D95] px-6 py-2 text-sm font-semibold text-white'
-        >
-          후원하기
-        </button>
-      )}
+      <CardImg src={src} alt={title}>
+        {Button && <Button onClick={onClick} />}
+      </CardImg>
     </div>
   );
 };
@@ -172,7 +169,7 @@ const IdolCardFooter = () => {
     <>
       <div className='caption-text flex items-center justify-between pb-4'>
         <span className='flex items-center text-[var(--color-brand-1)]'>
-            <Credit />
+          <Credit />
           <p className='pl-2'>{credit}</p>
         </span>
 
