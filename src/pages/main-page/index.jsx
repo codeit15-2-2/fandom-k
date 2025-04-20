@@ -1,4 +1,10 @@
+import Carousel from '@components/common/Carousel';
 
 export default function MainPage() {
-  return <div>Main</div>;
+  return (
+    <div>
+      Main
+      <Carousel />
+    </div>
+  );
 }
