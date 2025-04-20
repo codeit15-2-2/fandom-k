@@ -15,11 +15,11 @@ const PROFILE_IMG_SIZE_STYLES = {
  * @example
  * <ProfileImg src={'~'} size="m" />
  * @example
- * <ProfileImg src={imgUrl} size="s">{selected && <Selected />}</ProfileImg>
+ * <ProfileImg src={imgUrl} size="s">{selected && <SelectedLayer />}</ProfileImg>
  */
 const ProfileImg = ({ src, size = 's', children }) => {
   const profileImgClassNames = cn(
-    'border-brand-1 aspect-square rounded-full border-1 p-1',
+    'border-brand-1 aspect-square rounded-full border-1 p-[0.4rem]',
     PROFILE_IMG_SIZE_STYLES[size],
   );
 
