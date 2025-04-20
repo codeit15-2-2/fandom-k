@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useCarousel } from '@hooks/useCarousel';
 const data = [
   { id: 1, name: '지연' },
   { id: 2, name: '철수' },
@@ -19,32 +20,16 @@ const data = [
   { id: 16, name: '철수16' },
 ];
 
-const offset = 5;
+const Carousel = (
+  {
+    /*data*/
+  },
+) => {
+  const offset = 5;
 
-const Carousel = () => {
-  const [index, setIndex] = useState(0);
-  const [back, setBack] = useState(false);
-  const [leaving, setLeaving] = useState(false);
+  const { index, back, leaving, toggleLeaving, changeIndex, currentItems } =
+    useCarousel(data, offset);
 
-  const toggleLeaving = () => setLeaving((prev) => !prev);
-
-  const changeIndex = (direction) => {
-    if (leaving) return;
-    const totalData = data.length;
-    const maxIndex = Math.floor(totalData / offset) - 1;
-
-    setIndex((prev) => {
-      if (direction === 'next') {
-        setBack(false);
-        setLeaving(true);
-        return prev === maxIndex ? 0 : prev + 1;
-      } else {
-        setBack(true);
-        setLeaving(true);
-        return prev === 0 ? maxIndex : prev - 1;
-      }
-    });
-  };
   const rowVariants = {
     initial: (back) => {
       return {
@@ -66,7 +51,11 @@ const Carousel = () => {
       <button onClick={() => changeIndex('next')}>다음 캐러셀</button>
       <button onClick={() => changeIndex('prev')}>이전 캐러셀</button>
       <div className='relative'>
-        <AnimatePresence custom={back} onExitComplete={toggleLeaving}>
+        <AnimatePresence
+          initial={false}
+          custom={back}
+          onExitComplete={toggleLeaving}
+        >
           <motion.div
             custom={back}
             key={index}
@@ -77,7 +66,7 @@ const Carousel = () => {
             transition={{ type: 'tween', duration: '1' }}
             className='absolute grid w-full grid-cols-5'
           >
-            {data.slice(offset * index, offset * index + offset).map((item) => (
+            {currentItems.map((item) => (
               <motion.div key={item.id}>{item.name}</motion.div>
             ))}
           </motion.div>
