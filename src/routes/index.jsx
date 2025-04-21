@@ -6,6 +6,7 @@ import MainPage from '@pages/main-page';
 import DetailPage from '@pages/detail-page';
 import MyPage from '@pages/my-page';
 import NotFoundPage from '@pages/not-found-page';
+import Content from '@pages/main-page/pages/Content';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,16 @@ const router = createBrowserRouter([
       {
         path: 'main',
         element: <MainPage />,
+        children: [
+          {
+            path: 'female',
+            element: <Content />,
+          },
+          {
+            path: 'male',
+            element: <Content />,
+          },
+        ],
       },
       {
         path: 'main/:id',
