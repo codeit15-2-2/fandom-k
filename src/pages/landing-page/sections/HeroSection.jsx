@@ -1,5 +1,5 @@
 import { cn } from '@libs/cn';
-import { ArrowCircleRight } from '@pages/landing-page/components/ArrowCircleright';
+import { ArrowCircleRight } from '@pages/landing-page/components/icons/ArrowCircleright';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 
 const HeroSection = () => {

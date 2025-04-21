@@ -1,4 +1,4 @@
-import Button from '@pages/landing-page/components/Button';
+import Button from '@components/common/Button';
 import FundingCard from '@pages/landing-page/components/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { idolsList } from '@pages/landing-page/mocks/idolsList';
@@ -16,7 +16,7 @@ const CARD_STYLES = [
 ];
 
 // 랜덤 아이돌 선택 함수 분리
-const getRandomIdols = (count = 6) => {
+const getRandomIdols = (count = 7) => {
   return [...idolsList].sort(() => Math.random() - 0.5).slice(0, count);
 };
 
@@ -60,7 +60,12 @@ const FundingSection = () => {
         </p>
 
         <div className='relative flex items-center justify-center'>
-          <Button>구경하러 가기</Button>
+          <Button
+            btnText='구경하러 가기'
+            size='l'
+            rounded
+            className='text-2xl'
+          />
           <img src={pinkArrow} alt='화살표' className='absolute top-30' />
         </div>
       </div>

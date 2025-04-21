@@ -4,7 +4,6 @@ import { idolsList } from '@pages/landing-page/mocks/idolsList';
 import spark from '@pages/landing-page/assets/doodles/yellow-spark.png';
 import { cn } from '@libs/cn';
 
-// 손목띠 스타일 설정을 객체로 구조화
 const WRISTBAND_STYLES = [
   {
     color: 'orange-600',
@@ -50,43 +49,53 @@ const WRISTBAND_STYLES = [
   },
 ];
 
-// 표시할 아이돌 수
-const DISPLAY_COUNT = 7;
+const getRandomIdols = (count = 7) => {
+  return [...idolsList].sort(() => Math.random() - 0.5).slice(0, count);
+};
 
 const ChartSection = () => {
-  // 표시할 아이돌 목록 (상위 7명)
-  const displayIdols = idolsList.slice(0, DISPLAY_COUNT);
+  const randomIdolList = getRandomIdols();
+  const wristBandData = randomIdolList
+    .slice(0, WRISTBAND_STYLES.length)
+    .map((idol, index) => ({
+      ...WRISTBAND_STYLES[index],
+      idol,
+      ranking: `0${index + 1}`,
+    }));
 
   return (
-    <div className={cn(SNAP_ITEM, 'relative bg-black p-24')}>
+    <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
       {/* 타이틀 헤더 */}
-      <div className='absolute top-24 left-0 flex w-full justify-center'>
-        <h1 className='text-stroke-white relative text-[20rem] font-extrabold tracking-tight'>
+      <div className='relative flex justify-center'>
+        <h1 className='text-stroke-white text-[20rem] font-extrabold tracking-tight'>
           CHART
-          <img src={spark} alt='스파크 이미지' className='absolute w-40' />
         </h1>
+        <img
+          src={spark}
+          alt='스파크 이미지'
+          className='absolute inset-0 w-40'
+        />
       </div>
 
-      {/* 손목띠 차트 콘텐츠 - z-index를 높게 설정하여 텍스트 위에 표시 */}
-      <div className='relative z-20 -mt-12 flex flex-col gap-4'>
-        {displayIdols.map((idol, index) => {
-          const style = WRISTBAND_STYLES[index];
-          return (
+      {/* 손목띠 차트 콘텐츠 */}
+      <div className='-mt-40 flex flex-col gap-4'>
+        {wristBandData.map(
+          ({ idol, color, rotate, zIndex, translate, ranking }, index) => (
             <WristBand
               key={idol.id || `band-${index}`}
-              color={style.color}
+              color={color}
               idol={idol}
-              ranking={`0${index + 1}`}
-              rotate={style.rotate}
-              zIndex={style.zIndex}
-              translates={style.translate}
+              ranking={ranking}
+              rotate={rotate}
+              zIndex={zIndex}
+              translates={translate}
             />
-          );
-        })}
+          ),
+        )}
       </div>
 
       {/* 설명란 + 버튼 */}
-      <div className='relative z-30 mt-8'>
+      <div className='flex flex-3 items-center'>
         <p className='text-4xl text-white'>해보세요 해보세요</p>
       </div>
     </div>
