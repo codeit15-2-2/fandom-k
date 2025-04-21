@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
 import ChevronRight from '@assets/icons/icon_chevron-right';
 import ChevronLeft from '@assets/icons/icon_chevron-left';
+
 const data = [
   { id: 1, name: '지연' },
   { id: 2, name: '철수' },
@@ -21,13 +22,9 @@ const data = [
   { id: 16, name: '철수16' },
 ];
 
-const Carousel = (
-  {
-    /*data*/
-  },
-) => {
-  const offset = 5;
-  const slideBy = 1;
+const Carousel = ({ children, data = [] }) => {
+  const offset = 5; //캐러셀에서 보여줄 데이터 수
+  const slideBy = 1; //캐러셀에서 한 번에 이동하는 데이터 수
 
   const { index, back, leaving, toggleLeaving, changeIndex, currentItems } =
     useCarousel(data, offset, slideBy);
@@ -35,7 +32,7 @@ const Carousel = (
   const rowVariants = {
     initial: (back) => {
       return {
-        x: back ? -100 : 100,
+        x: back ? -100 : 100, // 카드의 width만큼 적용
         opacity: 0,
       };
     },
@@ -50,7 +47,7 @@ const Carousel = (
     },
     exit: (back) => {
       return {
-        x: back ? 100 : -100,
+        x: back ? 100 : -100, // 카드의 width만큼 적용
         opacity: 0,
         transition: {
           duration: 0.5,
