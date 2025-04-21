@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
 import ChevronRight from '@assets/icons/icon_chevron-right';
@@ -37,12 +36,12 @@ const Carousel = (
     initial: (back) => {
       return {
         x: back ? -100 : 100,
-        // opacity: 0,
+        opacity: 0,
       };
     },
     visible: {
       x: 0,
-      // opacity: 1,
+      opacity: 1,
       transition: {
         duration: 0.5,
         type: 'tween',
@@ -52,7 +51,7 @@ const Carousel = (
     exit: (back) => {
       return {
         x: back ? 100 : -100,
-        // opacity: 0,
+        opacity: 0,
         transition: {
           duration: 0.5,
           type: 'tween',

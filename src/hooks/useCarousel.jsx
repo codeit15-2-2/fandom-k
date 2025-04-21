@@ -19,7 +19,7 @@ export const useCarousel = (data, offset, slideBy = 1) => {
         setLeaving(true);
 
         const nextStartIdx = (prev + 1) * slideBy;
-        if (nextStartIdx > maxStartIdx) return 0;
+        if (nextStartIdx > maxStartIdx) return 0; // 루프
         return prev + 1;
       } else {
         setBack(true);
