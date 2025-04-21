@@ -12,7 +12,7 @@ const COLOR_CLASSES = {
 
 const Triangle = ({ color }) => {
   // 매핑된 클래스 찾거나 기본값 사용
-  const borderClass = COLOR_CLASSES[color] || 'border-l-gray-400';
+  const borderClass = COLOR_CLASSES[color] || 'border-l-brand-2';
 
   return (
     <div

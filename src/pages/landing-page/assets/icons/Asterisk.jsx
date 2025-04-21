@@ -1,0 +1,20 @@
+const Asterisk = (props) => (
+  <svg
+    height='800px'
+    width='800px'
+    id='_x32_'
+    xmlns='http://www.w3.org/2000/svg'
+    xmlnsXlink='http://www.w3.org/1999/xlink'
+    viewBox='0 0 512 512'
+    xmlSpace='preserve'
+    {...props}
+  >
+    <g>
+      <polygon
+        fill={props.fill || 'currentColor'}
+        points='501.539,169.221 453.886,86.7 303.669,173.449 303.669,0 208.365,0 208.365,173.479 58.114,86.73  10.461,169.261 160.674,255.99 10.501,342.71 58.154,425.231 208.365,338.482 208.365,512 303.669,512 303.669,338.542  453.846,425.271 501.499,342.74 351.267,255.99  '
+      />
+    </g>
+  </svg>
+);
+export default Asterisk;

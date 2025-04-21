@@ -1,6 +1,6 @@
 import { cn } from '@libs/cn';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
-import phone from '@pages/landing-page/assets/phone.png';
+import phone from '@pages/landing-page/assets/elements/phone.png';
 
 const DonationSection = () => {
   return (
