@@ -1,13 +1,12 @@
+import AvatarProfile from '@components/favorites/AvatarProfile';
 import { useState } from 'react';
 
 const AddFavorite = ({ idol, setIdol, setFavorite }) => {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const toggleSelect = (id) => {
-    setSelectedIds(
-      (prev) =>
-        prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
-      console.log(selectedIds),
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
@@ -19,24 +18,25 @@ const AddFavorite = ({ idol, setIdol, setFavorite }) => {
   };
 
   return (
-    <div className='mt-6 w-full bg-amber-900'>
-      {idol.map((idolItem) => (
-        <div
-          className='mb-2 flex h-20 w-20 border border-amber-400'
-          key={idolItem.id}
-        >
-          <div
-            onClick={() => toggleSelect(idolItem.id)}
-            className='flex flex-col'
-          >
-            <span>{idolItem.name}</span>
-            <span>{idolItem.group}</span>
-            <span>{idolItem.id}</span>
-          </div>
-        </div>
+    <div className='flex flex-wrap gap-6'>
+      {idol.map((item) => (
+        <AvatarProfile
+          key={item.id}
+          id={item.id}
+          src={item.imageUrl}
+          name={item.name}
+          group={item.group}
+          size='l'
+          selectedIds={selectedIds}
+          onItemClick={toggleSelect}
+        />
       ))}
-
-      <button onClick={handleAddFavorites}>눌러</button>
+      <button
+        onClick={handleAddFavorites}
+        className='mt-6 rounded bg-white px-4 py-2 text-black'
+      >
+        추가하기
+      </button>
     </div>
   );
 };

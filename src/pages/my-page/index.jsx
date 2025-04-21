@@ -1,35 +1,59 @@
 import Footer from '@components/layouts/Footer';
 import Header from '@components/layouts/Header';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FavoriteList from './components/FavoriteList';
 import AddFavorite from './components/AddFavorite';
+import { getIdols } from '@apis/idolsApi';
 
 export default function MyPage() {
   const [myFavorites, setMyFavorites] = useState([]);
-  const [allIdols, setAllIdols] = useState([
-    { id: 1, name: '리사', group: '블랙핑크' },
-    { id: 2, name: '로제', group: '블랙핑크' },
-    { id: 3, name: '예지', group: '있지' },
-    { id: 4, name: '리아', group: '있지' },
-    { id: 5, name: '윈터', group: '에스파' },
-    { id: 6, name: '은석', group: '라이즈' },
-    { id: 7, name: '성찬', group: '라이즈' },
-    { id: 8, name: '앤톤', group: '라이즈' },
-    { id: 9, name: '쇼타로', group: '라이즈' },
-  ]);
+  const [allIdols, setAllIdols] = useState([]);
+  const [nextCursor, setNextCursor] = useState(null);
+
+  useEffect(() => {
+    const fetchIdols = async () => {
+      try {
+        const { list } = await getIdols({
+          cursor: 0,
+          pageSize: 9999,
+        });
+        setAllIdols(list);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchIdols();
+  }, []);
+
   return (
-    <div className='h-screen w-full bg-black'>
+    <div className='min-h-screen w-full bg-black text-white'>
       <Header />
-      <FavoriteList
-        favorite={myFavorites}
-        setIdol={setAllIdols}
-        setFavorite={setMyFavorites}
-      />
-      <AddFavorite
-        idol={allIdols}
-        setIdol={setAllIdols}
-        setFavorite={setMyFavorites}
-      />
+
+      <div className='flex justify-center px-0 py-10 sm:px-4 lg:px-10'>
+        <div className='flex w-full max-w-[1400px] flex-col gap-20'>
+          <section className='mt-40'>
+            <h2 className='title-text mb-6'>내가 관심있는 아이돌</h2>
+            <FavoriteList
+              favorite={myFavorites}
+              setIdol={setAllIdols}
+              setFavorite={setMyFavorites}
+            />
+          </section>
+
+          <section>
+            <h2 className='title-text mb-6'>
+              관심 있는 아이돌을 추가해보세요.
+            </h2>
+            <AddFavorite
+              idol={allIdols}
+              setIdol={setAllIdols}
+              setFavorite={setMyFavorites}
+            />
+          </section>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
