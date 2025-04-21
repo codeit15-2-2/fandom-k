@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
 import ChevronRight from '@assets/icons/icon_chevron-right';
@@ -28,22 +28,36 @@ const Carousel = (
   },
 ) => {
   const offset = 5;
+  const slideBy = 1;
 
   const { index, back, leaving, toggleLeaving, changeIndex, currentItems } =
-    useCarousel(data, offset);
+    useCarousel(data, offset, slideBy);
 
   const rowVariants = {
     initial: (back) => {
       return {
-        x: back ? -window.outerWidth : window.outerWidth,
+        x: back ? -100 : 100,
+        // opacity: 0,
       };
     },
     visible: {
       x: 0,
+      // opacity: 1,
+      transition: {
+        duration: 0.5,
+        type: 'tween',
+        ease: 'easeInOut',
+      },
     },
     exit: (back) => {
       return {
-        x: back ? window.outerWidth : -window.outerWidth,
+        x: back ? 100 : -100,
+        // opacity: 0,
+        transition: {
+          duration: 0.5,
+          type: 'tween',
+          ease: 'easeInOut',
+        },
       };
     },
   };
@@ -55,6 +69,7 @@ const Carousel = (
           initial={false}
           custom={back}
           onExitComplete={toggleLeaving}
+          mode='wait'
         >
           <motion.div
             custom={back}
@@ -63,26 +78,25 @@ const Carousel = (
             initial='initial'
             animate='visible'
             exit='exit'
-            transition={{ type: 'tween', duration: '1' }}
             className='absolute grid w-full grid-cols-5 px-10'
           >
             {currentItems.map((item) => (
               <motion.div key={item.id}>{item.name}</motion.div>
             ))}
           </motion.div>
-          <button
-            className='absolute right-0 cursor-pointer bg-gray-100/80 p-2'
-            onClick={() => changeIndex('next')}
-          >
-            <ChevronRight />
-          </button>
-          <button
-            className='absolute left-0 cursor-pointer bg-gray-100/80 p-2'
-            onClick={() => changeIndex('prev')}
-          >
-            <ChevronLeft />
-          </button>
         </AnimatePresence>
+        <button
+          className='absolute right-0 cursor-pointer bg-gray-100/80 p-2'
+          onClick={() => changeIndex('next')}
+        >
+          <ChevronRight />
+        </button>
+        <button
+          className='absolute left-0 cursor-pointer bg-gray-100/80 p-2'
+          onClick={() => changeIndex('prev')}
+        >
+          <ChevronLeft />
+        </button>
       </div>
     </>
   );
