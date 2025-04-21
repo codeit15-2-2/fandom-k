@@ -1,26 +1,25 @@
-const Credit = () => {
+const CreditIcon = (props) => {
   return (
     <svg
-      width='14'
-      height='20'
-      viewBox='0 0 14 20'
-      fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 20 20'
+      fill='none'
+      {...props}
     >
-      <path d='M4.5 10L7 6.25L9.5 10L7 13.75L4.5 10Z' fill='white' />
+      <path fill='#fff' d='M7.5 10 10 6.25 12.5 10 10 13.75 7.5 10Z' />
       <path
+        fill='url(#a)'
         fillRule='evenodd'
+        d='m10 0 6.875 9.843L10 19.65 3.125 9.843 10 0ZM4.63 9.841 10 17.503l5.37-7.662L10 2.153 4.63 9.841Z'
         clipRule='evenodd'
-        d='M7 0L13.875 9.84267L7 19.6506L0.125 9.84267L7 0ZM1.62982 9.84139L7 17.5025L12.3702 9.84139L7 2.1531L1.62982 9.84139Z'
-        fill='url(#paint0_linear_465_2522)'
       />
       <defs>
         <linearGradient
-          id='paint0_linear_465_2522'
-          x1='7'
+          id='a'
+          x1='10'
+          x2='10'
           y1='0'
-          x2='7'
-          y2='19.6506'
+          y2='19.651'
           gradientUnits='userSpaceOnUse'
         >
           <stop stopColor='#FF8282' />
@@ -31,4 +30,4 @@ const Credit = () => {
   );
 };
 
-export default Credit;
+export default CreditIcon;
