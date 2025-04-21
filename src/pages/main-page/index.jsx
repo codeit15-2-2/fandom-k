@@ -1,4 +1,12 @@
+import Footer from '@components/layouts/Footer';
+import Header from '@components/layouts/Header';
 
 export default function MainPage() {
-  return <div>Main</div>;
+  return (
+    <>
+      <Header />
+
+      <Footer />
+    </>
+  );
 }
