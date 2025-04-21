@@ -1,4 +1,6 @@
 import React from 'react';
+import Logo from '../../assets/images/img_fandom-k-logo.webp';
+import Default from '../../assets/images/img_default-profile.webp';
 
 export default function Header() {
   return (
@@ -6,14 +8,14 @@ export default function Header() {
       <div></div>
       <div className='flex items-center justify-center'>
         <img
-          src='src\assets\images\img_fandom-k-logo.webp'
+          src={Logo}
           alt='Fandom-K logo'
           className='h-[2rem] sm:h-[2.2rem] md:h-[3.2rem]'
         />
       </div>
       <div className='flex items-center justify-center'>
         <img
-          src='src\assets\images\img_empty-profile.webp'
+          src={Default}
           alt='empty profile Img'
           className='h-[3.2rem] w-[3.2rem] rounded-full'
         />
