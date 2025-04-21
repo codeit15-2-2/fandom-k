@@ -13,6 +13,8 @@ export default function App() {
         <Outlet />
       </main>
       <Footer />
+
+      <DetailPage />
     </div>
   );
 }

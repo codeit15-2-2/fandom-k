@@ -22,9 +22,12 @@ export default function DetailPage() {
         close={closeModal}
         donateId={123}
         cardItem={{
+          id: 3,
           img: profile,
           title: '르세라핌 하이하이',
         }}
+        credit={10000}
+        isDonate
       />
     </div>
   );

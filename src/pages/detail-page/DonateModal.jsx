@@ -1,11 +1,24 @@
 import Modal from '@components/common/Modal';
-import CardImg from '@components/common/CardImg';
+import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import CreditForm from '@components/credit-form/CreditForm';
+import CardImg from '@components/common/CardImg';
+import { useCreditForm } from '@hooks/useCreditForm';
 
-const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
+const DonateModal = ({
+  isOpen,
+  close,
+  donateId,
+  cardItem,
+  credit,
+  isDonate,
+}) => {
+  const { input, error, errMsg, handleInputChange, handleReset } =
+    useCreditForm(credit, isDonate);
+
   const handleDonate = () => {
     console.log('후원:', donateId);
+    handleReset();
   };
 
   return (
@@ -13,13 +26,28 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
       isOpen={isOpen}
       onClose={close}
       title='후원하기'
-      button={<Button btnText='후원하기' color='pink' onClick={handleDonate} />}
+      button={
+        <Button
+          btnText='후원하기'
+          color='pink'
+          onClick={handleDonate}
+          disabled={input.trim() === ''}
+        />
+      }
     >
-      <CardImg src={cardItem.img} title={cardItem.title}>
-        <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'></div>
-      </CardImg>
+      <div className='flex flex-col'>
+        <CardImg src={cardItem.img} title={cardItem.title}></CardImg>
 
-      <CreditForm isDonate onClick={handleDonate} credit={10000} />
+        <Input
+          value={input}
+          placeholder='크레딧 입력'
+          onChange={handleInputChange}
+          isError={error}
+          errMsg={errMsg}
+        />
+      </div>
+
+      {/* <CreditForm isDonate onClick={handleDonate} credit={credit} /> */}
     </Modal>
   );
 };

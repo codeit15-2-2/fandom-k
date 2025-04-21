@@ -34,7 +34,7 @@ const Input = ({ value, onChange, errMsg, isError, placeholder, icon }) => {
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={cn(
-            'sub-title-text bg-navy w-full rounded-xl border-2 px-4 py-4 pr-12 text-white transition-all',
+            'sub-title-text bg-navy w-full rounded-xl border-2 px-4 py-2 pr-12 text-white transition-all',
             isError ? 'border-red-500 focus:outline-0' : 'border-white',
           )}
         />
