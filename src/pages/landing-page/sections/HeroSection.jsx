@@ -3,6 +3,7 @@ import Circle from '@pages/landing-page/components/elements/Circle';
 import logo from '@assets/logos/logo.png';
 import { cn } from '@libs/cn';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
+import DarkLayout from '@pages/landing-page/components/common/DarkLayout';
 import {
   avatar1,
   avatar2,
@@ -12,8 +13,8 @@ import {
   avatar7,
 } from '@pages/landing-page/utils/getIdolAvatar';
 
-// 연예인 원 배치 설정
-const CELEBRITY_CIRCLES = [
+// 배경 아이돌 동그라미 요소 관련 상수
+const IDOL_CIRCLES = [
   {
     img: avatar7,
     size: 'md',
@@ -46,7 +47,7 @@ const CELEBRITY_CIRCLES = [
   },
 ];
 
-// 분홍 원 배치 설정
+// 배경 장식용 동그라미 요소 관련 상수
 const PINK_CIRCLES = [
   { size: 'sm', className: 'z-0 col-start-1 col-end-3 row-start-4' },
   { size: 'lg', className: 'z-0 col-start-7 col-end-10 row-start-2 row-end-4' },
@@ -54,54 +55,49 @@ const PINK_CIRCLES = [
   { size: 'sm', className: 'z-0 col-start-9 row-start-4 row-end-6' },
 ];
 
-const HeroSection = () => {
-  return (
-    <section className={cn(SNAP_ITEM, 'relative w-full bg-black')}>
-      {/* 중앙 콘텐츠 영역 */}
-      <div
-        className={cn(
-          'relative grid h-[100rem] w-[160rem] grid-cols-10 grid-rows-6 place-items-center gap-12',
-        )}
-      >
-        {/* 어두운 배경 레이어 */}
-        <div className='absolute inset-0 z-20 bg-gradient-to-b from-black/20 to-black/75' />
+// 히어로 메인 섹션
+const HeroSection = () => (
+  <section className={cn(SNAP_ITEM, 'relative w-full bg-black')}>
+    <div className='relative grid h-[100rem] w-[160rem] grid-cols-10 grid-rows-6 place-items-center gap-12'>
+      <DarkLayout />
+      <CircleRender circles={IDOL_CIRCLES} />
+      <CircleRender circles={PINK_CIRCLES} />
+      <HeroHeader />
+    </div>
+    <TeamInfo />
+  </section>
+);
 
-        {/* 연예인 원 요소들  */}
-        {CELEBRITY_CIRCLES.map((circle, index) => (
-          <div key={`celebrity-${index}`} className={circle.className}>
-            <Circle img={circle.img} size={circle.size} />
-          </div>
-        ))}
+// Circle 렌더링 컴포넌트
+const CircleRender = ({ circles }) =>
+  circles.map((circle, index) => (
+    <div key={`circle-${index}`} className={circle.className}>
+      <Circle img={circle.img} size={circle.size} />
+    </div>
+  ));
 
-        {/* 분홍 원 요소들  */}
-        {PINK_CIRCLES.map((circle, index) => (
-          <div key={`pink-${index}`} className={circle.className}>
-            <Circle size={circle.size} />
-          </div>
-        ))}
+// 히어로 헤더 섹션
+const HeroHeader = () => (
+  <div className='z-20 col-span-full row-span-full'>
+    <div className='flex flex-col items-center gap-12'>
+      <img src={logo} alt='로고' className='w-full' />
+      <h1 className='text-center text-6xl font-semibold text-white'>
+        나를 설레게 했던 순간, 이제는 내가 보답할 때
+      </h1>
+      <Button>시작하기</Button>
+    </div>
+  </div>
+);
 
-        {/* 메인 콘텐츠 - 그리드 전체 영역 사용 */}
-        <div className='z-20 col-span-full row-span-full'>
-          <div className='flex flex-col items-center gap-12'>
-            <img src={logo} alt='로고' className='w-full' />
-            <h1 className='text-center text-6xl font-semibold text-white'>
-              나를 설레게 했던 순간, 이제는 내가 보답할 때
-            </h1>
-            <Button>시작하기</Button>
-          </div>
-        </div>
-      </div>
-      <div className='z-20 text-2xl text-white'>
-        <p className='text-center'>
-          Codeit Sprint Frontend Engineering Bootcamp 15기
-        </p>
-        <p className='text-center'>Part 2 · Team 2 · Light-Up</p>
-        <p className='text-center'>
-          Jiwoo · Eunbin · Hyeran · Jaehyun · Yongmin
-        </p>
-      </div>
-    </section>
-  );
-};
+// 팀 정보 섹션
+const TeamInfo = () => (
+  <div className='z-20 mt-12 text-2xl text-white'>
+    <p className='text-center'>
+      Codeit Sprint Frontend Engineering Bootcamp 15
+    </p>
+    <p className='text-center'>Part 2 · Team 2 · Light-Up</p>
+    <p className='text-center'>Jiwoo · Eunbin · Hyeran · Jaehyun · Yongmin</p>
+  </div>
+);
 
 export default HeroSection;

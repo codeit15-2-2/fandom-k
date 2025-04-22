@@ -1,10 +1,11 @@
-import WristBand from '@pages/landing-page/components/wrist-band/WristBand';
+import WristBand from '@pages/landing-page/components/elements/wrist-band/WristBand';
 import yellowSpark from '@assets/doodles/spark-yellow.png';
 
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 
+// 손목띠 스타일 상수
 const WRISTBAND_STYLES = [
   {
     color: 'orange-600',
@@ -50,56 +51,66 @@ const WRISTBAND_STYLES = [
   },
 ];
 
+// 스타일 + 아이돌 결합 데이터 생성 함수
+const getWristBandData = (idols) =>
+  idols.slice(0, WRISTBAND_STYLES.length).map((idol, index) => ({
+    ...WRISTBAND_STYLES[index],
+    idol,
+    ranking: `0${index + 1}`,
+  }));
+
+// 메인 차트 섹션
 const ChartSection = () => {
-  const randomIdolList = getRandomIdols();
-  const wristBandData = randomIdolList
-    .slice(0, WRISTBAND_STYLES.length)
-    .map((idol, index) => ({
-      ...WRISTBAND_STYLES[index],
-      idol,
-      ranking: `0${index + 1}`,
-    }));
+  const wristBandData = getWristBandData(getRandomIdols());
 
   return (
     <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
-      {/* 타이틀 헤더 */}
-      <div className='relative p-24'>
-        <h1 className='text-[20rem] font-extrabold tracking-tight text-white'>
-          CHART
-        </h1>
-        <img
-          src={yellowSpark}
-          alt='스파크 이미지'
-          className='absolute inset-0 top-24 w-40'
-        />
-      </div>
-
-      {/* 손목띠 차트 콘텐츠 */}
-      <div className='-mt-40 flex flex-col gap-4'>
-        {wristBandData.map(
-          ({ idol, color, rotate, zIndex, translate, ranking }, index) => (
-            <WristBand
-              key={idol.id || `band-${index}`}
-              color={color}
-              idol={idol}
-              ranking={ranking}
-              rotate={rotate}
-              zIndex={zIndex}
-              translates={translate}
-            />
-          ),
-        )}
-      </div>
-
-      {/* 설명란 + 버튼 */}
-      <div className='flex flex-3 flex-col items-center justify-center gap-8'>
-        <p className='text-7xl font-semibold text-white'>
-          내가 사랑하는 아티스트
-          <br />내 손으로 1위 만듭니다
-        </p>
-      </div>
+      <ChartHeader />
+      <ChartWristBandList bands={wristBandData} />
+      <ChartDescription />
     </div>
   );
 };
+
+// 헤더 섹션
+const ChartHeader = () => (
+  <div className='relative p-24'>
+    <h1 className='text-[20rem] font-extrabold tracking-tight text-white'>
+      CHART
+    </h1>
+    <img
+      src={yellowSpark}
+      alt='스파크 이미지'
+      className='absolute inset-0 top-24 w-40'
+    />
+  </div>
+);
+
+// 손목띠 섹션
+const ChartWristBandList = ({ bands }) => (
+  <div className='-mt-40 flex flex-col gap-4'>
+    {bands.map(({ idol, color, rotate, zIndex, translate, ranking }, index) => (
+      <WristBand
+        key={idol.id || `band-${index}`}
+        color={color}
+        idol={idol}
+        ranking={ranking}
+        rotate={rotate}
+        zIndex={zIndex}
+        translates={translate}
+      />
+    ))}
+  </div>
+);
+
+// 설명 섹션
+const ChartDescription = () => (
+  <div className='flex flex-3 flex-col items-center justify-center gap-8'>
+    <p className='text-center text-7xl font-semibold text-white'>
+      내가 사랑하는 아티스트
+      <br />내 손으로 1위 만듭니다
+    </p>
+  </div>
+);
 
 export default ChartSection;

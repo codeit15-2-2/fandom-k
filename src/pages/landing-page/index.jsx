@@ -1,4 +1,3 @@
-import { getIdols } from '@apis/idolsApi';
 import { SNAP_CONTAINER } from '@pages/landing-page/constants/layouts';
 import ChartSection from '@pages/landing-page/sections/ChartSection';
 import CreditSection from '@pages/landing-page/sections/CreditSection';
@@ -8,7 +7,7 @@ import HeroSection from '@pages/landing-page/sections/HeroSection';
 
 const LandingPage = () => {
   return (
-    <div className={`${SNAP_CONTAINER}, `}>
+    <div className={SNAP_CONTAINER}>
       <HeroSection />
       <FundingSection />
       <ChartSection />

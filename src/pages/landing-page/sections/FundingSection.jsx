@@ -1,12 +1,10 @@
-import FundingCard from '@pages/landing-page/components/card/FundingCard';
+import FundingCard from '@pages/landing-page/components/elements/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
-import pinkArrow from '@assets/doodles/arrow-pink.png';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
-import logo from '@assets/logos/logo-stroked-2.png';
 
-// 카드 스타일 설정을 컴포넌트 외부로 분리
-const CARD_STYLES = [
+// 카드 스타일 설정
+const FUNDING_CARD_STYLES = [
   { rotate: '-rotate-15', translate: 'translate-y-20' },
   { rotate: 'rotate-10', translate: '' },
   { rotate: '-rotate-20', translate: '-translate-y-20' },
@@ -15,42 +13,59 @@ const CARD_STYLES = [
   { rotate: 'rotate-10', translate: 'translate-y-15' },
 ];
 
+// 스타일 계산 유틸
+const getFundingCardStyle = (index) =>
+  FUNDING_CARD_STYLES[index % FUNDING_CARD_STYLES.length];
+
+// 메인 펀딩 섹션
 const FundingSection = () => {
-  // 컴포넌트 마운트 시 한 번만 선택되도록 함수 호출
   const randomIdols = getRandomIdols();
 
   return (
     <div className={cn(SNAP_ITEM, 'bg-white')}>
-      {/* 타이틀 헤더 */}
-      <div className='flex flex-1 flex-col items-center justify-center'>
-        <h1 className='text-[20rem] font-extrabold tracking-tight text-black'>
-          FUNDING
-        </h1>
-      </div>
-
-      {/* 카드 콘텐츠 */}
-      <div className='z-10 flex items-start justify-center'>
-        {randomIdols.map((idol, index) => (
-          <FundingCard
-            key={idol.id || idol.name} // id가 있으면 id를 키로 사용
-            image={idol.image}
-            title={idol.title}
-            location={idol.location}
-            rotate={CARD_STYLES[index % CARD_STYLES.length].rotate} // 배열 범위를 벗어나지 않도록 모듈로 연산
-            translate={CARD_STYLES[index % CARD_STYLES.length].translate}
-          />
-        ))}
-      </div>
-
-      {/* 설명란 + 버튼 */}
-      <div className='flex flex-1 flex-col items-center justify-center gap-8'>
-        <p className='text-center text-7xl font-semibold'>
-          진행중인 아티스트들의 <br />
-          다양한 조공을 구경해보세요
-        </p>
-      </div>
+      <FundingHeader />
+      <FundingCardList idols={randomIdols} />
+      <FundingDescription />
     </div>
   );
 };
+
+// 헤더 섹션
+const FundingHeader = () => (
+  <div className='flex flex-1 flex-col items-center justify-center'>
+    <h1 className='text-[20rem] font-extrabold tracking-tight text-black'>
+      FUNDING
+    </h1>
+  </div>
+);
+
+// 카드 리스트 섹션
+const FundingCardList = ({ idols }) => (
+  <div className='z-10 flex items-start justify-center'>
+    {idols.map((idol, index) => {
+      const style = getFundingCardStyle(index);
+      return (
+        <FundingCard
+          key={idol.id || idol.name}
+          image={idol.image}
+          title={idol.title}
+          location={idol.location}
+          rotate={style.rotate}
+          translate={style.translate}
+        />
+      );
+    })}
+  </div>
+);
+
+// 설명 섹션
+const FundingDescription = () => (
+  <div className='flex flex-1 flex-col items-center justify-center gap-8'>
+    <p className='text-center text-7xl font-semibold'>
+      진행중인 아티스트들의 <br />
+      다양한 조공을 구경해보세요
+    </p>
+  </div>
+);
 
 export default FundingSection;
