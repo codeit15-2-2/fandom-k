@@ -65,9 +65,10 @@ const Carousel = ({
         {data.map((item, index) => (
           <motion.div
             key={item.id}
-            // style={{ minWidth: itemWidth, width: itemWidth }} 크기 고정을 위한 스타일일
+            //style={{ minWidth: itemWidth, width: itemWidth }} 카드 길이 스타일일
             className={itemClassName}
           >
+            <img src={item.img} />
             {RenderComponent && <RenderComponent item={item} />}
           </motion.div>
         ))}
