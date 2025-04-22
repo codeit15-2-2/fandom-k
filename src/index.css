@@ -48,16 +48,6 @@
   html {
     font-size: 10px;
   }
-
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  input[type='number'] {
-    -moz-appearance: textfield;
-  }
 }
 
 @layer components {
@@ -103,13 +93,5 @@
     .caption-text {
       @apply text-[1.2rem]; /* 12px */
     }
-  }
-
-  .text-stroke-black {
-    -webkit-text-stroke: 2px rgba(0, 0, 0, 0.6);
-  }
-
-  .text-stroke-white {
-    -webkit-text-stroke: 2px rgb(255, 255, 255);
   }
 }

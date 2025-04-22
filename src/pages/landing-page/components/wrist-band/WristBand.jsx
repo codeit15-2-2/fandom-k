@@ -20,7 +20,7 @@ const WristBand = ({ idol, color, ranking, rotate, zIndex, translates }) => {
 
   return (
     <div
-      className={`relative flex w-[80rem] bg-white ${rotate} ${zIndex} ${translates}`}
+      className={`flex w-[80rem] bg-white ${rotate} ${zIndex} ${translates}`}
     >
       {/* 절취선 섹션 */}
       <div className='flex flex-[0.8] items-center justify-center'>
