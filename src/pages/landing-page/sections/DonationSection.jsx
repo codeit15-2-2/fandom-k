@@ -1,7 +1,7 @@
 import { cn } from '@libs/cn';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import handphone from '@assets/elements/elem_handphone.png';
-
+import heart from '@assets/icons/icon_heart.svg';
 const DonationSection = () => {
   return (
     <section
@@ -12,12 +12,13 @@ const DonationSection = () => {
     >
       <div className='relative mx-auto flex h-full w-[1400px] flex-col'>
         {/* 제목 컨테이너 */}
-        <header className='flex flex-1 items-center justify-center'>
+        <header className='relative flex flex-1 items-center justify-center'>
           <h1 className='text-center text-[15rem]/50 font-extrabold tracking-tight text-white'>
             EASY
             <br />
             DONATION
           </h1>
+          <img src={heart} className='absolute bottom-1/4 w-[10%]' />
         </header>
 
         {/* 콘텐츠 컨테이너 */}
@@ -32,10 +33,10 @@ const DonationSection = () => {
             최애와
             <br />나
           </p>
-          <img
-            src={handphone}
-            className='absolute bottom-0 left-1/3 -translate-x-1/3'
-          />
+
+          <div className='absolute bottom-0 left-1/3 flex -translate-x-1/3 flex-col items-center gap-4'>
+            <img src={handphone} />
+          </div>
         </div>
       </div>
     </section>
