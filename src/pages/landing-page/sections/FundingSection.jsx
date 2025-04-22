@@ -3,6 +3,7 @@ import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import pinkArrow from '@assets/doodles/arrow-pink.png';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
+import logo from '@assets/logos/logo-stroked-2.png';
 
 // 카드 스타일 설정을 컴포넌트 외부로 분리
 const CARD_STYLES = [
@@ -21,8 +22,8 @@ const FundingSection = () => {
   return (
     <div className={cn(SNAP_ITEM, 'bg-white')}>
       {/* 타이틀 헤더 */}
-      <div className='flex-1'>
-        <h1 className='text-stroke-black mt-40 text-[20rem] font-extrabold tracking-tight text-white'>
+      <div className='flex flex-1 flex-col items-center justify-center'>
+        <h1 className='text-[20rem] font-extrabold tracking-tight text-black'>
           FUNDING
         </h1>
       </div>
@@ -42,12 +43,11 @@ const FundingSection = () => {
       </div>
 
       {/* 설명란 + 버튼 */}
-      <div className='flex flex-1 flex-col items-center justify-center'>
+      <div className='flex flex-1 flex-col items-center justify-center gap-8'>
         <p className='text-center text-7xl font-semibold'>
           진행중인 아티스트들의 <br />
           다양한 조공을 구경해보세요
         </p>
-        <img src={pinkArrow} alt='화살표' />
       </div>
     </div>
   );
