@@ -19,6 +19,61 @@ const DonationContext = createContext({
   isOpen: null,
 });
 
+/* 후원 정보 컴포넌트 사용법
+- 소개
+후원 정보 컴포넌트는 후원 상세 페이지에 쓰이는 컴포넌트입니다.
+모인 금액 타입과 모집 기간 타입을 지원합니다.
+1) 모집 금액 : 후원에 필요한 총 크레딧 수와 현재 모금 금액을 확인할 수 있고, 어느 정도 달성했는지 progress bar를 통해 직관적으로 확인합니다.
+2) 모집 기간 : 후원 마감 날짜와 현재 시점에서 기간이 얼마나 남았는지 타이머로 확인할 수 있습니다. 모집 시작부터 마감까지의 기간에서 지나온 시간을 progress bar로 확인합니다. 
+            (색이 채워진 부분이 지난 기간이고, 색이 모두 칠해지면 기간이 종료됨을 뜻합니다.)
+
+- 반응형 사용법
+s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l' 입니다. 
+
+*/
+
+/** 후원 정보 컴포넌트 props
+ *
+ * @typedef {Object} DonationInfoProps
+ * @property {string} props.title - [모집 금액 | 모집 기간] 후원 정보 제목 (ex. 모인 금액, 모집 기간)
+ * @property {string} props.subTitle - [모집 금액 | 모집 기간] 후원 정보 부제목 (ex. 크레딧, 남은 시간)
+ * @property {number} props.credit - [모집 금액] 모금액
+ * @property {number} props.targetAmount - [모집 금액]
+ * @property {string} props.createdAt - [모집 기간] 모집 시작 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
+ * @property {string} props.deadline - [모집 기간] 모집 마감 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
+ * @property {'s' | 'm' | 'l'} [size] - [모집 금액 | 모집 기간] 사이즈 (default size: l)
+ * @property {boolean} props.isOpen - [모집 금액 | 모집 기간] 후원 진행 여부
+ */
+
+/**
+ * @example
+ * 모집 종료 문구가 뜨는 시점은 isOpen이 false 상태일 때입니다.
+ * 1. 모집 금액
+ * <DonationInfo
+ *   title='모인 금액'
+ *   subTitle='크레딧'
+ *   credit={200000}
+ *   targetAmount={300000}
+ *   size='s'
+ *   isOpen={true}>
+ *   <DonationInfo.InfoCredit />
+ *   <DonationInfo.InfoTargetAmount />
+ * </DonationInfo>
+ *
+ * 2. 모집 기간
+ * 내부에서 dealine과 현시점을 계산하지 않습니다.
+ * 따라서 모집이 조기 종료될 경우엔 모집 기간의 isOpen도 false로 전달 받아야 합니다.
+ * <DonationInfo
+ *   title='모집 기간'
+ *   subTitle='남은 시간'
+ *   createdAt={'2025-03-19T00:00:00.891Z'}
+ *   deadline={'2025-05-22T23:59:59.000Z'}
+ *   size='l'
+ *   isOpen={true}>
+ *   <DonationInfo.InfoTimer />
+ *   <DonationInfo.InfoDeadline />
+ * </DonationInfo>
+ */
 const DonationInfo = ({
   title,
   subTitle,
