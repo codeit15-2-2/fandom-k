@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import FundingCard from '@pages/landing-page/components/FundingCard';
+import FundingCard from '@pages/landing-page/components/card/FundingCard';
 
 const SlideCard = () => {
   const cards = Array.from({ length: 20 });

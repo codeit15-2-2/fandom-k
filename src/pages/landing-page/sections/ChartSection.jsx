@@ -1,8 +1,10 @@
-import WristBand from '@pages/landing-page/components/chart/WristBand';
-import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
-import { idolsList } from '@pages/landing-page/mocks/idolsList';
-import spark from '@pages/landing-page/assets/doodles/yellow-spark.png';
+import Button from '@pages/landing-page/components/common/Button';
+import WristBand from '@pages/landing-page/components/wrist-band/WristBand';
+import yellowSpark from '@assets/doodles/spark-yellow.png';
+
 import { cn } from '@libs/cn';
+import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
+import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 
 const WRISTBAND_STYLES = [
   {
@@ -49,10 +51,6 @@ const WRISTBAND_STYLES = [
   },
 ];
 
-const getRandomIdols = (count = 7) => {
-  return [...idolsList].sort(() => Math.random() - 0.5).slice(0, count);
-};
-
 const ChartSection = () => {
   const randomIdolList = getRandomIdols();
   const wristBandData = randomIdolList
@@ -66,14 +64,14 @@ const ChartSection = () => {
   return (
     <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
       {/* 타이틀 헤더 */}
-      <div className='relative flex justify-center'>
+      <div className='relative p-24'>
         <h1 className='text-stroke-white text-[20rem] font-extrabold tracking-tight'>
           CHART
         </h1>
         <img
-          src={spark}
+          src={yellowSpark}
           alt='스파크 이미지'
-          className='absolute inset-0 w-40'
+          className='absolute inset-0 top-24 w-40'
         />
       </div>
 
@@ -95,8 +93,11 @@ const ChartSection = () => {
       </div>
 
       {/* 설명란 + 버튼 */}
-      <div className='flex flex-3 items-center'>
-        <p className='text-4xl text-white'>해보세요 해보세요</p>
+      <div className='flex flex-3 flex-col items-center justify-center gap-8'>
+        <p className='text-7xl font-semibold text-white'>
+          내가 사랑하는 아티스트,
+          <br />내 손으로 1위 만듭니다.
+        </p>
       </div>
     </div>
   );

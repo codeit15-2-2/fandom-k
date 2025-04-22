@@ -1,9 +1,8 @@
-import Button from '@components/common/Button';
-import FundingCard from '@pages/landing-page/components/FundingCard';
+import FundingCard from '@pages/landing-page/components/card/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
-import { idolsList } from '@pages/landing-page/mocks/idolsList';
-import pinkArrow from '@pages/landing-page/assets/doodles/pink-arrow.png';
+import pinkArrow from '@assets/doodles/arrow-pink.png';
 import { cn } from '@libs/cn';
+import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
 
 // 카드 스타일 설정을 컴포넌트 외부로 분리
 const CARD_STYLES = [
@@ -15,22 +14,12 @@ const CARD_STYLES = [
   { rotate: 'rotate-10', translate: 'translate-y-15' },
 ];
 
-// 랜덤 아이돌 선택 함수 분리
-const getRandomIdols = (count = 7) => {
-  return [...idolsList].sort(() => Math.random() - 0.5).slice(0, count);
-};
-
 const FundingSection = () => {
   // 컴포넌트 마운트 시 한 번만 선택되도록 함수 호출
   const randomIdols = getRandomIdols();
 
   return (
-    <div
-      className={cn(
-        SNAP_ITEM,
-        'relative flex h-full w-full flex-col items-center justify-between bg-white p-24',
-      )}
-    >
+    <div className={cn(SNAP_ITEM, 'bg-white')}>
       {/* 타이틀 헤더 */}
       <div className='flex-1'>
         <h1 className='text-stroke-black mt-40 text-[20rem] font-extrabold tracking-tight text-white'>
@@ -39,7 +28,7 @@ const FundingSection = () => {
       </div>
 
       {/* 카드 콘텐츠 */}
-      <div className='absolute top-1/3 left-1/2 z-10 flex -translate-x-1/2 items-start justify-center'>
+      <div className='z-10 flex items-start justify-center'>
         {randomIdols.map((idol, index) => (
           <FundingCard
             key={idol.id || idol.name} // id가 있으면 id를 키로 사용
@@ -53,21 +42,12 @@ const FundingSection = () => {
       </div>
 
       {/* 설명란 + 버튼 */}
-      <div className='relative flex flex-1 flex-col items-center justify-center gap-12 text-5xl font-semibold'>
-        <p className='text-center'>
+      <div className='flex flex-1 flex-col items-center justify-center'>
+        <p className='text-center text-7xl font-semibold'>
           진행중인 아티스트들의 <br />
           다양한 조공을 구경해보세요
         </p>
-
-        <div className='relative flex items-center justify-center'>
-          <Button
-            btnText='구경하러 가기'
-            size='l'
-            rounded
-            className='text-2xl'
-          />
-          <img src={pinkArrow} alt='화살표' className='absolute top-30' />
-        </div>
+        <img src={pinkArrow} alt='화살표' />
       </div>
     </div>
   );

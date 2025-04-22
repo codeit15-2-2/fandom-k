@@ -1,6 +1,6 @@
-import logo from '@pages/landing-page/assets/logos/logo-stroked.svg';
-import SecurityCut from '@pages/landing-page/components/chart/SecurityCut';
-import TrianglePattern from '@pages/landing-page/components/chart/Triangle';
+import logo from '@assets/logos/logo-stroked.svg';
+import SecurityCut from '@pages/landing-page/components/wrist-band/SecurityCut';
+import TrianglePattern from '@pages/landing-page/components/wrist-band/Triangle';
 
 const WristBand = ({ idol, color, ranking, rotate, zIndex, translates }) => {
   const { image, name } = idol;
