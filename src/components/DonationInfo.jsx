@@ -1,26 +1,12 @@
-import { useContext, createContext, memo } from 'react';
+import { useContext, createContext } from 'react';
+import { cn } from '@/utils/cn';
 import { useCountdownTimer } from '@hooks/useCountdownTimer';
-
-const getElapsedProgress = (createdAt, deadline, now) => {
-  const createdAtTime = new Date(createdAt).getTime();
-  const deadlineTime = new Date(deadline).getTime();
-
-  const totalDuration = deadlineTime - createdAtTime;
-  const elapsedTime = now - createdAtTime;
-  const progress = (elapsedTime / totalDuration) * 100;
-  const clampedProgress = Math.max(0, Math.min(progress, 100));
-
-  return clampedProgress;
-};
-
-const formatDate = (deadline) => {
-  const dateObj = new Date(deadline);
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-  const day = String(dateObj.getDate()).padStart(2, '0');
-
-  return { year, month, day };
-};
+import {
+  DONATION_INFO_CONTENT_SIZE_STYLES,
+  DONATION_INFO_SUB_CONTENT_SIZE_STYLES,
+  DONATION_INFO_WIDTH_STYLES,
+} from '@constants/donationConstants';
+import { getElapsedProgress, formatDate } from '@utils/donationInfoUtils';
 
 const DonationContext = createContext({
   title: '',
@@ -29,6 +15,7 @@ const DonationContext = createContext({
   targetAmount: '',
   createdAt: '',
   deadline: '',
+  size: 'l',
   isOpen: null,
 });
 
@@ -39,6 +26,7 @@ const DonationInfo = ({
   targetAmount,
   createdAt,
   deadline,
+  size = 'l',
   isOpen,
   children,
 }) => {
@@ -49,14 +37,18 @@ const DonationInfo = ({
     targetAmount,
     createdAt,
     deadline,
+    size,
     isOpen,
   };
 
+  const donationInfoClassNames = cn(
+    'relative flex flex-col gap-3 text-white',
+    DONATION_INFO_WIDTH_STYLES[size],
+  );
+
   return (
     <DonationContext.Provider value={contextValue}>
-      <div className='relative flex w-[50rem] flex-col gap-3 text-white'>
-        {children}
-      </div>
+      <div className={donationInfoClassNames}>{children}</div>
     </DonationContext.Provider>
   );
 };
@@ -77,17 +69,20 @@ const InfoSubTitle = () => {
 
 // 크레딧 정보 컴포넌트
 const InfoCredit = () => {
-  const { credit, targetAmount, isOpen } = useContext(DonationContext);
+  const { credit, targetAmount, size, isOpen } = useContext(DonationContext);
   const progress = Math.min((credit / targetAmount) * 100, 100);
+
+  const infoCreditClassNames = cn(
+    'ml-auto font-extralight',
+    DONATION_INFO_CONTENT_SIZE_STYLES[size],
+  );
 
   return (
     <>
       {isOpen ? (
-        <p className='ml-auto text-8xl font-extralight'>
-          {credit.toLocaleString()}
-        </p>
+        <p className={infoCreditClassNames}>{credit.toLocaleString()}</p>
       ) : (
-        <p className='ml-auto text-8xl font-extralight'>모집 종료</p>
+        <p className={infoCreditClassNames}>모집 종료</p>
       )}
 
       <InfoProgressBar progress={progress}>
@@ -112,7 +107,7 @@ const InfoTargetAmount = () => {
 
 // 타이머 컴포넌트
 const InfoTimer = () => {
-  const { createdAt, deadline, isOpen } = useContext(DonationContext);
+  const { createdAt, deadline, size, isOpen } = useContext(DonationContext);
   const now = Date.now();
   const { days, hours, minutes, seconds } = useCountdownTimer(
     deadline,
@@ -121,20 +116,30 @@ const InfoTimer = () => {
   );
   const progress = getElapsedProgress(createdAt, deadline, now);
 
+  const infoTimerContentClassNames = cn(
+    'ml-auto font-extralight',
+    DONATION_INFO_CONTENT_SIZE_STYLES[size],
+  );
+
+  const infoTimerSubContentClassNames = cn(
+    'mr-5',
+    DONATION_INFO_SUB_CONTENT_SIZE_STYLES[size],
+  );
+
   const isClosedText = (
-    <span className='ml-auto text-8xl font-extralight'>모집 종료</span>
+    <span className={infoTimerContentClassNames}>모집 종료</span>
   );
 
   const timerText = (
-    <p className='ml-auto text-8xl font-extralight'>
+    <p className={infoTimerContentClassNames}>
       {days}
-      <span className='mr-5 text-6xl text-white'>일</span>
+      <span className={infoTimerSubContentClassNames}>일</span>
       {hours}
-      <span className='mr-5 text-6xl text-white'>시</span>
+      <span className={infoTimerSubContentClassNames}>시</span>
       {minutes}
-      <span className='mr-5 text-6xl text-white'>분</span>
+      <span className={infoTimerSubContentClassNames}>분</span>
       {seconds}
-      <span className='text-6xl text-white'>초</span>
+      <span className={DONATION_INFO_SUB_CONTENT_SIZE_STYLES[size]}>초</span>
     </p>
   );
 
@@ -182,5 +187,3 @@ DonationInfo.InfoDeadline = InfoDeadline;
 DonationInfo.InfoProgressBar = InfoProgressBar;
 
 export default DonationInfo;
-
-// * todo : 사이즈
