@@ -15,7 +15,7 @@ export default function MyPage() {
       try {
         const { list } = await getIdols({
           cursor: 0,
-          pageSize: 9999,
+          pageSize: 20,
         });
         setAllIdols(list);
       } catch (err) {
@@ -30,31 +30,41 @@ export default function MyPage() {
     <div className='min-h-screen w-full bg-black text-white'>
       <Header />
 
-      <div className='flex justify-center px-0 py-10 sm:px-4 lg:px-10'>
-        <div className='flex w-full max-w-[1400px] flex-col gap-20'>
-          <section className='mt-40'>
-            <h2 className='title-text mb-6'>내가 관심있는 아이돌</h2>
-            <FavoriteList
-              favorite={myFavorites}
-              setIdol={setAllIdols}
-              setFavorite={setMyFavorites}
-            />
+      <div className='mx-auto max-w-[1400px] px-6 md:px-6 lg:px-48 xl:px-48'>
+        <div className='flex flex-col gap-20 py-10'>
+          <section className='mt-20'>
+            <h2 className='mb-10 text-[1.6rem] font-bold sm:text-[2.4rem]'>
+              내가 관심있는 아이돌
+            </h2>
+            <div className='min-h-[180px]'>
+              <FavoriteList
+                favorite={myFavorites}
+                setIdol={setAllIdols}
+                setFavorite={setMyFavorites}
+              />
+            </div>
+
+            {/* 중간구분선 */}
+            <div className='flex w-full justify-center'>
+              <div className='my-10 w-full max-w-[1200px] border-t border-gray-700'></div>
+            </div>
           </section>
 
-          <section>
-            <h2 className='title-text mb-6'>
+          <section className='relative mt-5 md:mt-50'>
+            <h2 className='mb-10 text-[1.6rem] font-bold sm:text-[2.4em]'>
               관심 있는 아이돌을 추가해보세요.
             </h2>
-            <AddFavorite
-              idol={allIdols}
-              setIdol={setAllIdols}
-              setFavorite={setMyFavorites}
-            />
+
+            <div className='min-h-[400px]'>
+              <AddFavorite
+                idol={allIdols}
+                setIdol={setAllIdols}
+                setFavorite={setMyFavorites}
+              />
+            </div>
           </section>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
