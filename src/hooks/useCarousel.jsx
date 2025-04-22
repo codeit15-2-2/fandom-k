@@ -1,4 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+/**
+ * @typedef {Object} CarouselOptions
+ * @property {number} totalDataLength - 캐러셀에 표시할 전체 데이터 항목의 수
+ * @property {number} offset - 한 화면에 표시할 카드의 개수
+ */
+
+/**
+ * @typedef {Object} CarouselReturn
+ * @property {number} currentIndex - 현재 표시되는 첫 번째 항목의 인덱스 값
+ * @property {number} width - 각 캐러셀 항목의 너비 (픽셀셀)
+ */
 
 export const useCarousel = ({ totalDataLength, offset }) => {
   // 보여줄 페이지 위치

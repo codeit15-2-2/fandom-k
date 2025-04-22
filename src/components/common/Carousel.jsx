@@ -3,94 +3,38 @@ import ChevronRight from '@assets/icons/icon_chevron-right';
 import ChevronLeft from '@assets/icons/icon_chevron-left';
 import { useCarousel } from '@hooks/useCarousel';
 
-const data = [
-  {
-    id: 1,
-    name: '지연',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-  {
-    id: 2,
-    name: '철수',
-    img: 'https://i.namu.wiki/i/rhZBEv_dOLNzEfepOM5dYZwZ98KOl-SoLNzIQGAXZepDEZiMhQNSbenYlSpiNbFDJvwsj72voNl-qNMakdbv2w.gif',
-  },
-  {
-    id: 3,
-    name: '철수3',
-    img: 'https://i.namu.wiki/i/pKp6bM6ovVkqzTlwj5lkWjCfyLCITAU3bP5chwJc7TcsgEh9dJxNGbAUfnTTlFsjAzmIG586bMk56Oa5OgHEZw.webp',
-  },
-  {
-    id: 4,
-    name: '철수4',
-    img: 'https://img.etnews.com/news/article/2024/05/08/news-p.v1.20240508.d7c0641298c54fa8ab27e31c565f0e2f_Z1.jpg',
-  },
-  {
-    id: 5,
-    name: '철수5',
-    img: 'https://img.sportsworldi.com/content/image/2024/09/05/20240905504396.jpg',
-  },
-  {
-    id: 6,
-    name: '철수6',
-    img: 'https://newneek.co/_next/image?url=https%3A%2F%2Fd2phebdq64jyfk.cloudfront.net%2Fmedia%2Farticle%2F24320d29846c4d4fb08a705c260da7b6.jpg&w=1920&q=75',
-  },
-  {
-    id: 7,
-    name: '철수7',
-    img: 'https://img.khan.co.kr/news/2024/03/06/news-p.v1.20240306.36d040a925cd45deb5d87d7f2a0771fb_P1.jpg',
-  },
-  {
-    id: 8,
-    name: '철수8',
-    img: 'https://img.allurekorea.com/allure/2022/04/style_62629af216591-927x1200.jpg',
-  },
-  {
-    id: 9,
-    name: '철수9',
-    img: 'https://img.sportsworldi.com/content/image/2024/04/09/20240409508298.jpg',
-  },
-  {
-    id: 10,
-    name: '철수10',
-    img: 'https://i.namu.wiki/i/VY9D_G7-yU9OyMOM_gzZMpKGkwZOBmJ1E5j43Dr-7DKk5OAJ1l_vX9M8pZkctaQVmSU78hFhv7wH12zMS7KZSA.webp',
-  },
-  {
-    id: 11,
-    name: '철수11',
-    img: 'https://cf.asiaartistawards.com/news/21/2024/10/2024102318243824933_1.jpg',
-  },
-  {
-    id: 12,
-    name: '철수12',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-  {
-    id: 13,
-    name: '철수13',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-  {
-    id: 14,
-    name: '철수14',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-  {
-    id: 15,
-    name: '철수15',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-  {
-    id: 16,
-    name: '철수16',
-    img: 'https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ7VhtX7lpCH-hf4qOD-SZm3h1Oa2PiPkxzupBr4CtJZwNnB3jgSn2tPg5vZkwSJv46TloTo9nEUqatww8',
-  },
-];
-const Carousel = ({ /*data*/ renderComponent }) => {
-  // 화면에 보여질 카드 개수 (직접 설정)
-  const offset = 4;
+/**
+ * Carousel 컴포넌트
+ *
+ * 슬라이드 형태로 콘텐츠를 보여주는 컴포넌트입니다.
+ * 한 번에 여러 개의 아이템을 보여줄 수 있으며, 좌우 화살표로 슬라이드를 이동할 수 있습니다.
+ *
+ *
+ * @param {Object} props - Carousel props
+ * @param {React.ComponentType<{ item: any }>} props.RenderComponent - 각 슬라이드에 렌더링할 컴포넌트. `item` prop을 받아야 합니다.
+ * @param {number} [props.slideToShow=4] - 한 번에 보여줄 아이템 수 (기본값: 4)
+ * @param {number} [props.gap=4] - 아이템 간의 간격(px 단위, 기본값: 4)
+ * @param {string} [props.itemClassName=''] - 각 슬라이드 아이템에 추가할 Tailwind CSS 클래스 또는 사용자 정의 클래스
+ * @example
+ * <Carousel
+ *   RenderComponent={({ item }) => <Card item={item} />} 컴포넌트는 함수형으로 작성해야 props를 넘겨줄 수 있음음
+ *   slideToShow={4}
+ *   gap={8}
+ *   itemClassName="rounded-lg shadow-md"
+ * />
+ *
+ *
+ * @returns {JSX.Element} 슬라이드 캐러셀 UI
+ */
 
-  // 실제 보여줄 데이터 (원본 + 앞뒤 복제본)
-  const extendedData = [...data];
+const Carousel = ({
+  data,
+  RenderComponent,
+  slideToShow = 4, // 기본값으로 4개 표시
+  gap = 4, // 아이템 간격
+  itemClassName = '', // 추가 스타일링을 위한 클래스
+  ...props
+}) => {
   const {
     currentIndex,
     width,
@@ -98,13 +42,16 @@ const Carousel = ({ /*data*/ renderComponent }) => {
     isTransitioning,
     nextSlide,
     prevSlide,
-  } = useCarousel({ totalDataLength: data.length, offset });
+  } = useCarousel({ totalDataLength: data.length, offset: slideToShow });
+
+  // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
+  const itemWidth = `calc((100% - ${(slideToShow - 1) * gap}px) / ${slideToShow})`;
 
   return (
     <div className='relative overflow-hidden p-10'>
       <motion.div
         ref={carouselRef}
-        className='flex gap-4'
+        className={`flex ${gap > 0 ? `gap-${gap}` : ''}`}
         animate={{
           x: currentIndex * -width,
         }}
@@ -115,23 +62,13 @@ const Carousel = ({ /*data*/ renderComponent }) => {
           duration: 0.5,
         }}
       >
-        {extendedData.map((item, index) => (
+        {data.map((item, index) => (
           <motion.div
-            key={`${item.id}-${index}`}
-            className='min-w-[calc(25%-12px)]'
-            initial={{ opacity: 1 }}
-            whileHover={{ scale: 1.05 }}
+            key={item.id}
+            // style={{ minWidth: itemWidth, width: itemWidth }} 크기 고정을 위한 스타일일
+            className={itemClassName}
           >
-            <div className='relative overflow-hidden rounded-lg'>
-              <img
-                src={item.img}
-                alt={item.name}
-                className='h-[300px] w-full object-cover'
-              />
-              <div className='absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black to-transparent p-4'>
-                <h3 className='text-lg font-bold text-white'>{item.name}</h3>
-              </div>
-            </div>
+            {RenderComponent && <RenderComponent item={item} />}
           </motion.div>
         ))}
       </motion.div>
