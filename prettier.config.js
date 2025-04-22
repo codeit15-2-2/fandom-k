@@ -8,8 +8,8 @@ export default {
   useTabs: false,
   trailingComma: 'all',
   arrowParens: 'always',
-  // bracketSameLine: false,
-  // bracketSpacing: true,
+  bracketSameLine: false,
+  bracketSpacing: true,
   endOfLine: 'lf',
   plugins: ['prettier-plugin-tailwindcss'],
 };
