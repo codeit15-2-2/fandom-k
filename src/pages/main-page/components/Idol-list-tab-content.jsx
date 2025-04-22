@@ -12,12 +12,23 @@ const IdolListTabContent = ({ idolData, IdolList }) => {
   if (!idolData || idolData.length === 0) {
     return <div>아이돌 정보가 없습니다.</div>;
   }
+
   return (
     <>
       <div className='grid w-full grid-cols-1 gap-5 border-2 md:grid-cols-2'>
-        {mockData.map((idol) => (
+        {idolData.map((idol) => (
           <div className='border-b border-gray-100 text-white' key={idol.id}>
-            {<div>아이돌 리스트 컴포넌트 추가할 곳</div>}
+            <IdolList
+              id={idol.id}
+              src={idol.profilePicture}
+              rank={idol.rank}
+              group={idol.group}
+              name={idol.name}
+              votes={idol.totalVotes}
+            >
+              <IdolList.IdolNameWithGroup />
+              <IdolList.IdolVoteCount />
+            </IdolList>
           </div>
         ))}
       </div>
