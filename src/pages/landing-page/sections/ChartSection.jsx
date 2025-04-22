@@ -1,4 +1,3 @@
-import Button from '@pages/landing-page/components/common/Button';
 import WristBand from '@pages/landing-page/components/wrist-band/WristBand';
 import yellowSpark from '@assets/doodles/spark-yellow.png';
 
@@ -65,7 +64,7 @@ const ChartSection = () => {
     <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
       {/* 타이틀 헤더 */}
       <div className='relative p-24'>
-        <h1 className='text-stroke-white text-[20rem] font-extrabold tracking-tight'>
+        <h1 className='text-[20rem] font-extrabold tracking-tight text-white'>
           CHART
         </h1>
         <img
@@ -95,8 +94,8 @@ const ChartSection = () => {
       {/* 설명란 + 버튼 */}
       <div className='flex flex-3 flex-col items-center justify-center gap-8'>
         <p className='text-7xl font-semibold text-white'>
-          내가 사랑하는 아티스트,
-          <br />내 손으로 1위 만듭니다.
+          내가 사랑하는 아티스트
+          <br />내 손으로 1위 만듭니다
         </p>
       </div>
     </div>
