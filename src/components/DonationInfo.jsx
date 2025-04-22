@@ -103,7 +103,11 @@ const DonationInfo = ({
 
   return (
     <DonationContext.Provider value={contextValue}>
-      <div className={donationInfoClassNames}>{children}</div>
+      <div className={donationInfoClassNames}>
+        <InfoTitle />
+        <InfoSubTitle />
+        {children}
+      </div>
     </DonationContext.Provider>
   );
 };
