@@ -5,6 +5,7 @@ import {
   DONATION_INFO_CONTENT_SIZE_STYLES,
   DONATION_INFO_SUB_CONTENT_SIZE_STYLES,
   DONATION_INFO_WIDTH_STYLES,
+  MAX_PROGRESS_PERCENT,
 } from '@constants/donationConstants';
 import { getElapsedProgress, formatDate } from '@utils/donationInfoUtils';
 
@@ -129,7 +130,10 @@ const InfoSubTitle = () => {
 // 크레딧 정보 컴포넌트
 const InfoCredit = () => {
   const { credit, targetAmount, size, isOpen } = useContext(DonationContext);
-  const progress = Math.min((credit / targetAmount) * 100, 100);
+  const progress = Math.min(
+    (credit / targetAmount) * MAX_PROGRESS_PERCENT,
+    MAX_PROGRESS_PERCENT,
+  );
 
   const infoCreditClassNames = cn(
     'ml-auto font-extralight',
