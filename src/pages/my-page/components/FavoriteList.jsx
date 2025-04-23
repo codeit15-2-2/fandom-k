@@ -1,12 +1,13 @@
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import useWindowSize from '@hooks/useWindowSize';
 import { setStoredFavorites } from '@utils/storeFavorite';
+import Spinner from '@assets/icons/icon_spinner';
 
 import { useRef, useState } from 'react';
 
-const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
+const FavoriteList = ({ favorite, idol, setFavorite, setIdol ,isLoading }) => {
   const width = useWindowSize();
-  const avatarSize = width < 1024 ? 'm' : 'l';
+  const propSize = width < 1024 ? 'm' : 'l';
 
   //좌우 스크롤
   const containerRef = useRef(null);
@@ -42,7 +43,7 @@ const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
 
   return (
     <div
-      className='scrollbar-custom cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
+      className='scrollbar-custom lg:scrollbar scrollbar-hide cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
       ref={containerRef}
       onMouseDown={handleMouseDown}
       onMouseLeave={handleMouseLeave}
@@ -61,7 +62,7 @@ const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
                 src={item.profilePicture}
                 name={item.name}
                 group={item.group}
-                size={avatarSize}
+                size={propSize}
                 onItemClick={() => handleRemoveFavorite(item)}
               >
                 <AvatarProfile.IdolRemoveButton />

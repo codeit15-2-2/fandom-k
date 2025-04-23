@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import FavoriteList from './components/FavoriteList';
 import AddFavorite from './components/AddFavorite';
 import { getIdols } from '@apis/idolsApi';
-import { getStoredFavorites} from '@utils/storeFavorite';
+import { getStoredFavorites } from '@utils/storeFavorite';
 
 export default function MyPage() {
   const [myFavorites, setMyFavorites] = useState([]);
@@ -78,6 +78,7 @@ export default function MyPage() {
                 handleMoreIdols={() => fetchIdols(nextCursor)}
                 hasMore={!!nextCursor}
                 favorite={myFavorites}
+                isLoading={isLoading}
               />
             </div>
           </section>

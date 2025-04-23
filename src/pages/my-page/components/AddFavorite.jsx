@@ -2,6 +2,9 @@ import AvatarProfile from '@components/favorites/AvatarProfile';
 import { useState, useRef, useEffect } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { setStoredFavorites } from '@utils/storeFavorite';
+import Button from '@components/common/Button';
+import Spinner from '@assets/icons/icon_spinner';
+import { button } from 'motion/react-client';
 
 const AddFavorite = ({
   idol,
@@ -10,10 +13,12 @@ const AddFavorite = ({
   handleMoreIdols,
   hasMore,
   favorite,
+  isLoading,
 }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l';
+  const buttonSize = width < 768 ? 's' : 'xl';
 
   const loaderRef = useRef(null);
 
@@ -47,7 +52,7 @@ const AddFavorite = ({
       },
       {
         threshold: 1.0,
-        rootMargin: '0px 0px -200px 0px',
+        rootMargin: '0px 0px -100px 0px',
       },
     );
 
@@ -61,6 +66,7 @@ const AddFavorite = ({
   return (
     <div>
       <div className='min-h-[260px]'>
+        {isLoading && <Spinner />}
         {idol.length > 0 ? (
           <div className='grid grid-cols-3 gap-2 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8'>
             {idol.map((item) => (
@@ -87,13 +93,22 @@ const AddFavorite = ({
       </div>
 
       <div className='fixed bottom-[5rem] left-1/2 mt-10 flex -translate-x-1/2 items-center justify-center'>
-        <button
+        <Button
+          size={buttonSize}
+          color='pink'
+          rounded
+          onClick={handleAddFavorites}
+          disabled={selectedIds.length === 0}
+        >
+          추가하기
+        </Button>
+        {/* <button
           onClick={handleAddFavorites}
           className='flex items-center gap-2 rounded-full bg-red-400 px-30 py-10 text-[2.4rem] text-white transition hover:bg-red-500'
           disabled={selectedIds.length === 0}
         >
           <span>추가하기</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );
