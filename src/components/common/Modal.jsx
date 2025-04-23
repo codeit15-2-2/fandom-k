@@ -49,7 +49,7 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
         <div className='my-4 flex items-center justify-center overflow-hidden py-3'>
           {children}
         </div>
-        <button>버튼 컴포넌트 가져오기</button>
+        {button}
         {extra && (
           <span className='caption-text mt-2 text-center'>{extra}</span>
         )}
