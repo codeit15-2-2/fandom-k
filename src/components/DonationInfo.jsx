@@ -172,11 +172,7 @@ const InfoTargetAmount = () => {
 const InfoTimer = () => {
   const { createdAt, deadline, size, isOpen } = useContext(DonationContext);
   const now = Date.now();
-  const { days, hours, minutes, seconds } = useCountdownTimer(
-    deadline,
-    now,
-    isOpen,
-  );
+  const { days, hours, minutes, seconds } = useCountdownTimer(deadline, isOpen);
   const progress = getElapsedProgress(createdAt, deadline, now);
 
   const infoTimerContentClassNames = cn(
