@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import DonateModal from './DonateModal';
-import profile from '@assets/images/img_empty-profile.webp';
 
 export default function DetailPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +22,6 @@ export default function DetailPage() {
         donateId={123}
         cardItem={{
           id: 3,
-          img: profile,
           title: '르세라핌 하이하이',
           location: '강남역 광고',
         }}

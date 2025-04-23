@@ -1,39 +1,34 @@
 import Modal from '@components/common/Modal';
-import Input from '@components/common/Input';
-import Button from '@components/common/Button';
-import IdolCardList from '@components/card/IdolCard';
-import { useCreditForm } from '@hooks/useCreditForm';
 
-const DonateModal = ({
-  isOpen,
-  close,
-  donateId,
-  cardItem,
-  credit,
-  isDonate,
-}) => {
-  const { input, error, errMsg, handleInputChange, handleReset } =
-    useCreditForm(credit, isDonate);
+import IdolCardList from '@components/card/IdolCard';
+import CreditForm from '@components/credit-form/CreditForm';
+
+//상세페이지에서 useModal hook을 통해 호출
+
+{
+  /* <DonateModal
+isOpen={isOpen}
+close={closeModal}
+donateId={123}
+cardItem={{
+  id: 3,
+  title: '르세라핌 하이하이',
+  location: '강남역 광고',
+}}
+credit={10000}
+isDonate
+/> */
+}
+
+const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
+  //크레딧 꺼내오는 로직 추가하기
 
   const handleDonate = () => {
     console.log('후원:', donateId);
-    handleReset();
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={close}
-      title='후원하기'
-      button={
-        <Button
-          btnText='후원하기'
-          color='pink'
-          onClick={handleDonate}
-          disabled={input.trim() === ''}
-        />
-      }
-    >
+    <Modal isOpen={isOpen} onClose={close} title='후원하기'>
       <div className='flex flex-col'>
         <IdolCardList
           id={cardItem.id}
@@ -42,17 +37,9 @@ const DonateModal = ({
           title={cardItem.title}
           size='s'
         ></IdolCardList>
-        <span className='content-text'>내 크레딧:{credit}</span>
-        <Input
-          value={input}
-          placeholder='크레딧 입력'
-          onChange={handleInputChange}
-          isError={error}
-          errMsg={errMsg}
-        />
-      </div>
 
-      {/* <CreditForm isDonate onClick={handleDonate} credit={credit} /> */}
+        <CreditForm isDonate onClick={handleDonate} credit={10000} />
+      </div>
     </Modal>
   );
 };
