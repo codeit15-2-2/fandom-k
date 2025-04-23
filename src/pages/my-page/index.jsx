@@ -12,11 +12,12 @@ export default function MyPage() {
   const [idols, setIdols] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [error, setError] = useState(false);
 
   const fetchIdols = async (cursor = null) => {
     if (isLoading || (cursor === null && idols.length > 0)) return;
     setIsLoading(true);
+    setError(null);
 
     try {
       const { list, nextCursor: newCursor } = await getIdols({
@@ -36,6 +37,7 @@ export default function MyPage() {
       setNextCursor(newCursor);
     } catch (err) {
       console.error(err);
+      setError('서버요청중 에러가 발생하였습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -66,6 +68,7 @@ export default function MyPage() {
           hasMore={!!nextCursor}
           favorites={favorites}
           isLoading={isLoading}
+          isError={error}
         />
       </div>
     </div>

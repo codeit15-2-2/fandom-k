@@ -12,6 +12,7 @@ const AddFavorite = ({
   hasMore,
   favorites,
   isLoading,
+  isError,
 }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   const width = useWindowSize();
@@ -91,6 +92,19 @@ const AddFavorite = ({
               ))}
 
               {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
+            </div>
+          ) : isError ? (
+            <div className='flex h-[24rem] flex-col items-center justify-center text-[2.4rem] text-red-500'>
+              서버 요청 중 에러가 발생하였습니다.
+              <Button
+                color='pink'
+                size='m'
+                onClick={handleMoreIdols}
+                rounded
+                className='mt-3'
+              >
+                재요청하기
+              </Button>
             </div>
           ) : (
             <div className='flex h-[24rem] items-center justify-center text-[2.4rem] text-gray-400'>
