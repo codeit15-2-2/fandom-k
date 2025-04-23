@@ -25,6 +25,7 @@ export default function DetailPage() {
           id: 3,
           img: profile,
           title: '르세라핌 하이하이',
+          location: '강남역 광고',
         }}
         credit={10000}
         isDonate

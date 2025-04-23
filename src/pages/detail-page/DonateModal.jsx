@@ -1,8 +1,7 @@
 import Modal from '@components/common/Modal';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
-import CreditForm from '@components/credit-form/CreditForm';
-import CardImg from '@components/common/CardImg';
+import IdolCardList from '@components/card/IdolCard';
 import { useCreditForm } from '@hooks/useCreditForm';
 
 const DonateModal = ({
@@ -36,8 +35,14 @@ const DonateModal = ({
       }
     >
       <div className='flex flex-col'>
-        <CardImg src={cardItem.img} title={cardItem.title}></CardImg>
-
+        <IdolCardList
+          id={cardItem.id}
+          src={cardItem.img}
+          location={cardItem.location}
+          title={cardItem.title}
+          size='s'
+        ></IdolCardList>
+        <span className='content-text'>내 크레딧:{credit}</span>
         <Input
           value={input}
           placeholder='크레딧 입력'
