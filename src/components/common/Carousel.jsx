@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
-
 import { useCarousel } from '@hooks/useCarousel';
 import IdolCardList from '@components/card/IdolCard';
-import Button from './Button';
 
 /**
  * Carousel 컴포넌트
@@ -34,6 +32,7 @@ const Carousel = ({
   slideToShow = 4, // 기본값으로 4개 표시
   gap = 4, // 아이템 간격
   itemClassName = '', // 추가 스타일링을 위한 클래스
+  button,
   ...props
 }) => {
   const {
@@ -43,10 +42,12 @@ const Carousel = ({
     isTransitioning,
     nextSlide,
     prevSlide,
-  } = useCarousel({ totalDataLength: data.length, offset: slideToShow });
+  } = useCarousel({ totalDataLength: data?.length, offset: slideToShow });
 
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
   const itemWidth = `calc((100% - ${(slideToShow - 1) * gap}px) / ${slideToShow})`;
+
+  if (!data) return null;
 
   return (
     <div className='relative overflow-hidden p-10'>
@@ -71,13 +72,13 @@ const Carousel = ({
           >
             {RenderComponent && (
               <RenderComponent
-                item={item}
                 id={item.id}
-                src={item.profilePicture}
-                location='지구 어딘가'
+                src={item.idol.profilePicture}
+                location={item.subtitle}
                 credit='10,000'
                 title={item.name}
                 daysLeft='4'
+                button={button}
               >
                 <IdolCardList.IdolCardFooter />
               </RenderComponent>
