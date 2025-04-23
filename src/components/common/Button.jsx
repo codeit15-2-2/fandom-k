@@ -9,7 +9,7 @@ import Spinner from '@assets/icons/icon_spinner';
 /**
  * Button 컴포넌트
  *
- * @param {string} btnText - 버튼에 표시할 텍스트
+ * 
  * @param {React.ReactNode} icon - 버튼에 포함될 아이콘
  * @param {'xl' | 'l' | 'm' | 's' | 'xs'} [size='xl'] - 버튼의 크기
  * @param {'gray' | 'pink'} [color='pink'] - 버튼 색상
@@ -25,66 +25,31 @@ import Spinner from '@assets/icons/icon_spinner';
  * 
  * 
  * @example
- *   <Button
-        className='mt-4 mb-4 ml-4' //추가 클래스네임
-        btnText='확인'
-        color='pink'
-        size='xs'
-        disabled
-        rounded
-        btnType='submit'
-        onClick={handleTest}
-      />
+ *    <Button color='pink' size='m' className='hover:bg-black  isLoading={isLoading} border rounded '>
+        하이
+      </Button>
 
 
-        <Button
-        className='mt-4 mb-4 ml-4'
-        btnText='확인'
-        color='gray'
-        size='xs'
-        rounded
-        />
-
-
-       <Button
-        className='mt-4 mb-4 ml-4'
-        btnText='확인'
-        color='gray'
-        size='xs'
-        rounded
-        isLoading={isLoading} //state를 Props로
-        />
+       
       
  */
 const Button = ({
-  btnText, //버튼 텍스트
-
-  icon, //아이콘 유무
-
-  size = 'xl', //버튼 사이즈
-
-  color = 'pink', //색상
-
+  children,
+  size = 'xl',
+  color = 'pink',
   onClick = () => {
     console.log('TestClick');
-  }, //onclick함수
-
-  className = '', //추가 className(스타일)
-
-  border = false, //border여부
-
-  disabled = false, //버튼 비활성 여부
-
-  rounded = false, // 라운드 여부
-
-  btnType = 'button', //submit,button등 type여부
-
-  isLoading = false, //로딩상태 여부
+  },
+  border = false,
+  disabled = false,
+  rounded = false,
+  btnType = 'button',
+  isLoading = false,
+  className = '',
+  ...props
 }) => {
-  //디폴트클래스네임 + size + disabled true시 스타일 + rounded true시 스타일 + border true시 스타일+ 추가 클래스네임 prop
-
   const buttonClassNames = cn(
-    'flex items-center justify-center transition-all font-bold sub-content-text ', //디폴트 클래스네임
+    'flex items-center justify-center transition-all font-bold sub-content-text',
     SIZE_STYLES[size],
     disabled ? DISABLED_STYLE : COLOR_STYLES[color],
     rounded ? 'rounded-full' : 'rounded-sm',
@@ -99,13 +64,9 @@ const Button = ({
       onClick={onClick}
       className={buttonClassNames}
       disabled={disabled}
+      {...props}
     >
-      {icon && (
-        <span className='mr-2 flex items-center justify-center object-contain'>
-          {icon}
-        </span>
-      )}
-      {isLoading ? <Spinner /> : btnText}
+      {isLoading ? <Spinner /> : children}
     </button>
   );
 };
