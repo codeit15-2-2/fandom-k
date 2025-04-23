@@ -4,28 +4,43 @@ import { useState, useEffect } from 'react';
 import FavoriteList from './components/FavoriteList';
 import AddFavorite from './components/AddFavorite';
 import { getIdols } from '@apis/idolsApi';
+import { getStoredFavorites} from '@utils/storeFavorite';
 
 export default function MyPage() {
   const [myFavorites, setMyFavorites] = useState([]);
   const [allIdols, setAllIdols] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchIdols = async (cursor = null) => {
+    if (isLoading || (cursor === null && allIdols.length > 0)) return;
+    setIsLoading(true);
+
+    try {
+      const { list, nextCursor: newCursor } = await getIdols({
+        cursor,
+        pageSize: 16,
+      });
+
+      const storedFavorites = getStoredFavorites();
+      setMyFavorites(storedFavorites);
+
+      const filteredList = list.filter(
+        (idol) => !storedFavorites.some((fav) => fav.id === idol.id),
+      );
+
+      setAllIdols((prev) => [...prev, ...filteredList]);
+      setNextCursor(newCursor);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchIdols = async () => {
-      try {
-        const { list } = await getIdols({
-          cursor: 0,
-          pageSize: 20,
-        });
-        setAllIdols(list);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     fetchIdols();
   }, []);
-
   return (
     <div className='min-h-screen w-full bg-black text-white'>
       <Header />
@@ -50,7 +65,7 @@ export default function MyPage() {
             </div>
           </section>
 
-          <section className='relative mt-5 md:mt-50'>
+          <section className='relative md:mt-30'>
             <h2 className='mb-10 text-[1.6rem] font-bold sm:text-[2.4em]'>
               관심 있는 아이돌을 추가해보세요.
             </h2>
@@ -60,6 +75,9 @@ export default function MyPage() {
                 idol={allIdols}
                 setIdol={setAllIdols}
                 setFavorite={setMyFavorites}
+                handleMoreIdols={() => fetchIdols(nextCursor)}
+                hasMore={!!nextCursor}
+                favorite={myFavorites}
               />
             </div>
           </section>

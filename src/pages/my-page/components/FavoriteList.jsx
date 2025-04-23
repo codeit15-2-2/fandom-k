@@ -1,28 +1,65 @@
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import useWindowSize from '@hooks/useWindowSize';
+import { setStoredFavorites } from '@utils/storeFavorite';
+
+import { useRef, useState } from 'react';
 
 const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
   const width = useWindowSize();
-  const avatarSize = width < 769 ? 'm' : 'l';
+  const avatarSize = width < 1024 ? 'm' : 'l';
 
+
+  //좌우 스크롤
+  const containerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
 
   //favorite에서 삭제
   const handleRemoveFavorite = (favoriteItem) => {
-    console.log('삭제:', favoriteItem);
+    const newFavorites = favorite.filter((i) => i.id !== favoriteItem.id);
+    setFavorite(newFavorites);
+    setStoredFavorites(newFavorites);
 
-    setFavorite((prev) => prev.filter((i) => i.id !== favoriteItem.id));
     setIdol((prev) => [...prev, favoriteItem]);
   };
 
   return (
-    <div className='scrollbar-hide overflow-x-auto whitespace-nowrap'>
-      <div className='flex gap-4 px-2'>
+    <div
+      className='scrollbar-hide cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseLeave={handleMouseLeave}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+    >
+      <div className='flex px-2'>
         {favorite && favorite.length > 0 ? (
           favorite.map((item) => (
-            <div key={item.id} className='inline-flex flex-col items-center'>
+            <div
+              key={item.id}
+              className='mr-10 inline-flex flex-col items-center'
+            >
               <AvatarProfile
                 id={item.id}
-                src={item.imageUrl}
+                src={item.profilePicture}
                 name={item.name}
                 group={item.group}
                 size={avatarSize}
