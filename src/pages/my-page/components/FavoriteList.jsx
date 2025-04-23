@@ -7,7 +7,6 @@ import MiddleDivider from './middleDivider';
 
 //화면상단 관심있는 아이돌로 추가된 아이돌들을 렌더링하는 컴포넌트
 
-
 const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l'; //화면크기에 따라 props에 들어갈 size값 변경
@@ -47,8 +46,8 @@ const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
   };
 
   return (
-    <div className='mt-20'>
-      <h2 className='mb-10 text-[1.6rem] font-bold sm:text-[2.4rem]'>
+    <div className='flex flex-col gap-20 py-10'>
+      <h2 className='mt-20  text-[1.6rem] font-bold sm:text-[2.4rem]'>
         내가 관심있는 아이돌
       </h2>
       {/* 레이아웃 깨짐 방지용 최소 높이 */}

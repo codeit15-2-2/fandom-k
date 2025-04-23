@@ -67,53 +67,51 @@ const IdolSelectList = ({
   }, [handleMoreIdols, hasMore]);
 
   return (
-    <div className='relative md:mt-30'>
-      <h2 className='mb-10 text-[1.6rem] font-bold sm:text-[2.4em]'>
+    <div className='relative'>
+      <h2 className='mb-20 text-[1.6rem] font-bold sm:text-[2.4em]'>
         관심 있는 아이돌을 추가해보세요.
       </h2>
       {/* 레이아웃 깨짐 방지용 최소 높이 */}
       <div className='min-h-[40rem]'>
-        <div className='min-h-[26rem]'>
-          {/* {isLoading && (
+        {/* {isLoading && (
           <Spinner className='fixed bottom-[30rem] left-1/2 h-30 w-30 -translate-x-1/2' />
         )} */}
-          {idols.length > 0 ? (
-            <div className='grid grid-cols-3 gap-2 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8'>
-              {idols.map((item) => (
-                <div key={item.id} className='flex flex-col items-center gap-3'>
-                  <AvatarProfile
-                    id={item.id}
-                    src={item.profilePicture}
-                    name={item.name}
-                    group={item.group}
-                    size={avatarSize}
-                    selectedIds={selectedIds}
-                    onItemClick={handleSelect}
-                  />
-                </div>
-              ))}
+        {idols.length > 0 ? (
+          <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8'>
+            {idols.map((item) => (
+              <div key={item.id} className='flex flex-col items-center gap-3'>
+                <AvatarProfile
+                  id={item.id}
+                  src={item.profilePicture}
+                  name={item.name}
+                  group={item.group}
+                  size={avatarSize}
+                  selectedIds={selectedIds}
+                  onItemClick={handleSelect}
+                />
+              </div>
+            ))}
 
-              {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
-            </div>
-          ) : isError ? (
-            <div className='flex h-[24rem] flex-col items-center justify-center text-[2.4rem] text-red-500'>
-              서버 요청 중 에러가 발생하였습니다.
-              <Button
-                color='pink'
-                size='m'
-                onClick={handleMoreIdols}
-                rounded
-                className='mt-3'
-              >
-                재요청하기
-              </Button>
-            </div>
-          ) : (
-            <div className='flex h-[24rem] items-center justify-center text-[2.4rem] text-gray-400'>
-              더 이상 추가할 수 있는 아이돌이 없습니다.
-            </div>
-          )}
-        </div>
+            {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
+          </div>
+        ) : isError ? (
+          <div className='flex h-[24rem] flex-col items-center justify-center text-[2.4rem] text-red-500'>
+            서버 요청 중 에러가 발생하였습니다.
+            <Button
+              color='pink'
+              size='m'
+              onClick={handleMoreIdols}
+              rounded
+              className='mt-3'
+            >
+              재요청하기
+            </Button>
+          </div>
+        ) : (
+          <div className='flex h-[24rem] items-center justify-center text-[2.4rem] text-gray-400'>
+            더 이상 추가할 수 있는 아이돌이 없습니다.
+          </div>
+        )}
 
         {/* 버튼은 하단에 고정 */}
         <div className='fixed bottom-[5rem] left-1/2 mt-10 flex -translate-x-1/2 items-center justify-center'>
