@@ -1,8 +1,8 @@
 import Header from '@components/layouts/Header';
-import FavoriteList from './components/FavoriteList';
+import FavoriteList from './components/FavoriteIdolList';
 
-import useMypageIdols from '@hooks/useMyPageIdols';
-import IdolSelectList from './components/IdolSelectList';
+import useMypageIdols from './hooks/useMyPageIdols';
+import IdolSelectList from './components/SelectIdolList';
 
 export default function MyPage() {
   const {

@@ -3,7 +3,7 @@ import useWindowSize from '@hooks/useWindowSize';
 import { setStoredFavorites } from '@utils/storeFavorite';
 
 import { useRef, useState } from 'react';
-import MiddleDivider from './middleDivider';
+import MiddleDivider from './MiddleDivider';
 
 //화면상단 관심있는 아이돌로 추가된 아이돌들을 렌더링하는 컴포넌트
 
@@ -47,7 +47,7 @@ const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
 
   return (
     <div className='flex flex-col gap-20 py-10'>
-      <h2 className='mt-20  text-[1.6rem] font-bold sm:text-[2.4rem]'>
+      <h2 className='mt-20 text-[1.6rem] font-bold sm:text-[2.4rem]'>
         내가 관심있는 아이돌
       </h2>
       {/* 레이아웃 깨짐 방지용 최소 높이 */}
