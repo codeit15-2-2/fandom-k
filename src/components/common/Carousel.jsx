@@ -52,7 +52,7 @@ const Carousel = ({
   if (!data) return null;
 
   return (
-    <div className='relative overflow-hidden p-10'>
+    <div className='relative p-10'>
       <motion.div
         ref={carouselRef}
         className={`flex ${gap > 0 ? `gap-${gap}` : ''}`}
@@ -90,14 +90,14 @@ const Carousel = ({
       </motion.div>
 
       <button
-        className='absolute top-1/2 left-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -left-10 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={prevSlide}
         disabled={isTransitioning}
       >
         <ChevronLeft />
       </button>
       <button
-        className='absolute top-1/2 right-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -right-10 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={nextSlide}
         disabled={isTransitioning}
       >
