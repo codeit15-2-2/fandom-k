@@ -25,6 +25,24 @@
   --breakpoint-lg: 1024px;
 }
 
+.scrollbar-custom::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  width: 12px;
+  background-color: white;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #000000);
+  border-radius: 6px;
+  border-radius: 20px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #00c6ff, transparent);
+}
+
 @layer base {
   @font-face {
     font-family: 'Pretendard';

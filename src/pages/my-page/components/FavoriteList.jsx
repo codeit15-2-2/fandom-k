@@ -8,7 +8,6 @@ const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l';
 
-
   //좌우 스크롤
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -43,7 +42,7 @@ const FavoriteList = ({ favorite, idol, setFavorite, setIdol }) => {
 
   return (
     <div
-      className='scrollbar-hide cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
+      className='scrollbar-custom cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
       ref={containerRef}
       onMouseDown={handleMouseDown}
       onMouseLeave={handleMouseLeave}

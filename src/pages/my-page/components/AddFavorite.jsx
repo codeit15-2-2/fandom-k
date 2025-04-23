@@ -9,7 +9,7 @@ const AddFavorite = ({
   setFavorite,
   handleMoreIdols,
   hasMore,
-  favorite
+  favorite,
 }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   const width = useWindowSize();
@@ -54,7 +54,7 @@ const AddFavorite = ({
     observer.observe(loaderRef.current);
 
     return () => {
-      observer.disconnect();// unmount,hasmore,handleMoreIdols가 변경,재호출될때마다 기존의 observer를 해제하여 메모리 누수 방지
+      observer.disconnect(); // unmount,hasmore,handleMoreIdols가 변경,재호출될때마다 기존의 observer를 해제하여 메모리 누수 방지
     };
   }, [handleMoreIdols, hasMore]);
 
@@ -86,7 +86,7 @@ const AddFavorite = ({
         )}
       </div>
 
-      <div className='mt-10 flex justify-center'>
+      <div className='fixed bottom-[5rem] left-1/2 mt-10 flex -translate-x-1/2 items-center justify-center'>
         <button
           onClick={handleAddFavorites}
           className='flex items-center gap-2 rounded-full bg-red-400 px-30 py-10 text-[2.4rem] text-white transition hover:bg-red-500'
