@@ -12,7 +12,7 @@ const IdolListTab = () => {
   }
 
   return (
-    <div className='flex h-full max-w-5/8 flex-col bg-black'>
+    <div className='flex h-full flex-col bg-black md:max-w-5/8'>
       <div className='sub-content-text flex h-[4.2rem] w-full items-center justify-between text-white'>
         <Link
           to='female'
