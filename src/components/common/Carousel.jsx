@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
 import IdolCardList from '@components/card/IdolCard';
+import ChevronLeft from '@assets/icons/icon_chevron-left';
+import ChevronRight from '@assets/icons/icon_chevron-right';
 
 /**
  * Carousel 컴포넌트
@@ -88,18 +90,18 @@ const Carousel = ({
       </motion.div>
 
       <button
-        className='absolute top-1/2 left-2 z-10 -translate-y-1/2 transform rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 left-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={prevSlide}
         disabled={isTransitioning}
       >
-        왼
+        <ChevronLeft />
       </button>
       <button
-        className='absolute top-1/2 right-2 z-10 -translate-y-1/2 transform rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 right-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={nextSlide}
         disabled={isTransitioning}
       >
-        오
+        <ChevronRight />
       </button>
     </div>
   );
