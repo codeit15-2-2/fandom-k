@@ -62,7 +62,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  * </DonationInfo>
  *
  * 2. 모집 기간
- * 내부에서 dealine과 현시점을 계산하지 않습니다.
+ * 내부에서 deadline과 현시점을 계산하지 않습니다.
  * 따라서 모집이 조기 종료될 경우엔 모집 기간의 isOpen도 false로 전달 받아야 합니다.
  * <DonationInfo
  *   title='모집 기간'
