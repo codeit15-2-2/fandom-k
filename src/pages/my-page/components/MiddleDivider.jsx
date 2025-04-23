@@ -1,3 +1,6 @@
+
+//피그마상 
+
 const MiddleDivider = () => {
   return (
     <div className='flex w-full justify-center'>

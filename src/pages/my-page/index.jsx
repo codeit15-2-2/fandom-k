@@ -1,51 +1,21 @@
-import Footer from '@components/layouts/Footer';
 import Header from '@components/layouts/Header';
-import { useState, useEffect } from 'react';
 import FavoriteList from './components/FavoriteList';
-import AddFavorite from './components/AddFavorite';
-import { getIdols } from '@apis/idolsApi';
-import { getStoredFavorites } from '@utils/storeFavorite';
-import MiddleDivider from './components/middleDivider';
+
+
+import useMypageIdols from '@hooks/useMyPageIdols';
+import IdolSelectList from './components/IdolSelectList';
 
 export default function MyPage() {
-  const [favorites, setFavorites] = useState([]);
-  const [idols, setIdols] = useState([]);
-  const [nextCursor, setNextCursor] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const fetchIdols = async (cursor = null) => {
-    if (isLoading || (cursor === null && idols.length > 0)) return;
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const { list, nextCursor: newCursor } = await getIdols({
-        cursor,
-        pageSize: 16,
-      });
-
-      const storedFavorites = getStoredFavorites();
-      setFavorites(storedFavorites);
-
-      //가져온 데이터중 localStorage상에 저장된 아이돌들은 제외
-      const filteredList = list.filter(
-        (idol) => !storedFavorites.some((fav) => fav.id === idol.id),
-      );
-
-      setIdols((prev) => [...prev, ...filteredList]);
-      setNextCursor(newCursor);
-    } catch (err) {
-      console.error(err);
-      setError('서버요청중 에러가 발생하였습니다.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchIdols();
-  }, []);
+  const {
+    favorites,
+    setFavorites,
+    idols,
+    setIdols,
+    nextCursor,
+    fetchIdols,
+    isLoading,
+    isError,
+  } = useMypageIdols();
 
   return (
     <div className='min-h-screen w-full bg-black text-white'>
@@ -60,7 +30,7 @@ export default function MyPage() {
           />
         </div>
 
-        <AddFavorite
+        <IdolSelectList
           idols={idols}
           setIdols={setIdols}
           setFavorites={setFavorites}
@@ -68,7 +38,7 @@ export default function MyPage() {
           hasMore={!!nextCursor}
           favorites={favorites}
           isLoading={isLoading}
-          isError={error}
+          isError={isError}
         />
       </div>
     </div>

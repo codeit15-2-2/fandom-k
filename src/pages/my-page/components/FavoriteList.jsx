@@ -5,6 +5,9 @@ import { setStoredFavorites } from '@utils/storeFavorite';
 import { useRef, useState } from 'react';
 import MiddleDivider from './middleDivider';
 
+//화면상단 관심있는 아이돌로 추가된 아이돌들을 렌더링하는 컴포넌트
+
+
 const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l'; //화면크기에 따라 props에 들어갈 size값 변경

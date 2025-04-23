@@ -4,7 +4,9 @@ import useWindowSize from '@hooks/useWindowSize';
 import { setStoredFavorites } from '@utils/storeFavorite';
 import Button from '@components/common/Button';
 
-const AddFavorite = ({
+//화면하단 get요청을 통해 받아온 아이돌데이터들이 렌더링되고 아이돌들을 선택하여 관심있는 아이돌에 추가하기위한 컴포넌트
+
+const IdolSelectList = ({
   idols,
   setIdols,
   setFavorites,
@@ -131,4 +133,4 @@ const AddFavorite = ({
   );
 };
 
-export default AddFavorite;
+export default IdolSelectList;
