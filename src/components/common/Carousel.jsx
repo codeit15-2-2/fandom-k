@@ -1,3 +1,4 @@
+
 import { motion } from 'motion/react';
 import { useCarousel } from '@hooks/useCarousel';
 import IdolCardList from '@components/card/IdolCard';
