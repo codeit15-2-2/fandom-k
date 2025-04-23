@@ -6,8 +6,8 @@ const SIZE_STYLES = {
   xs: 'h-[31px] w-[142px]  py-[6px]',
 };
 const COLOR_STYLES = {
-  gray: 'bg-gray-200 text-white cursor-pointer opacity-80',
-  pink: 'bg-gradient-brand text-white cursor-pointer',
+  gray: 'bg-gray-200 text-white cursor-pointer',
+  pink: 'bg-gradient-brand text-white hover:brightness-130 transition-all duration-200 cursor-pointer',
 };
 const DISABLED_STYLE =
   'bg-gray-300 text-white cursor-not-allowed pointer-events-none';
