@@ -33,7 +33,7 @@ const IdolCardContext = createContext({
  * - 기본 카드 및 후원 카드 구성을 하나로 합성한 재사용 가능한 카드 컴포넌트입니다.
  * - 내부적으로 context를 통해 하위 컴포넌트에 데이터를 공유합니다.
  * @component
- * 
+ *
  * @param {Object} props
  * @param {number} props.id - [기본카드 | 후원카드] 아이돌 ID
  * @param {string} props.src - [기본카드 | 후원카드] 카드 이미지 URL
@@ -65,11 +65,7 @@ const IdolCardContext = createContext({
  *      credit={6000}
  *      daysLeft={4}
  *      size={'s'} - 기본형 'm'
- *      button={() => (
- *        <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
- *          <Button onClick={() => console.log('후원 클릭')} />
- *        </div>
- *      )}
+ *      button={button}
  *    >
  *      <IdolCardList.IdolCardFooter />
  *    </IdolCardList>
@@ -100,7 +96,7 @@ const IdolCardList = ({
   };
 
   const IdolCardWrapClassName = cn(
-    'w-full max-w-md overflow-hidden text-[var(--color-white)]',
+    'w-1/2 max-w-md overflow-hidden text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
 
@@ -147,12 +143,16 @@ const IdolCardText = () => {
  * - 버튼은 외부에서 JSX 컴포넌트로 전달되며, 클릭 핸들러(onClick)도 함께 전달됩니다.
  */
 const IdolCardImg = () => {
-  const { src, title, button: Button, onClick } = useContext(IdolCardContext);
+  const { src, title, button, onClick } = useContext(IdolCardContext);
 
   return (
     <div className='relative'>
       <CardImg src={src} alt={title}>
-        {Button && <Button onClick={onClick} />}
+        {button && (
+          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
+            {button}
+          </div>
+        )}
       </CardImg>
     </div>
   );
