@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+body {
+  background-color: #02000e;
+}
+
 @theme {
   --font-sans: 'Pretendard', system-ui, sans-serif;
   --font-dospilgi: 'DOSPilgiMedium';

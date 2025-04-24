@@ -5,6 +5,7 @@ import {
   API_HEADERS,
 } from '@constants/apiConstants';
 
+
 /** Axios 인스턴스 생성
  ** 기본 Content type은 application/json
  ** form-data 사용 시 개별 요청에서 헤더를 변경하세요.

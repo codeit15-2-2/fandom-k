@@ -1,4 +1,3 @@
-
 import Logo from '../../assets/images/img_fandom-k-logo.webp';
 import Default from '../../assets/images/img_default-profile.webp';
 export default function Header() {
