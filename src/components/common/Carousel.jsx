@@ -49,6 +49,8 @@ const Carousel = ({
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
   const itemWidth = `calc((100% - ${(slideToShow - 1) * gap}px) / ${slideToShow})`;
 
+  console.log('data', data);
+
   if (!data) return null;
 
   return (
