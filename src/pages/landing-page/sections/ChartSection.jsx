@@ -74,8 +74,8 @@ const ChartSection = () => {
 
 // 헤더 섹션
 const ChartHeader = () => (
-  <div className='flex flex-1 items-center justify-center p-4'>
-    <h1 className='relative p-12 text-9xl font-extrabold tracking-tight text-white md:text-[20rem]'>
+  <div className='flex flex-1 items-center justify-center'>
+    <h1 className='relative p-8 text-8xl font-extrabold tracking-tight text-white md:text-[20rem]'>
       CHART
       <img
         src={yellowSpark}
@@ -88,7 +88,7 @@ const ChartHeader = () => (
 
 // 손목띠 섹션
 const ChartWristBandList = ({ bands }) => (
-  <div className='flex flex-1 flex-col items-center justify-center gap-4 px-4'>
+  <div className='-mt-5 flex flex-1 flex-col items-center justify-center gap-4'>
     {bands.map(({ idol, color, rotate, zIndex, translate, ranking }, index) => (
       <WristBand
         key={idol.id || `band-${index}`}
@@ -105,7 +105,7 @@ const ChartWristBandList = ({ bands }) => (
 
 // 설명 섹션
 const ChartDescription = () => (
-  <div className='flex flex-1 flex-col items-center justify-center px-8'>
+  <div className='flex flex-1 flex-col items-center justify-center'>
     <p className='text-center text-4xl font-semibold text-white md:text-7xl'>
       내가 사랑하는 아티스트
       <br />내 손으로 1위 만듭니다

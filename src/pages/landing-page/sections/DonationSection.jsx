@@ -1,63 +1,45 @@
-import { cn } from '@libs/cn';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
-import handphone from '@assets/elements/elem_handphone.png';
+import { cn } from '@libs/cn';
+import handphoneMobile from '@assets/elements/elem_handphone_mobile.png';
+import handphoneTablet from '@assets/elements/elem_handphone_tablet.png';
 import heart from '@assets/icons/icon_heart.svg';
 
-// 헬퍼 컴포넌트
-const HeartIcon = () => (
-  <img src={heart} className='absolute bottom-1/4 w-[10%]' />
-);
-const HandphoneImage = () => (
-  <div className='absolute bottom-0 left-1/3 flex -translate-x-1/3 flex-col items-center gap-4'>
-    <img src={handphone} alt='핸드폰 이미지' />
-  </div>
-);
-
-// 메인 후원 섹션
 const DonationSection = () => {
   return (
-    <section
-      className={cn(
-        SNAP_ITEM,
-        'from-brand-1/90 to-brand-2/90 relative bg-gradient-to-br',
-      )}
-    >
-      <div className='relative mx-auto flex h-full w-[1400px] flex-col'>
-        <DonationHeader />
-        <DonationContent />
+    <div className={cn(SNAP_ITEM, 'bg-gradient-brand-2')}>
+      {/*후원 설명 섹션 */}
+      <div className='relative flex h-full w-full flex-col items-center justify-center p-40 text-white'>
+        <div className='flex h-full flex-col items-center gap-8'>
+          <h1 className='text-center text-5xl font-semibold md:text-9xl'>
+            클릭으로
+            <br />
+            가까워지는
+          </h1>
+          <div className='relative z-0 h-full w-[1rem] rounded-full bg-white/30 md:w-[2rem]'>
+            <div className='absolute z-10 h-5/6 w-[1rem] rounded-full bg-white/70 md:w-[2rem]' />
+          </div>
+          <h1 className='text-center text-5xl font-semibold md:text-9xl'>
+            최애와
+            <br />나
+          </h1>
+        </div>
+        <div className='absolute inset-0 flex translate-y-12 items-center justify-center'>
+          {/* 모바일용 */}
+          <img
+            src={handphoneMobile}
+            className='block w-full md:hidden'
+            alt='모바일 핸드폰 이미지'
+          />
+          {/* 태블릿 이상용 */}
+          <img
+            src={handphoneTablet}
+            className='hidden translate-y-24 md:block'
+            alt='태블릿 핸드폰 이미지'
+          />
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
-
-// 헤더 섹션 + 하트 아이콘
-const DonationHeader = () => (
-  <header className='relative flex flex-1 items-center justify-center'>
-    <h1 className='text-center text-[15rem]/50 font-extrabold tracking-tight text-white'>
-      EASY
-      <br />
-      DONATION
-    </h1>
-    <HeartIcon />
-  </header>
-);
-
-// 설명 섹션 + 휴대폰 이미지
-const DonationContent = () => (
-  <div className='flex w-full flex-1 items-start justify-between text-8xl font-semibold text-white'>
-    <p className='text-left leading-tight'>
-      클릭으로
-      <br />
-      가까워지는
-    </p>
-    <div className='mx-12 h-3 flex-1 rounded-full bg-white opacity-30' />
-    <p className='text-left leading-tight'>
-      최애와
-      <br />나
-    </p>
-
-    <HandphoneImage />
-  </div>
-);
 
 export default DonationSection;

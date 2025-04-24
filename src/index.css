@@ -20,6 +20,11 @@
 
   /* 그라디언트 */
   --background-gradient-brand: linear-gradient(to right, #f96d69, #fe5493);
+  --background-gradient-brand-2: linear-gradient(
+    to bottom right,
+    #fe5493,
+    #f96d69
+  );
 }
 
 @layer base {
@@ -68,5 +73,9 @@
 
   .bg-gradient-brand {
     background: var(--background-gradient-brand);
+  }
+
+  .bg-gradient-brand-2 {
+    background: var(--background-gradient-brand-2);
   }
 }
