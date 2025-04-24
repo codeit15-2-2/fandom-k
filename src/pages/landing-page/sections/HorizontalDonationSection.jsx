@@ -7,7 +7,7 @@ const HorizontalDonationSection = () => {
   return (
     <div className={cn(SNAP_ITEM, 'bg-gradient-brand-2')}>
       {/*후원 설명 섹션 */}
-      <div className='relative flex h-full w-full max-w-[160rem] flex-col items-center justify-center p-24 text-white'>
+      <div className='relative flex h-full min-h-[120rem] w-full max-w-[160rem] flex-col items-center justify-center p-24 text-white'>
         <div className='mb-20 flex h-full w-full items-center justify-center'>
           <h1 className='text-center text-[20rem]/60 font-bold tracking-tighter'>
             EASY
@@ -15,7 +15,7 @@ const HorizontalDonationSection = () => {
             DONATION
           </h1>
         </div>
-        <div className='flex h-full w-full justify-between gap-14'>
+        <div className='mt-40 flex h-full w-full justify-between gap-14'>
           <h1 className='text-8xl font-semibold'>
             클릭으로
             <br />

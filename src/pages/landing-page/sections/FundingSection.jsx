@@ -23,7 +23,7 @@ const FundingSection = () => {
   const randomIdols = getRandomIdols();
 
   return (
-    <div className={cn(SNAP_ITEM, 'bg-white p-40')}>
+    <div className={cn(SNAP_ITEM, 'bg-white')}>
       <FundingHeader />
       <FundingCardList idols={randomIdols} />
       <FundingDescription />
@@ -34,7 +34,7 @@ const FundingSection = () => {
 // 헤더 섹션
 const FundingHeader = () => (
   <div className='flex flex-1 flex-col items-center justify-center'>
-    <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[18rem]'>
+    <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[14rem]'>
       FUNDING
     </h1>
   </div>
@@ -61,9 +61,9 @@ const FundingCardList = ({ idols }) => (
 
 // 설명 섹션
 const FundingDescription = () => (
-  <div className='mb-10 flex flex-1 flex-col items-center justify-center gap-8'>
+  <div className='mb-20 flex flex-1 flex-col items-center justify-center gap-8'>
     <img src={pinkArrow} className='w-50 rotate-10 md:w-100' />
-    <p className='text-center text-4xl font-semibold md:text-7xl'>
+    <p className='text-center text-4xl font-semibold md:text-6xl'>
       진행중인 아티스트들의 <br />
       다양한 조공을 구경해보세요
     </p>

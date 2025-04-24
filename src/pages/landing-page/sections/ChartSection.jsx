@@ -64,7 +64,7 @@ const ChartSection = () => {
   const wristBandData = getWristBandData(getRandomIdols());
 
   return (
-    <div className={cn(SNAP_ITEM, 'gap-12 bg-black')}>
+    <div className={cn(SNAP_ITEM, 'gap-4 bg-black')}>
       <ChartHeader />
       <ChartWristBandList bands={wristBandData} />
       <ChartDescription />
@@ -75,7 +75,7 @@ const ChartSection = () => {
 // 헤더 섹션
 const ChartHeader = () => (
   <div className='flex flex-1 items-center justify-center'>
-    <h1 className='relative p-8 text-8xl font-extrabold tracking-tight text-white md:text-[20rem]'>
+    <h1 className='relative p-8 text-8xl font-extrabold tracking-tight text-white md:text-[14rem]'>
       CHART
       <img
         src={yellowSpark}
@@ -106,9 +106,9 @@ const ChartWristBandList = ({ bands }) => (
 // 설명 섹션
 const ChartDescription = () => (
   <div className='flex flex-1 flex-col items-center justify-center'>
-    <p className='text-center text-4xl font-semibold text-white md:text-7xl'>
-      내가 사랑하는 아티스트
-      <br />내 손으로 1위 만듭니다
+    <p className='text-center text-4xl font-semibold text-white md:text-6xl'>
+      내가 사랑하는 아티스트를
+      <br />내 손으로 직접 1위로 만들어보세요
     </p>
   </div>
 );
