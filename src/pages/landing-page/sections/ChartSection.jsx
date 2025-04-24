@@ -75,7 +75,7 @@ const ChartSection = () => {
 // 헤더 섹션
 const ChartHeader = () => (
   <div className='relative p-24'>
-    <h1 className='text-[20rem] font-extrabold tracking-tight text-white'>
+    <h1 className='text-8xl font-extrabold tracking-tight text-white md:text-[20rem]'>
       CHART
     </h1>
     <img

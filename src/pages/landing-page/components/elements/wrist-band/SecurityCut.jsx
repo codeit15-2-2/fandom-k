@@ -1,10 +1,10 @@
 const ZigZag = ({ color }) => {
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col md:gap-6'>
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className={`bg-${color} h-[0.2rem] w-[2rem] rounded-full`}
+          className={`bg-${color} h-4 w-1 rounded-full md:h-[0.2rem] md:w-[2rem]`}
           style={{
             transform: `rotate(${i % 2 === 0 ? -60 : 60}deg)`,
           }}

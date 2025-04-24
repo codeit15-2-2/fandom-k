@@ -17,7 +17,7 @@ const Triangle = ({ color }) => {
   return (
     <div
       className={cn(
-        '-mr-8 h-0 w-0 border-20 border-solid border-transparent',
+        '-mr-4 h-0 w-0 border-[10px] border-solid border-transparent md:-mr-8 md:border-[20px]',
         borderClass,
       )}
     />
