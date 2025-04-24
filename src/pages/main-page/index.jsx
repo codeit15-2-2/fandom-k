@@ -5,6 +5,7 @@ import MyCredit from './components/MyCredit';
 import { IdolDonate } from '@mocks/idol-donate-mock';
 import Modal from '@components/common/Modal';
 import useModal from '@hooks/useModal';
+import CreditModal from './components/CreditModal';
 
 const data = IdolDonate();
 console.log(data);
@@ -21,12 +22,12 @@ export default function MainPage() {
   //   fetchDonateData();
   // }, []);
 
-  const { isOpen, open, close } = useModal();
+  const creditModal = useModal();
   return (
     <div className='flex h-screen w-screen flex-col items-center'>
-      <MyCredit open={open} />
+      <MyCredit open={creditModal.open} />
       <DonateCarousel idolData={data} />
-      <Modal isOpen={isOpen} onClose={close}></Modal>
+      <CreditModal creditModal={creditModal}></CreditModal>
     </div>
   );
 }
