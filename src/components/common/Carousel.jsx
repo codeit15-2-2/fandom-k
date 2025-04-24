@@ -79,8 +79,8 @@ const Carousel = ({
                 id={item.id}
                 src={item.idol.profilePicture}
                 location={item.subtitle}
-                credit='10,000'
-                title={item.name}
+                credit={item.receivedDonations}
+                title={item.title}
                 daysLeft='4'
                 button={button}
               >
