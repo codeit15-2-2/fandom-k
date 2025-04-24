@@ -2,22 +2,31 @@ import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
 import MyCredit from './components/MyCredit';
+import { IdolDonate } from '@mocks/idol-donate-mock';
+import Modal from '@components/common/Modal';
+import useModal from '@hooks/useModal';
+
+const data = IdolDonate();
+console.log(data);
 
 export default function MainPage() {
-  const [idolData, setIdolData] = useState();
+  // const [idolData, setIdolData] = useState();
 
-  useEffect(() => {
-    const fetchDonateData = async () => {
-      const result = await getDonate();
-      setIdolData(result.list);
-    };
+  // useEffect(() => {
+  //   const fetchDonateData = async () => {
+  //     const result = await getDonate();
+  //     setIdolData(result.list);
+  //   };
 
-    fetchDonateData();
-  }, []);
+  //   fetchDonateData();
+  // }, []);
+
+  const { isOpen, open, close } = useModal();
   return (
     <div className='flex h-screen w-screen flex-col items-center'>
-      <MyCredit />
-      <DonateCarousel idolData={idolData} />
+      <MyCredit open={open} />
+      <DonateCarousel idolData={data} />
+      <Modal isOpen={isOpen} onClose={close}></Modal>
     </div>
   );
 }

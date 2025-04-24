@@ -1,9 +1,6 @@
 import Jewel from '@assets/icons/icon_jewel';
-import Modal from '@components/common/Modal';
-import useModal from '@hooks/useModal';
 
-const MyCredit = ({ credit }) => {
-  const { isOpen, open, close } = useModal();
+const MyCredit = ({ credit, open }) => {
   return (
     <>
       <div className='flex h-[8.5rem] w-full max-w-5/8 items-center justify-between rounded-xl border border-white bg-black px-10 sm:h-[13rem]'>
@@ -25,9 +22,6 @@ const MyCredit = ({ credit }) => {
           </button>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={close}>
-        임시 모달
-      </Modal>
     </>
   );
 };

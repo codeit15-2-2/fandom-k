@@ -35,12 +35,12 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-2 flex h-screen w-screen items-center justify-center bg-[#fffff]'>
+    <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-100 flex h-screen w-screen items-center justify-center bg-[#000000]/70'>
       <div className='modal-content relative flex max-h-[80%] w-[90%] max-w-md min-w-64 flex-col rounded-2xl bg-[#181D26] p-10 text-white md:max-w-xl lg:max-w-2xl'>
         <div className='mb-3 flex justify-between'>
           {title && <p className='content-text'>{title}</p>}
           <button
-            className='content-text absolute top-9 right-10 cursor-pointer text-white/50'
+            className='content-text absolute top-9 right-10 z-99 cursor-pointer text-white/50'
             onClick={onClose}
             aria-label='모달 닫기'
           >

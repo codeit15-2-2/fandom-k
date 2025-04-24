@@ -9,7 +9,7 @@ const DonateCarousel = ({ idolData }) => {
       <Carousel
         data={idolData}
         RenderComponent={IdolCardList}
-        button={<Button btnText='후원하기' />}
+        button={<Button color='pink'>후원하기</Button>}
       />
     </div>
   );
