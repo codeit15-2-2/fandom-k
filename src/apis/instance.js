@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { API_HEADERS, API_TIMEOUT, HEADERS } from '@constants/apiConstants';
+import {
+  API_BASE_URL,
+  API_TIMEOUT,
+  API_HEADERS,
+} from '@constants/apiConstants';
+
 
 /** Axios 인스턴스 생성
  ** 기본 Content type은 application/json

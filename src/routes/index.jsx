@@ -11,12 +11,11 @@ import Content from '@pages/main-page/pages/Content';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <LandingPage />,
+  },
+  {
     element: <App />,
     children: [
-      {
-        index: true,
-        element: <LandingPage />,
-      },
       {
         path: 'main',
         element: <MainPage />,
