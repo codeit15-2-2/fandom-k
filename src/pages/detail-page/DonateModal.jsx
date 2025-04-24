@@ -1,5 +1,5 @@
 import Modal from '@components/common/Modal';
-import { ContributeDonation } from '@apis/donateApi';
+import { ContributeDonation } from '@apis/ContributeApi';
 import IdolCardList from '@components/card/IdolCard';
 import CreditForm from '@components/credit-form/CreditForm';
 import useCredit from '@hooks/useCredit';
