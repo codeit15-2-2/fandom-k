@@ -23,7 +23,7 @@ const FundingSection = () => {
   const randomIdols = getRandomIdols();
 
   return (
-    <div className={cn(SNAP_ITEM, 'bg-white')}>
+    <div className={cn(SNAP_ITEM, 'bg-white p-40')}>
       <FundingHeader />
       <FundingCardList idols={randomIdols} />
       <FundingDescription />

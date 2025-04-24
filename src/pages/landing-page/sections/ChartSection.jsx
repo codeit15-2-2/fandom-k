@@ -64,7 +64,7 @@ const ChartSection = () => {
   const wristBandData = getWristBandData(getRandomIdols());
 
   return (
-    <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
+    <div className={cn(SNAP_ITEM, 'gap-12 bg-black')}>
       <ChartHeader />
       <ChartWristBandList bands={wristBandData} />
       <ChartDescription />
@@ -88,7 +88,7 @@ const ChartHeader = () => (
 
 // 손목띠 섹션
 const ChartWristBandList = ({ bands }) => (
-  <div className='-mt-5 flex flex-1 flex-col items-center justify-center gap-4'>
+  <div className='-mt-20 flex flex-1 flex-col items-center justify-center gap-4'>
     {bands.map(({ idol, color, rotate, zIndex, translate, ranking }, index) => (
       <WristBand
         key={idol.id || `band-${index}`}
