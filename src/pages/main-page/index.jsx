@@ -2,6 +2,8 @@
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
+import IdolListTab from './components/Idol-list-tab';
+
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -18,6 +20,7 @@ export default function MainPage() {
     <div>
       Main
       <DonateCarousel idolData={idolData} />
+      <IdolListTab />
     </div>
   );
 }

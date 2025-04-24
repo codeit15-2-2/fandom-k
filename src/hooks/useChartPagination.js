@@ -3,7 +3,7 @@ import { getCharts } from '@apis/chartsApi';
 
 /**
  * 차트 리스트 페이지네이션을 위한 커스텀 훅
- * 
+ *
  * @param {'male' | 'female'} gender - 조회할 차트 성별 (남자/여자)
  * @returns {{
  *   chartDataList: Array,              // 현재까지 불러온 차트 데이터 리스트
@@ -39,6 +39,29 @@ export const useChartPagination = (gender) => {
   };
 
   /**
+   * totalVotes 기준으로 내림차순 정렬한 후,
+   * 동점자는 동일한 순위를 부여하고 순위를 재계산합니다.
+   *
+   * @param {Array} idols - 순위를 부여할 아이돌 리스트
+   * @returns {Array} - rank 속성이 포함된 아이돌 객체 리스트
+   */
+  const assignRanks = (idols) => {
+    let currentRank = 1; // 현재 순위 (시작은 1위)
+    return idols
+      .sort((a, b) => b.totalVotes - a.totalVotes) // totalVotes 기준 내림차순 정렬
+      .map((idol, index, arr) => {
+        if (index === 0) return { ...idol, rank: currentRank }; // 첫 번째 항목은 무조건 1위
+
+        const prev = arr[index - 1];
+        const isSameVotes = idol.totalVotes === prev.totalVotes;
+
+        // 동점이면 이전과 같은 순위, 아니면 현재 인덱스 기준 +1 순위
+        currentRank = isSameVotes ? currentRank : index + 1;
+        return { ...idol, rank: currentRank };
+      });
+  };
+
+  /**
    * 차트 데이터 요청 함수
    * @param {number} cursor - 현재 커서 위치 (기본값 0)
    */
@@ -51,7 +74,14 @@ export const useChartPagination = (gender) => {
         cursor,
         pageSize,
       });
-      setChartDataList((prev) => [...prev, ...res.idols]);
+
+      // 전체 리스트를 합치고 정렬 + totalVotes 기준 정렬 후 rank 재할당
+      setChartDataList((prev) => {
+        const combined = [...prev, ...res.idols];
+        const ranked = assignRanks(combined);
+        return ranked;
+      });
+
       setNextCursor(res.nextCursor);
     } catch (error) {
       console.log('차트 데이터 요청 실패:', error);
