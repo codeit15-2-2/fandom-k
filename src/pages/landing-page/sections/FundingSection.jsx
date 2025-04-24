@@ -33,7 +33,7 @@ const FundingSection = () => {
 // 헤더 섹션
 const FundingHeader = () => (
   <div className='flex flex-1 flex-col items-center justify-center'>
-    <h1 className='text-[20rem] font-extrabold tracking-tight text-black'>
+    <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[18rem]'>
       FUNDING
     </h1>
   </div>
@@ -61,7 +61,7 @@ const FundingCardList = ({ idols }) => (
 // 설명 섹션
 const FundingDescription = () => (
   <div className='flex flex-1 flex-col items-center justify-center gap-8'>
-    <p className='text-center text-7xl font-semibold'>
+    <p className='text-center text-4xl font-semibold md:text-7xl'>
       진행중인 아티스트들의 <br />
       다양한 조공을 구경해보세요
     </p>

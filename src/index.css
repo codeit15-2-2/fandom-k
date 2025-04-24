@@ -20,11 +20,6 @@
 
   /* 그라디언트 */
   --background-gradient-brand: linear-gradient(to right, #f96d69, #fe5493);
-
-  /* 반응형 breakpoint */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
 }
 
 @layer base {
@@ -51,21 +46,20 @@
 }
 
 @layer components {
-  /* 기본값: PC, Tablet */
   .title-text {
-    @apply text-[2.4rem] font-bold; /* 24px */
+    @apply text-[2rem] font-bold md:text-[2.4rem]; /* mobile 20px / pc, tablet 24px */
   }
 
   .sub-title-text {
-    @apply text-[2rem] font-bold; /* 20px */
+    @apply text-[1.6rem] font-bold md:text-[2rem]; /* mobile 16px / pc, tablet 20px */
   }
 
   .content-text {
-    @apply text-[1.6rem] font-normal; /* 16px */
+    @apply text-[1.4rem] font-normal md:text-[1.6rem]; /* mobile 14px / pc, tablet 16px */
   }
 
   .sub-content-text {
-    @apply text-[1.4rem] font-normal; /* 14px */
+    @apply text-[1.2rem] font-normal md:text-[1.4rem]; /* mobile 12px / pc, tablet 14px */
   }
 
   .caption-text {
@@ -74,24 +68,5 @@
 
   .bg-gradient-brand {
     background: var(--background-gradient-brand);
-  }
-
-  /* 모바일 */
-  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
-    .title-text {
-      @apply text-[2rem]; /* 20px */
-    }
-
-    .sub-title-text {
-      @apply text-[1.6rem]; /* 16px */
-    }
-
-    .content-text {
-      @apply text-[1.4rem]; /* 14px */
-    }
-
-    .caption-text {
-      @apply text-[1.2rem]; /* 12px */
-    }
   }
 }

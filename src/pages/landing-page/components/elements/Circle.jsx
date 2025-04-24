@@ -1,9 +1,9 @@
 import { cn } from '@libs/cn';
 
 const CIRCLE_SIZE = {
-  lg: 'w-100 h-100',
-  md: 'w-70 h-70',
-  sm: 'w-50 h-50',
+  lg: 'w-60 h-60 md:w-100 md:h-100',
+  md: 'w-40 h-40 md:w-80 md:h-80',
+  sm: 'w-30 h-30 md:w-60 md:h-60',
 };
 
 const Circle = ({ img, size }) => {
