@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useCallback,
-} from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 /**
  * @typedef {Object} CarouselOptions
  * @property {number} totalDataLength - 캐러셀에 표시할 전체 데이터 항목의 수

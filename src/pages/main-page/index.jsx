@@ -1,9 +1,6 @@
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
-import { IdolDate } from '@mocks/Idoldata';
-
-// const data = IdolDate();
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
