@@ -4,7 +4,7 @@ const FundingCard = ({ image, title, location, rotate, translate }) => {
   return (
     <div
       className={cn(
-        'flex h-130 w-80 flex-col overflow-hidden rounded-3xl text-white drop-shadow-2xl/30 md:h-150 md:w-100',
+        'flex h-110 w-70 flex-col overflow-hidden rounded-3xl text-white drop-shadow-2xl/30 md:h-150 md:w-100',
         rotate,
         translate,
       )}

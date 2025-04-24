@@ -27,8 +27,18 @@ const Triangle = ({ color }) => {
 const TrianglePattern = ({ color }) => {
   return (
     <div className='flex'>
+      {/* 모바일: 3개 */}
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={`triangle-sm-${i}`} className='block md:hidden'>
+          <Triangle color={color} />
+        </div>
+      ))}
+
+      {/* 태블릿 이상: 5개 */}
       {Array.from({ length: 5 }).map((_, i) => (
-        <Triangle key={`triangle-${i}`} color={color} />
+        <div key={`triangle-md-${i}`} className='hidden md:block'>
+          <Triangle color={color} />
+        </div>
       ))}
     </div>
   );
