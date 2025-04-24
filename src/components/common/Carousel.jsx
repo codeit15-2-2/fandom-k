@@ -3,6 +3,7 @@ import { useCarousel } from '@hooks/useCarousel';
 import IdolCardList from '@components/card/IdolCard';
 import ChevronLeft from '@assets/icons/icon_chevron-left';
 import ChevronRight from '@assets/icons/icon_chevron-right';
+import { useState, useEffect } from 'react';
 
 /**
  * Carousel 컴포넌트
@@ -37,6 +38,26 @@ const Carousel = ({
   button,
   ...props
 }) => {
+  const [responsiveOffset, setResponsiveOffset] = useState(slideToShow);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setResponsiveOffset(4);
+      } else if (window.innerWidth >= 768) {
+        setResponsiveOffset(3);
+      } else if (window.innerWidth >= 640) {
+        setResponsiveOffset(2);
+      } else {
+        setResponsiveOffset(1);
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const {
     currentIndex,
     width,
@@ -44,15 +65,19 @@ const Carousel = ({
     isTransitioning,
     nextSlide,
     prevSlide,
-  } = useCarousel({ totalDataLength: data?.length, offset: slideToShow });
+  } = useCarousel({
+    totalDataLength: data?.length,
+    offset: responsiveOffset,
+    data,
+  });
 
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
-  const itemWidth = `calc((100% - ${(slideToShow - 1) * gap}px) / ${slideToShow})`;
+  const itemWidth = `calc((100% - ${(responsiveOffset - 1) * gap}px) / ${responsiveOffset})`;
 
   if (!data) return null;
 
   return (
-    <div className='relative p-10'>
+    <div className='relative'>
       <motion.div
         ref={carouselRef}
         className={`flex ${gap > 0 ? `gap-${gap}` : ''}`}
@@ -60,9 +85,7 @@ const Carousel = ({
           x: currentIndex * -width,
         }}
         transition={{
-          type: 'spring',
-          stiffness: 300,
-          damping: 30,
+          type: 'tween',
           duration: 0.5,
         }}
       >
@@ -70,7 +93,7 @@ const Carousel = ({
           <motion.div
             key={item.id}
             style={{ minWidth: itemWidth, width: itemWidth }}
-            className={itemClassName}
+            className={`${itemClassName}`}
           >
             {RenderComponent && (
               <RenderComponent
