@@ -9,7 +9,6 @@ export default function App() {
       <main>
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 }
