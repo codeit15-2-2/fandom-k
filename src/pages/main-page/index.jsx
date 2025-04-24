@@ -1,6 +1,7 @@
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
+import MyCredit from './components/MyCredit';
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -14,8 +15,8 @@ export default function MainPage() {
     fetchDonateData();
   }, []);
   return (
-    <div>
-      Main
+    <div className='flex h-screen w-screen flex-col items-center'>
+      <MyCredit />
       <DonateCarousel idolData={idolData} />
     </div>
   );
