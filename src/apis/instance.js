@@ -1,6 +1,9 @@
 import axios from 'axios';
-import { API_BASE_URL, API_TIMEOUT } from '@constants/apiConstants';
-import Header from '@components/layouts/Header';
+import {
+  API_BASE_URL,
+  API_TIMEOUT,
+  API_HEADERS,
+} from '@constants/apiConstants';
 
 /** Axios 인스턴스 생성
  ** 기본 Content type은 application/json
@@ -9,7 +12,7 @@ import Header from '@components/layouts/Header';
 const instance = axios.create({
   baseURL: API_BASE_URL,
   timeout: API_TIMEOUT,
-  headers: Header.JSON,
+  headers: API_HEADERS.JSON,
 });
 
 // 에러 메시지 추출 유틸 함수
