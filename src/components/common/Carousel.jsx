@@ -4,6 +4,7 @@ import IdolCardList from '@components/card/IdolCard';
 import ChevronLeft from '@assets/icons/icon_chevron-left';
 import ChevronRight from '@assets/icons/icon_chevron-right';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Carousel 컴포넌트
@@ -37,6 +38,8 @@ const Carousel = ({
   button,
   ...props
 }) => {
+  const navigate = useNavigate();
+
   const [responsiveOffset, setResponsiveOffset] = useState(slideToShow);
 
   useEffect(() => {
@@ -73,8 +76,6 @@ const Carousel = ({
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
   const itemWidth = `calc((100% - ${(responsiveOffset - 1) * gap}px) / ${responsiveOffset})`;
 
-  console.log('data', data);
-
   if (!data) return null;
 
   return (
@@ -92,6 +93,7 @@ const Carousel = ({
       >
         {data.map((item) => (
           <motion.div
+            onClick={() => navigate(`${item.id}`, { state: { item } })}
             key={item.id}
             style={{ minWidth: itemWidth, width: itemWidth }}
           >
