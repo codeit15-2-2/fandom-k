@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const DonateCarousel = ({ idolData }) => {
   const navigate = useNavigate();
   return (
-    <div className='w-full p-20'>
+    <div className='flex w-full flex-col gap-5 p-20'>
       <h1 className='title-text text-white'>후원을 기다리는 조공</h1>
       <Carousel
         data={idolData}

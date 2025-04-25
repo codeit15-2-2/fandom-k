@@ -1,7 +1,7 @@
 import Modal from '@components/common/Modal';
 import CreditForm from '@components/credit-form/CreditForm';
 
-const CreditModal = ({ creditModal }) => {
+const CreditModal = ({ creditModal, credit, handleChargeCredit }) => {
   return (
     <>
       <Modal
@@ -9,7 +9,7 @@ const CreditModal = ({ creditModal }) => {
         onClose={creditModal.close}
         title='크레딧 충전하기'
       >
-        <CreditForm isDonate credit='0' />
+        <CreditForm credit={credit} onClick={handleChargeCredit} />
       </Modal>
     </>
   );
