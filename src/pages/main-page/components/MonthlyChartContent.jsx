@@ -46,7 +46,12 @@ export default function MonthlyChartContent() {
             border
             btnType='button'
             isLoading={isLoading}
-            onClick={() => fetchIdolData(nextCursor)}
+            disabled={isLoading}
+            onClick={() => {
+              // 다음 페이지가 없을 때 호출되지 않도록
+              if (nextCursor === null) return;
+              fetchIdolData(nextCursor);
+            }}
           >
             더보기
           </Button>
