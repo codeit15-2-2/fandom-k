@@ -4,7 +4,6 @@ import IdolCardList from '@components/card/IdolCard';
 import ChevronLeft from '@assets/icons/icon_chevron-left';
 import ChevronRight from '@assets/icons/icon_chevron-right';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * Carousel 컴포넌트
@@ -38,8 +37,6 @@ const Carousel = ({
   button,
   ...props
 }) => {
-  const navigate = useNavigate();
-
   const [responsiveOffset, setResponsiveOffset] = useState(slideToShow);
 
   useEffect(() => {
@@ -93,18 +90,20 @@ const Carousel = ({
       >
         {data.map((item) => (
           <motion.div
-            onClick={() => navigate(`${item.id}`, { state: { item } })}
+            className='flex justify-center'
             key={item.id}
             style={{ minWidth: itemWidth, width: itemWidth }}
           >
             {RenderComponent && (
               <RenderComponent
+                data={item}
                 id={item.id}
                 src={item.idol.profilePicture}
                 location={item.subtitle}
                 credit={item.receivedDonations}
+                targetCredit={item.targetDonation}
                 title={item.title}
-                daysLeft='4'
+                deadline={item.deadline}
                 button={button}
               >
                 <IdolCardList.IdolCardFooter />

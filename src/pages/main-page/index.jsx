@@ -17,14 +17,13 @@ export default function MainPage() {
     fetchDonateData();
   }, []);
 
-
   const creditModal = useModal();
 
   return (
-    <div className='flex h-screen w-screen flex-col items-center'>
+    <div className='flex h-screen w-screen flex-col items-center px-20'>
       <MyCredit open={creditModal.open} />
       <DonateCarousel idolData={idolData} />
       <CreditModal creditModal={creditModal}></CreditModal>
     </div>
-  )
+  );
 }
