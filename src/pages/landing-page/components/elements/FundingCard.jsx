@@ -4,7 +4,7 @@ const FundingCard = ({ image, title, location, rotate, translate }) => {
   return (
     <div
       className={cn(
-        'z-10 flex h-150 w-[25rem] flex-col overflow-hidden rounded-3xl text-white drop-shadow-2xl/30',
+        'flex h-110 w-70 flex-col overflow-hidden rounded-3xl text-white drop-shadow-2xl/30 md:h-150 md:w-100',
         rotate,
         translate,
       )}
@@ -18,10 +18,10 @@ const FundingCard = ({ image, title, location, rotate, translate }) => {
       </div>
       <div className='from-brand-1 to-brand-2 flex h-1/5 flex-col rounded-b-3xl bg-gradient-to-r p-4'>
         <div className='flex justify-between'>
-          <p className='text-xl font-semibold'>{location}</p>
-          <p className='text-xl font-semibold text-white'>D-5</p>
+          <p className='text-lg font-semibold md:text-xl'>{location}</p>
+          <p className='text-lg font-semibold text-white md:text-xl'>D-5</p>
         </div>
-        <h1 className='text-2xl leading-snug font-bold'>{title}</h1>
+        <h1 className='text-xl leading-snug font-bold md:text-2xl'>{title}</h1>
       </div>
     </div>
   );

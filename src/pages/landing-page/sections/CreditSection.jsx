@@ -2,28 +2,22 @@ import { cn } from '@libs/cn';
 import Button from '@pages/landing-page/components/common/Button';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import loopVideo from '@assets/loop.mp4';
-import DarkLayout from '@pages/landing-page/components/common/DarkLayout';
-
-// 비디오 및 텍스트 공통 스타일 상수
-const HEADER_CLASS =
-  'z-20 flex h-[30vh] items-center justify-center text-[15rem] font-semibold text-white';
-const DESCRIPTION_CLASS =
-  'z-20 flex flex-col items-center justify-center gap-12 text-6xl text-white';
+import logo from '@assets/logos/logo.png';
 
 // 메인 크레딧 섹션
 const CreditSection = () => (
-  <section className={cn(SNAP_ITEM, 'relative overflow-hidden bg-black')}>
-    <DarkLayout />
+  <section className={cn(SNAP_ITEM, 'relative bg-[#000000]')}>
     <CreditBackgroundVideo />
     <CreditHeader />
     <CreditDescription />
+    <GradientLayout />
   </section>
 );
 
 // 배경 비디오 컴포넌트
 const CreditBackgroundVideo = () => (
   <video
-    className='absolute inset-0 z-0 h-[100%] object-contain'
+    className='absolute left-1/2 z-0 h-full w-full max-w-[120rem] min-w-[80rem] -translate-x-1/2 -translate-y-1/8 object-contain'
     loop
     autoPlay
     muted
@@ -32,19 +26,25 @@ const CreditBackgroundVideo = () => (
   </video>
 );
 
-// 헤더 섹션
-const CreditHeader = () => (
-  <div className={HEADER_CLASS}>
-    <h1>FANDOM-K</h1>
-  </div>
+// 배경 그래디언트 레이아웃
+const GradientLayout = () => (
+  <div className='to-brand-2/20 absolute bottom-0 z-0 h-full w-full bg-gradient-to-tl from-purple-100/10 via-purple-500/10' />
 );
+
+// 헤더 섹션
+const CreditHeader = () => <div className='h-1/4' />;
 
 // 설명 + CTA 섹션
 const CreditDescription = () => (
-  <div className={DESCRIPTION_CLASS}>
-    <p>당신의 사랑을 FANDOM-K가 함께합니다</p>
+  <div className='z-10 mt-20 flex flex-col items-center justify-center gap-16 text-4xl font-semibold text-white md:mt-10 md:text-7xl'>
+    <div className='flex flex-col gap-4'>
+      <p className='text-center'>진심이 현실이 되는 공간</p>
+      <p className='flex items-center justify-center gap-2'>
+        <img src={logo} className='h-auto w-1/5' alt='FANDOM-K 로고' />
+        <span>에서 시작해보세요</span>
+      </p>
+    </div>
     <Button>크레딧 받고 시작하기</Button>
   </div>
 );
-
 export default CreditSection;

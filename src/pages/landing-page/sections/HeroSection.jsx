@@ -58,13 +58,13 @@ const PINK_CIRCLES = [
 // 히어로 메인 섹션
 const HeroSection = () => (
   <section className={cn(SNAP_ITEM, 'relative w-full bg-black')}>
-    <div className='relative grid h-[100rem] w-[160rem] grid-cols-10 grid-rows-6 place-items-center gap-12'>
+    <div className='relative grid min-h-screen w-full max-w-[160rem] grid-cols-10 grid-rows-6 place-items-center gap-8 px-4 py-20 md:min-h-[100rem] md:gap-12 md:px-0 md:py-0'>
       <DarkLayout />
       <CircleRender circles={IDOL_CIRCLES} />
       <CircleRender circles={PINK_CIRCLES} />
       <HeroHeader />
+      <TeamInfo />
     </div>
-    <TeamInfo />
   </section>
 );
 
@@ -79,10 +79,17 @@ const CircleRender = ({ circles }) =>
 // 히어로 헤더 섹션
 const HeroHeader = () => (
   <div className='z-20 col-span-full row-span-full'>
-    <div className='flex flex-col items-center gap-12'>
+    <div className='flex flex-col items-center gap-6 px-4 md:gap-12 md:px-12'>
       <img src={logo} alt='로고' className='w-full' />
-      <h1 className='text-center text-6xl font-semibold text-white'>
-        나를 설레게 했던 순간, 이제는 내가 보답할 때
+      <h1 className='title-text text-center font-semibold text-white'>
+        <span className='block md:hidden'>
+          나를 설레게 했던 순간
+          <br />
+          이제는 내가 보답할 때
+        </span>
+        <span className='hidden md:inline'>
+          나를 설레게 했던 순간, 이제는 내가 보답할 때
+        </span>
       </h1>
       <Button>시작하기</Button>
     </div>
@@ -91,7 +98,7 @@ const HeroHeader = () => (
 
 // 팀 정보 섹션
 const TeamInfo = () => (
-  <div className='z-20 mt-12 text-2xl text-white'>
+  <div className='z-20 col-span-full row-start-6 px-4 text-lg text-white md:px-0 md:text-2xl'>
     <p className='text-center'>
       Codeit Sprint Frontend Engineering Bootcamp 15
     </p>

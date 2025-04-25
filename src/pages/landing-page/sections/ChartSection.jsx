@@ -34,13 +34,13 @@ const WRISTBAND_STYLES = [
   {
     color: 'teal-500',
     rotate: 'rotate-5',
-    translate: '-translate-x-30',
+    translate: '-translate-x-10',
     zIndex: 'z-20',
   },
   {
     color: 'brand-1',
     rotate: '-rotate-5',
-    translate: 'translate-x-2',
+    translate: 'translate-x-10',
     zIndex: 'z-30',
   },
   {
@@ -64,7 +64,7 @@ const ChartSection = () => {
   const wristBandData = getWristBandData(getRandomIdols());
 
   return (
-    <div className={cn(SNAP_ITEM, 'bg-black p-24')}>
+    <div className={cn(SNAP_ITEM, 'gap-4 bg-black')}>
       <ChartHeader />
       <ChartWristBandList bands={wristBandData} />
       <ChartDescription />
@@ -74,21 +74,21 @@ const ChartSection = () => {
 
 // 헤더 섹션
 const ChartHeader = () => (
-  <div className='relative p-24'>
-    <h1 className='text-[20rem] font-extrabold tracking-tight text-white'>
+  <div className='flex flex-1 items-center justify-center'>
+    <h1 className='relative p-8 text-8xl font-extrabold tracking-tight text-white md:text-[14rem]'>
       CHART
+      <img
+        src={yellowSpark}
+        alt='스파크 이미지'
+        className='absolute inset-0 w-20 md:w-40'
+      />
     </h1>
-    <img
-      src={yellowSpark}
-      alt='스파크 이미지'
-      className='absolute inset-0 top-24 w-40'
-    />
   </div>
 );
 
 // 손목띠 섹션
 const ChartWristBandList = ({ bands }) => (
-  <div className='-mt-40 flex flex-col gap-4'>
+  <div className='-mt-20 flex flex-1 flex-col items-center justify-center gap-4'>
     {bands.map(({ idol, color, rotate, zIndex, translate, ranking }, index) => (
       <WristBand
         key={idol.id || `band-${index}`}
@@ -105,10 +105,10 @@ const ChartWristBandList = ({ bands }) => (
 
 // 설명 섹션
 const ChartDescription = () => (
-  <div className='flex flex-3 flex-col items-center justify-center gap-8'>
-    <p className='text-center text-7xl font-semibold text-white'>
-      내가 사랑하는 아티스트
-      <br />내 손으로 1위 만듭니다
+  <div className='flex flex-1 flex-col items-center justify-center'>
+    <p className='text-center text-4xl font-semibold text-white md:text-6xl'>
+      내가 사랑하는 아티스트를
+      <br />내 손으로 직접 1위로 만들어보세요
     </p>
   </div>
 );
