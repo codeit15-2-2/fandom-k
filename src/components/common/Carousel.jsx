@@ -73,6 +73,8 @@ const Carousel = ({
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
   const itemWidth = `calc((100% - ${(responsiveOffset - 1) * gap}px) / ${responsiveOffset})`;
 
+  console.log('data', data);
+
   if (!data) return null;
 
   return (
@@ -98,8 +100,8 @@ const Carousel = ({
                 id={item.id}
                 src={item.idol.profilePicture}
                 location={item.subtitle}
-                credit='10,000'
-                title={item.name}
+                credit={item.receivedDonations}
+                title={item.title}
                 daysLeft='4'
                 button={button}
               >
