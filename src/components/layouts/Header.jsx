@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Header() {
   return (
     <header className='grid h-[5rem] w-full grid-cols-3 bg-black sm:h-[8rem]'>
