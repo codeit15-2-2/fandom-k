@@ -1,8 +1,9 @@
+import useDeviceSize from '@hooks/useDeviceSize';
+import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import PCMainSection from './sections/pc/MainSection';
 import TabletMainSection from './sections/tablet/MainSection';
 import MobileMainSection from './sections/mobile/MainSection';
 import MobileDetailSection from './sections/mobile/DetailSection';
-import useDeviceSize from '@hooks/useDeviceSize';
 
 export default function DetailPage() {
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
@@ -10,6 +11,11 @@ export default function DetailPage() {
   if (isDesktop) {
     return (
       <div>
+        <BackgroundIdolImage
+          imgSrc={
+            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
+          }
+        />
         <PCMainSection />
       </div>
     );
@@ -18,6 +24,11 @@ export default function DetailPage() {
   if (isTablet) {
     return (
       <div className='bg-black'>
+        <BackgroundIdolImage
+          imgSrc={
+            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
+          }
+        />
         <TabletMainSection />
       </div>
     );
