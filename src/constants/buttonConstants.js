@@ -1,4 +1,5 @@
 const SIZE_STYLES = {
+  full: 'h-[5rem] w-full py-[1rem]',
   xl: 'h-[43px] w-[477px]  py-[9px]',
   l: 'h-[42px] w-[327px]  py-[9px]',
   m: 'h-[42px] w-[295px]  py-[9px]',
