@@ -1,7 +1,7 @@
 import { cn } from '@utils/cn';
 import { Link, Navigate, Outlet, useMatch } from 'react-router-dom';
 
-const IdolListTab = () => {
+const MonthlyChartTabs = () => {
   const maleMatch = useMatch('/main/male');
   const femaleMatch = useMatch('/main/female');
   const rootMatch = useMatch('/main');
@@ -42,4 +42,4 @@ const IdolListTab = () => {
   );
 };
 
-export default IdolListTab;
+export default MonthlyChartTabs;
