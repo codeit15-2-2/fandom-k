@@ -113,7 +113,6 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
           size='m'
         />
 
-        <div className='title-text'>하이하이</div>
         <CreditForm isDonate onClick={handleDonate} credit={credit} />
       </div>
     </Modal>
