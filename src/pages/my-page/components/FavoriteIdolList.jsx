@@ -1,13 +1,19 @@
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import useWindowSize from '@hooks/useWindowSize';
 import { setStoredFavorites } from '@utils/storeFavorite';
+import { AnimatePresence, motion } from 'motion/react';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import MiddleDivider from './MiddleDivider';
 
 //화면상단 관심있는 아이돌로 추가된 아이돌들을 렌더링하는 컴포넌트
 
 const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
+  const animateVariants = {
+    showState: { opacity: 1, x: 0, transition: { delay: 1 } },
+  };
+
+  console.log('FavoriteList 리렌더');
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l'; //화면크기에 따라 props에 들어갈 size값 변경
 
@@ -61,30 +67,34 @@ const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
           onMouseMove={handleMouseMove}
         >
           <div className='flex px-2'>
-            {favorites && favorites.length > 0 ? (
-              favorites.map((fav) => (
-                <div
-                  key={fav.id}
-                  className='mr-10 inline-flex flex-col items-center'
-                >
-                  <AvatarProfile
-                    id={fav.id}
-                    src={fav.profilePicture}
-                    name={fav.name}
-                    group={fav.group}
-                    size={avatarSize}
-                    onItemClick={() => handleRemoveFavorite(fav)}
+            <AnimatePresence>
+              {favorites && favorites.length > 0 ? (
+                favorites.map((fav) => (
+                  <motion.div
+                    key={fav.id}
+                    className='mr-10 inline-flex flex-col items-center'
+                    exit={{ opacity: 0, scale: 1.0 }}
+                    transition={{ type: 'Spring', duration: 0.5 }}
                   >
-                    <AvatarProfile.IdolRemoveButton />
-                  </AvatarProfile>
-                </div>
-              ))
-            ) : (
-              <div className='flex h-[16rem] w-full items-center justify-center text-[2.4rem] text-gray-400'>
-                아직 관심있는 아이돌이 없습니다.
-              </div>
-              // 데이터가 비어있을때에도 기본 높이값을통해 레이아웃 높이를 고정
-            )}
+                    <AvatarProfile
+                      id={fav.id}
+                      src={fav.profilePicture}
+                      name={fav.name}
+                      group={fav.group}
+                      size={avatarSize}
+                      onItemClick={() => handleRemoveFavorite(fav)}
+                    >
+                      <AvatarProfile.IdolRemoveButton />
+                    </AvatarProfile>
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div className='flex h-[16rem] w-full items-center justify-center text-[2.4rem] text-gray-400'>
+                  아직 관심있는 아이돌이 없습니다.
+                </motion.div>
+                // 데이터가 비어있을때에도 기본 높이값을통해 레이아웃 높이를 고정
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
