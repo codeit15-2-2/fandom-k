@@ -1,24 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@components/DonationInfo';
 import MainTitle from '../../components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
-import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import DetailContent from '@pages/detail-page/components/DetailContent';
 
 const MainSection = () => {
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
-  const titleRef = useRef(null);
-  const [top, setTop] = useState(0);
-
-  useEffect(() => {
-    if (titleRef.current) {
-      const height = titleRef.current.offsetHeight;
-      setTop(height);
-    }
-  }, []);
-
+  const [titleRef, top] = useElementHeight();
   const scrollAreaRef = useRef(null);
 
   // detail title 애니메이션
@@ -64,13 +55,6 @@ const MainSection = () => {
 
   return (
     <>
-      {/* 아이돌 배경 사진 */}
-      <BackgroundIdolImage
-        imgSrc={
-          'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
-        }
-      />
-
       {/* 스크롤시 배경 흐리게 */}
       <motion.div
         className='absolute inset-0 bg-gradient-to-t from-transparent to-black backdrop-blur'
