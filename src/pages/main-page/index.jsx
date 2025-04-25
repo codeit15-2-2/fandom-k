@@ -1,4 +1,3 @@
-
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
@@ -18,6 +17,7 @@ export default function MainPage() {
     fetchDonateData();
   }, []);
 
+
   const creditModal = useModal();
 
   return (
@@ -26,5 +26,5 @@ export default function MainPage() {
       <DonateCarousel idolData={idolData} />
       <CreditModal creditModal={creditModal}></CreditModal>
     </div>
-  );
+  )
 }
