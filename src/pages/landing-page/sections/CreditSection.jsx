@@ -2,18 +2,15 @@ import { cn } from '@libs/cn';
 import Button from '@pages/landing-page/components/common/Button';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import loopVideo from '@assets/loop.mp4';
-import DarkLayout from '@pages/landing-page/components/common/DarkLayout';
 import logo from '@assets/logos/logo.png';
-import { div } from 'motion/react-client';
 
 // 메인 크레딧 섹션
 const CreditSection = () => (
   <section className={cn(SNAP_ITEM, 'relative bg-[#000000]')}>
-    {/* <DarkLayout /> */}
     <CreditBackgroundVideo />
     <CreditHeader />
     <CreditDescription />
-    <div className='to-brand-2/20 absolute bottom-0 z-0 h-full w-full bg-gradient-to-tl from-purple-100/10 via-purple-300/10' />
+    <GradientLayout />
   </section>
 );
 
@@ -29,12 +26,17 @@ const CreditBackgroundVideo = () => (
   </video>
 );
 
+// 배경 그래디언트 레이아웃
+const GradientLayout = () => (
+  <div className='to-brand-2/20 absolute bottom-0 z-0 h-full w-full bg-gradient-to-tl from-purple-100/10 via-purple-500/10' />
+);
+
 // 헤더 섹션
 const CreditHeader = () => <div className='h-1/4' />;
 
 // 설명 + CTA 섹션
 const CreditDescription = () => (
-  <div className='z-10 flex flex-col items-center justify-center gap-16 text-4xl font-semibold text-white md:text-7xl'>
+  <div className='z-10 mt-20 flex flex-col items-center justify-center gap-16 text-4xl font-semibold text-white md:mt-10 md:text-7xl'>
     <div className='flex flex-col gap-4'>
       <p className='text-center'>진심이 현실이 되는 공간</p>
       <p className='flex items-center justify-center gap-2'>
