@@ -4,7 +4,7 @@ import Button from '@components/common/Button';
 
 const MainSection = () => {
   return (
-    <div className='w-srceen flex h-screen flex-col items-center bg-black'>
+    <div className='flex h-screen w-screen flex-col items-center bg-black'>
       <div className='relative h-[calc(100vh_-_50rem)]'>
         <div className="h-[calc(100vh_-_50rem)] w-screen bg-[linear-gradient(to_right,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_100%),url('https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp')] bg-cover bg-center"></div>
         <div className='absolute bottom-0 h-full'>
@@ -43,11 +43,7 @@ const MainSection = () => {
 
       <div className='fixed bottom-0 z-50 flex h-[8rem] w-screen items-center justify-center bg-black backdrop-blur'>
         <div className='w-[90vw]'>
-          <Button
-            color='pink'
-            size='full'
-            className='isLoading={isLoading} rounded hover:bg-black'
-          >
+          <Button color='pink' size='full' className='rounded hover:bg-black'>
             후원하기
           </Button>
         </div>
