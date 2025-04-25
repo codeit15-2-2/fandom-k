@@ -1,6 +1,6 @@
 import Jewel from '@assets/icons/icon_jewel';
 
-const MyCredit = ({ credit }) => {
+const MyCredit = ({ credit, onClick }) => {
   return (
     <>
       <div className='flex h-[8.5rem] max-w-5/8 items-center justify-between rounded-xl border border-white bg-black px-10 sm:h-[13rem]'>
@@ -14,7 +14,10 @@ const MyCredit = ({ credit }) => {
           </p>
         </div>
         <div className='flex items-center'>
-          <button className='caption-text font-bold text-[#F96D69] sm:text-[1.6rem]'>
+          <button
+            onClick={onClick}
+            className='caption-text font-bold text-[#F96D69] sm:text-[1.6rem]'
+          >
             충전하기
           </button>
         </div>
