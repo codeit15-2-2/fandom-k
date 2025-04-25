@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useChartPagination } from '@hooks/useChartPagination';
 import Button from '@components/common/Button';
-import IdolListTabContent from '../components/Idol-list-tab-content';
+import IdolListTabContent from '../components/IdolListTabContent';
 import IdolList from '@components/vote/IdolList';
 
 /**
