@@ -4,7 +4,6 @@ import { useCountdownTimer } from '@hooks/useCountdownTimer';
 import {
   DONATION_INFO_CONTENT_SIZE_STYLES,
   DONATION_INFO_SUB_CONTENT_SIZE_STYLES,
-  DONATION_INFO_WIDTH_STYLES,
   MAX_PROGRESS_PERCENT,
 } from '@constants/donationConstants';
 import { getElapsedProgress, formatDate } from '@utils/donationInfoUtils';
@@ -97,14 +96,9 @@ const DonationInfo = ({
     isOpen,
   };
 
-  const donationInfoClassNames = cn(
-    'relative flex flex-col gap-3 text-white',
-    DONATION_INFO_WIDTH_STYLES[size],
-  );
-
   return (
     <DonationContext.Provider value={contextValue}>
-      <div className={donationInfoClassNames}>
+      <div className='relative flex w-full flex-col gap-3 text-white'>
         <InfoTitle />
         <InfoSubTitle />
         {children}
