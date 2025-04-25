@@ -1,6 +1,5 @@
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
-import DonateCarousel from './sections/DonateCarousel';
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -13,10 +12,5 @@ export default function MainPage() {
 
     fetchDonateData();
   }, []);
-  return (
-    <div>
-      Main
-      <DonateCarousel idolData={idolData} />
-    </div>
-  );
+  return <div>main</div>;
 }

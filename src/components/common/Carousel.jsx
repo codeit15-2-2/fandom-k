@@ -34,7 +34,6 @@ const Carousel = ({
   RenderComponent,
   slideToShow = 4, // 기본값으로 4개 표시
   gap = 4, // 아이템 간격
-  itemClassName = '', // 추가 스타일링을 위한 클래스
   button,
   ...props
 }) => {
@@ -89,11 +88,10 @@ const Carousel = ({
           duration: 0.5,
         }}
       >
-        {data.map((item, index) => (
+        {data.map((item) => (
           <motion.div
             key={item.id}
             style={{ minWidth: itemWidth, width: itemWidth }}
-            className={`${itemClassName}`}
           >
             {RenderComponent && (
               <RenderComponent
