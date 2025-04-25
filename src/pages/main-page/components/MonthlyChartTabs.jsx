@@ -4,7 +4,10 @@ import { Link, Navigate, Outlet, useMatch } from 'react-router-dom';
 const MonthlyChartTabs = () => {
   const maleMatch = useMatch('/main/male');
   const femaleMatch = useMatch('/main/female');
-  const rootMatch = useMatch('/main');
+  const rootMatch = useMatch({
+    path: '/main',
+    end: true,
+  });
 
   //처음 진입 시, 자동으로 이달의 여자 아이돌 선택
   if (rootMatch) {
