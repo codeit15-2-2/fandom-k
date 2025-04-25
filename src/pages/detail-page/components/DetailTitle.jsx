@@ -1,8 +1,8 @@
 import { cn } from '@/utils/cn';
 
 const DETAIL_TITLE_WIDTH_STYLES = {
-  s: 'items-start w-full text-start pb-4 border-b-1 border-[rgba(255,255,255,0.3)]',
-  l: 'items-end w-[60rem] text-end',
+  s: 'items-start text-start pb-4 border-b-1 border-[rgba(255,255,255,0.3)]',
+  l: 'items-end text-end',
 };
 
 const DETAIL_TITLE_SIZE_STYLES = {
@@ -31,7 +31,7 @@ const DETAIL_TITLE_SIZE_STYLES = {
 
 const DetailTitle = ({ name, title, location, size = 'l' }) => {
   const DetailTitleWidthClassNames = cn(
-    'flex flex-col gap-4 text-white',
+    'w-full flex flex-col gap-4 text-white',
     DETAIL_TITLE_WIDTH_STYLES[size],
   );
 
