@@ -1,64 +1,42 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@components/DonationInfo';
 import MainTitle from '../../components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';
+import useScrollAnimation from '@hooks/useScrollAnimation';
 
 const MainSection = () => {
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
-  const [titleRef, top] = useElementHeight();
+  const [titleRef, titleHeight] = useElementHeight();
   const scrollAreaRef = useRef(null);
-
-  // detail title 애니메이션
   const detailTitleRef = useRef(null);
-  const { scrollYProgress: detailTitleScroll } = useScroll({
-    container: scrollAreaRef,
-    target: detailTitleRef,
-    offset: ['start end', 'start start'],
-  });
-  const detailTitleY = useTransform(
-    detailTitleScroll,
-    [0, 1],
+  const donationInfoRef = useRef(null);
+
+  const detailTitleAnimation = useScrollAnimation(
+    scrollAreaRef,
+    detailTitleRef,
     ['-1000%', '0%'],
   );
-  const detailTitleOpacity = useTransform(detailTitleScroll, [0, 0.2], [0, 1]);
-
-  // donation info 애니메이션
-  const donationInfoRef = useRef(null);
-  const { scrollYProgress: donationInfoScroll } = useScroll({
-    container: scrollAreaRef,
-    target: donationInfoRef,
-    offset: ['start end', 'start start'],
-  });
-  const donationInfoY = useTransform(
-    donationInfoScroll,
-    [0, 1],
+  const donationInfoAnimation = useScrollAnimation(
+    scrollAreaRef,
+    donationInfoRef,
     ['-150%', '0%'],
   );
-  const donationInfoOpacity = useTransform(
-    donationInfoScroll,
-    [0, 0.2],
-    [0, 1],
+  const backgroundAnimation = useScrollAnimation(
+    scrollAreaRef,
+    donationInfoRef,
+    ['-300%', '0%'],
   );
-
-  // background 애니메이션
-  const { scrollYProgress: backgroundScroll } = useScroll({
-    container: scrollAreaRef,
-    target: donationInfoRef,
-    offset: ['start end', 'start start'],
-  });
-  const backgroundY = useTransform(backgroundScroll, [0, 1], ['-300%', '0%']);
-  const backgroundOpacity = useTransform(backgroundScroll, [0, 0.2], [0, 1]);
 
   return (
     <>
       {/* 스크롤시 배경 흐리게 */}
       <motion.div
         className='absolute inset-0 bg-gradient-to-t from-transparent to-black backdrop-blur'
-        style={{ y: backgroundY, opacity: backgroundOpacity }}
+        style={backgroundAnimation}
         ref={donationInfoRef}
       ></motion.div>
 
@@ -70,8 +48,8 @@ const MainSection = () => {
             ref={scrollAreaRef}
           >
             <div
-              className='absolute w-[100%]'
-              style={{ top: `calc(100vh - 8rem - ${top}px)` }}
+              className='absolute w-full'
+              style={{ top: `calc(100vh - 8rem - ${titleHeight}px)` }}
             >
               <div className='h-fit' ref={titleRef}>
                 <MainTitle
@@ -89,7 +67,7 @@ const MainSection = () => {
           <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 flex flex-col justify-between py-20'>
             <motion.div
               className='sticky top-0 z-10 w-full'
-              style={{ y: detailTitleY, opacity: detailTitleOpacity }}
+              style={detailTitleAnimation}
               ref={detailTitleRef}
             >
               <DetailTitle
@@ -102,7 +80,7 @@ const MainSection = () => {
 
             <motion.div
               className='sticky top-0 z-10 flex w-full flex-col gap-10'
-              style={{ y: donationInfoY, opacity: donationInfoOpacity }}
+              style={donationInfoAnimation}
               ref={donationInfoRef}
             >
               <DonationInfo
@@ -134,7 +112,7 @@ const MainSection = () => {
               <Button
                 color='pink'
                 size='full'
-                className='isLoading={isLoading} rounded hover:bg-black'
+                className='rounded hover:bg-black'
               >
                 후원하기
               </Button>
