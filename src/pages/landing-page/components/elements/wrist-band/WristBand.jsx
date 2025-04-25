@@ -20,7 +20,7 @@ const WristBand = ({ idol, color, ranking, rotate, zIndex, translates }) => {
 
   return (
     <div
-      className={`flex w-[80rem] bg-white ${rotate} ${zIndex} ${translates}`}
+      className={`flex w-[40rem] bg-white md:w-[80rem] ${rotate} ${zIndex} ${translates}`}
     >
       {/* 절취선 섹션 */}
       <div className='flex flex-[0.8] items-center justify-center'>
@@ -28,25 +28,30 @@ const WristBand = ({ idol, color, ranking, rotate, zIndex, translates }) => {
       </div>
 
       {/* 콘텐츠 섹션 */}
-      <div className={`flex flex-4 items-center gap-8 p-4 ${bgColor} `}>
+      <div
+        className={`flex flex-4 items-center gap-6 p-2 md:gap-8 md:p-4 ${bgColor} `}
+      >
         {/* 랭킹 */}
-        <div className='font-Hakgyoansim text-6xl text-white'>{ranking}</div>
+        <div className='font-Hakgyoansim text-white md:text-6xl'>{ranking}</div>
         {/* 삼각형 패턴 */}
         <div className='flex'>
           <TrianglePattern color={color} />
         </div>
         {/* 그룹 + 이름 */}
         <div className='flex flex-1 items-center justify-center text-white'>
-          <p className='font-Hakgyoansim text-[3rem]'>
+          <p className='font-Hakgyoansim text-xl md:text-[3rem]'>
             {groupName} {memberName}
           </p>
         </div>
         {/* 아이돌 이미지 */}
-        <img src={image} className='h-25 w-25 rounded-full object-cover' />
+        <img
+          src={image}
+          className='h-15 w-15 rounded-full object-cover md:h-25 md:w-25'
+        />
       </div>
 
       {/* 로고 섹션 */}
-      <div className='flex flex-[0.7]'>
+      <div className='flex flex-[0.7] object-cover'>
         <img src={logo} alt='손목띠 로고' className='-rotate-45' />
       </div>
     </div>

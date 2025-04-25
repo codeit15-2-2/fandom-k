@@ -2,6 +2,7 @@ import FundingCard from '@pages/landing-page/components/elements/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
+import pinkArrow from '@assets/doodles/arrow-pink.png';
 
 // 카드 스타일 설정
 const FUNDING_CARD_STYLES = [
@@ -33,7 +34,7 @@ const FundingSection = () => {
 // 헤더 섹션
 const FundingHeader = () => (
   <div className='flex flex-1 flex-col items-center justify-center'>
-    <h1 className='text-[20rem] font-extrabold tracking-tight text-black'>
+    <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[14rem]'>
       FUNDING
     </h1>
   </div>
@@ -60,8 +61,9 @@ const FundingCardList = ({ idols }) => (
 
 // 설명 섹션
 const FundingDescription = () => (
-  <div className='flex flex-1 flex-col items-center justify-center gap-8'>
-    <p className='text-center text-7xl font-semibold'>
+  <div className='mb-20 flex flex-1 flex-col items-center justify-center gap-8'>
+    <img src={pinkArrow} className='w-50 rotate-10 md:w-100' />
+    <p className='text-center text-4xl font-semibold md:text-6xl'>
       진행중인 아티스트들의 <br />
       다양한 조공을 구경해보세요
     </p>
