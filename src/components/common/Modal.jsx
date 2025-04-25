@@ -1,3 +1,4 @@
+import CreditForm from '@components/credit-form/CreditForm';
 import { createPortal } from 'react-dom';
 
 /**
@@ -34,12 +35,12 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 flex h-screen w-screen items-center justify-center bg-black/40'>
-      <div className='modal-content relative flex max-h-[80%] w-[90%] max-w-md min-w-64 flex-col rounded-2xl bg-black p-10 text-white'>
+    <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-100 flex h-screen w-screen items-center justify-center bg-[#000000]/70'>
+      <div className='modal-content relative flex max-h-[80%] w-[90%] max-w-md min-w-64 flex-col rounded-2xl bg-[#181D26] p-10 text-white md:max-w-xl lg:max-w-2xl'>
         <div className='mb-3 flex justify-between'>
           {title && <p className='content-text'>{title}</p>}
           <button
-            className='content-text absolute top-9 right-10 cursor-pointer text-white/50'
+            className='content-text absolute top-9 right-10 z-99 cursor-pointer text-white/50'
             onClick={onClose}
             aria-label='모달 닫기'
           >
@@ -47,9 +48,11 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
           </button>
         </div>
         <div className='my-4 flex items-center justify-center overflow-hidden py-3'>
-          {children}
+          {children || (
+            <img src='https://www.yeongnam.com/mnt/file/202404/20240412001417566_1.jpg' />
+          )}
         </div>
-        <button>버튼 컴포넌트 가져오기</button>
+        {button}
         {extra && (
           <span className='caption-text mt-2 text-center'>{extra}</span>
         )}

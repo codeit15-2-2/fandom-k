@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+body {
+  background-color: #02000e;
+}
+
 @theme {
   --font-sans: 'Pretendard', system-ui, sans-serif;
   --font-dospilgi: 'DOSPilgiMedium';
@@ -26,6 +30,7 @@
     #f96d69
   );
 }
+
 
 @layer base {
   @font-face {
@@ -73,9 +78,5 @@
 
   .bg-gradient-brand {
     background: var(--background-gradient-brand);
-  }
-
-  .bg-gradient-brand-2 {
-    background: var(--background-gradient-brand-2);
   }
 }
