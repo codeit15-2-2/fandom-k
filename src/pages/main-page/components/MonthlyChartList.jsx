@@ -14,25 +14,23 @@ const MonthlyChartList = ({ idolData, IdolList }) => {
   }
 
   return (
-    <>
-      <div className='grid w-full grid-cols-1 gap-5 border-2 md:grid-cols-2'>
-        {idolData.map((idol) => (
-          <div className='border-b border-gray-100 text-white' key={idol.id}>
-            <IdolList
-              id={idol.id}
-              src={idol.profilePicture}
-              rank={idol.rank}
-              group={idol.group}
-              name={idol.name}
-              votes={idol.totalVotes}
-            >
-              <IdolList.IdolNameWithGroup />
-              <IdolList.IdolVoteCount />
-            </IdolList>
-          </div>
-        ))}
-      </div>
-    </>
+    <div className='grid w-full grid-cols-1 gap-5 border-2 md:grid-cols-2'>
+      {idolData.map((idol) => (
+        <div className='border-b border-gray-100 text-white' key={idol.id}>
+          <IdolList
+            id={idol.id}
+            src={idol.profilePicture}
+            rank={idol.rank}
+            group={idol.group}
+            name={idol.name}
+            votes={idol.totalVotes}
+          >
+            <IdolList.IdolNameWithGroup />
+            <IdolList.IdolVoteCount />
+          </IdolList>
+        </div>
+      ))}
+    </div>
   );
 };
 

@@ -15,7 +15,7 @@ const MonthlyChartHeader = () => {
         }}
       >
         <IconChart />
-        <p className='ml-1'>차트 투표하기</p>
+        <span className='ml-1'>차트 투표하기</span>
       </Button>
     </div>
   );
