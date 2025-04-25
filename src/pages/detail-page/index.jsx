@@ -1,3 +1,51 @@
+import PCMainSection from './sections/pc/MainSection';
+import TabletMainSection from './sections/tablet/MainSection';
+import MobileMainSection from './sections/mobile/MainSection';
+import MobileDetailSection from './sections/mobile/DetailSection';
+import useDeviceSize from '@hooks/useDeviceSize';
+
 export default function DetailPage() {
-  return <div>Detail</div>;
+  const { isDesktop, isTablet, isMobile } = useDeviceSize();
+
+  if (isDesktop) {
+    return (
+      <div>
+        <PCMainSection />
+      </div>
+    );
+  }
+
+  if (isTablet) {
+    return (
+      <div className='bg-black'>
+        <TabletMainSection />
+      </div>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <div>
+        <MobileMainSection />
+        <MobileDetailSection />
+      </div>
+    );
+  }
+
+  return <p className='text-white'>지원되지 않는 디바이스 환경입니다.</p>;
 }
+
+/* 받아올 데이터
+- 아이돌 사진
+- 아이돌 영문 이름
+- 후원 제목
+- 목표 크레딧
+- 현재 모인 크레딧
+- 후원 모집 시작 (createdAt)
+- 모집 종료 (deadline)
+- 후원 상세 내용
+- 아이돌 그룹명
+- 아이돌 이름
+- 후원 장소
+- 후원 Id (donateId)
+*/
