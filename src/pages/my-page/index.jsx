@@ -2,6 +2,7 @@ import Header from '@components/layouts/Header';
 import FavoriteList from './components/FavoriteIdolList';
 import useMypageIdols from './hooks/useMyPageIdols';
 import IdolSelectList from './components/SelectIdolList';
+import { AnimatePresence, motion } from 'motion/react';
 
 export default function MyPage() {
   const {
@@ -17,26 +18,30 @@ export default function MyPage() {
 
   return (
     <div className='min-h-screen w-full bg-black text-white'>
-      <Header />
+      <AnimatePresence>
+        <motion.div
+          className='mx-auto max-w-[140rem] px-6 shadow-2xl shadow-pink-300/80 md:px-6 lg:px-6 xl:px-48'
+          transition={{ type: 'Spring', duration: 0.5 }}
+          layout
+        >
+          <FavoriteList
+            favorites={favorites}
+            setIdols={setIdols}
+            setFavorites={setFavorites}
+          />
 
-      <div className='mx-auto max-w-[140rem] px-6 shadow-2xl shadow-pink-300/60 md:px-6 lg:px-6 xl:px-48'>
-        <FavoriteList
-          favorites={favorites}
-          setIdols={setIdols}
-          setFavorites={setFavorites}
-        />
-
-        <IdolSelectList
-          idols={idols}
-          setIdols={setIdols}
-          setFavorites={setFavorites}
-          handleMoreIdols={() => fetchIdols(nextCursor)}
-          hasMore={!!nextCursor}
-          favorites={favorites}
-          isLoading={isLoading}
-          isError={isError}
-        />
-      </div>
+          <IdolSelectList
+            idols={idols}
+            setIdols={setIdols}
+            setFavorites={setFavorites}
+            handleMoreIdols={() => fetchIdols(nextCursor)}
+            hasMore={!!nextCursor}
+            favorites={favorites}
+            isLoading={isLoading}
+            isError={isError}
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

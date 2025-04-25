@@ -44,6 +44,15 @@ body {
   background: linear-gradient(transparent, #df7b79, transparent);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   @font-face {
     font-family: 'Pretendard';

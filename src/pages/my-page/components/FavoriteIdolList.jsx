@@ -50,16 +50,16 @@ const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
 
     setIdols((prev) => [...prev, selectedFavIdol]); //Idol배열에도 favorite에서 제거된 아이돌을 다시 렌더링 하기위해 최신화
   };
-
+  //추가하기버튼 밑에부분 안보이게 (그라데이션이나 뭐든)
   return (
     <div className='flex flex-col gap-20 py-10'>
-      <h2 className='mt-20 text-[1.6rem] font-bold sm:text-[2.4rem]'>
+      <h2 className='text-shadow-2xl mt-20 text-[1.8rem] font-bold sm:text-[2.4rem]'>
         내가 관심있는 아이돌
       </h2>
       {/* 레이아웃 깨짐 방지용 최소 높이 */}
       <div className='min-h-[18rem]'>
         <div
-          className='scrollbar-custom lg:scrollbar scrollbar-hide cursor-grab overflow-x-auto whitespace-nowrap active:cursor-grabbing'
+          className='no-scrollbar scrollbar-custom lg:scrollbar scrollbar-hide cursor-grab overflow-x-auto scroll-smooth whitespace-nowrap active:cursor-grabbing'
           ref={containerRef}
           onMouseDown={handleMouseDown}
           onMouseLeave={handleMouseLeave}
@@ -75,6 +75,7 @@ const FavoriteList = ({ favorites, setFavorites, setIdols }) => {
                     className='mr-10 inline-flex flex-col items-center'
                     exit={{ opacity: 0, scale: 1.0 }}
                     transition={{ type: 'Spring', duration: 0.5 }}
+                    layout
                   >
                     <AvatarProfile
                       id={fav.id}
