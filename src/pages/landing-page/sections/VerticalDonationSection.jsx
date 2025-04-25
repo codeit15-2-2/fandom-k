@@ -26,6 +26,11 @@ const VerticalDonationSection = () => {
         <div className='pointer-events-none absolute inset-0 flex items-center justify-center'>
           <div className='translate-y-20'>
             <img
+              src={heart}
+              className='absolute inset-0 w-[10rem] translate-x-1/2'
+              alt='하트 아이콘'
+            />
+            <img
               src={handphoneMobile}
               className='block md:hidden'
               alt='모바일 핸드폰 이미지'
