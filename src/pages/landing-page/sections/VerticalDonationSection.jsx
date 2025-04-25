@@ -2,7 +2,6 @@ import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
 import handphoneMobile from '@assets/elements/elem_handphone_mobile.png';
 import handphoneTablet from '@assets/elements/elem_handphone_tablet.png';
-import heart from '@assets/icons/icon_heart.svg';
 
 const VerticalDonationSection = () => {
   return (
@@ -25,11 +24,6 @@ const VerticalDonationSection = () => {
         </div>
         <div className='pointer-events-none absolute inset-0 flex items-center justify-center'>
           <div className='translate-y-20'>
-            <img
-              src={heart}
-              className='absolute inset-0 w-[10rem] translate-x-1/2'
-              alt='하트 아이콘'
-            />
             <img
               src={handphoneMobile}
               className='block md:hidden'
