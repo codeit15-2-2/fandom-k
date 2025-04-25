@@ -8,7 +8,7 @@ import DetailContent from '@pages/detail-page/components/DetailContent';
 
 const MainSection = () => {
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
-  const [titleRef, top] = useElementHeight();
+  const [titleRef, titleHeight] = useElementHeight();
 
   const { scrollYProgress: donationButtonScroll } = useScroll();
   const donationButtonY = useTransform(
@@ -22,8 +22,8 @@ const MainSection = () => {
       <div className='grid h-fit w-[90vw] grid-cols-3 grid-rows-4 gap-10'>
         <section className='relative col-start-1 col-end-3 row-start-1 row-end-5'>
           <div
-            className='h-fit w-[100%]'
-            style={{ marginTop: `calc(100vh - 8rem - ${top}px)` }}
+            className='h-fit w-full'
+            style={{ marginTop: `calc(100vh - 8rem - ${titleHeight}px)` }}
           >
             <div ref={titleRef}>
               <MainTitle title='1주년 기념 팝업 카페' name='KARINA' size='l' />
@@ -76,7 +76,7 @@ const MainSection = () => {
               <Button
                 color='pink'
                 size='full'
-                className='isLoading={isLoading} rounded hover:bg-black'
+                className='rounded hover:bg-black'
               >
                 후원하기
               </Button>

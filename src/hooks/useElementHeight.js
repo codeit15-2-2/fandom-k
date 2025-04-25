@@ -1,16 +1,25 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
 const useElementHeight = () => {
-  const ref = useRef(null);
+  const elementRef = useRef(null);
   const [height, setHeight] = useState(0);
 
-  useEffect(() => {
-    if (ref.current) {
-      setHeight(ref.current.offsetHeight);
+  // setHeight 함수에 메모이제이션 적용
+  const updateHeight = useCallback(() => {
+    if (elementRef.current && elementRef.current.offsetHeight !== height) {
+      setHeight(elementRef.current.offsetHeight);
     }
-  }, []);
+  }, [height]); // height 값이 바뀔 때만 함수가 변경되도록 함
 
-  return [ref, height];
+  useEffect(() => {
+    updateHeight(); // 초기 높이 설정
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, [updateHeight]); // updateHeight가 변경될 때마다 재실행
+
+  return [elementRef, height];
 };
 
 export default useElementHeight;
