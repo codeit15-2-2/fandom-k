@@ -1,9 +1,9 @@
-
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
 import DonateCarousel from './sections/DonateCarousel';
-import IdolListTab from './components/Idol-list-tab';
-
+import MyCredit from './components/MyCredit';
+import useModal from '@hooks/useModal';
+import CreditModal from './components/CreditModal';
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -16,11 +16,15 @@ export default function MainPage() {
 
     fetchDonateData();
   }, []);
+
+
+  const creditModal = useModal();
+
   return (
-    <div>
-      Main
+    <div className='flex h-screen w-screen flex-col items-center'>
+      <MyCredit open={creditModal.open} />
       <DonateCarousel idolData={idolData} />
-      <IdolListTab />
+      <CreditModal creditModal={creditModal}></CreditModal>
     </div>
-  );
+  )
 }

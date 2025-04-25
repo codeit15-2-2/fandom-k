@@ -2,6 +2,7 @@ import { useContext, createContext } from 'react';
 import { cn } from '@/utils/cn';
 import CardImg from '@components/common/CardImg';
 import Credit from '@assets/icons/icon_credit';
+import { getDonationProgress, getDDayText } from '@utils/donationCardUtils';
 
 /**
  * 카드 사이즈별 Tailwind 클래스 매핑
@@ -22,7 +23,8 @@ const IdolCardContext = createContext({
   location: '',
   title: '',
   credit: 0,
-  daysLeft: 0,
+  targetCredit: 0,
+  deadline: '',
   onClick: () => {},
   size: 'm',
   button: null,
@@ -40,7 +42,8 @@ const IdolCardContext = createContext({
  * @param {string} props.location - [기본카드 | 후원카드] 후원 장소
  * @param {string} props.title - [기본카드 | 후원카드] 후원 제목
  * @param {number} props.credit - [후원카드] 모인 후원 금액
- * @param {number} props.daysLeft - [후원카드] 후원 마감까지 남은 일수
+ * @param {number} props.targetCredit - [후원카드] 목표 후원 금액
+ * @param {string} props.deadline - [후원카드] 후원 마감 날짜
  * @param {Function} props.onClick - [후원카드] 버튼 클릭 시 실행되는 핸들러
  * @param {'s'|'m'} props.size - [후원카드] 카드 크기 (기본값 'm')
  * @param {() => JSX.Element} props.button - [후원카드] 이미지 위에 띄울 버튼 컴포넌트
@@ -48,27 +51,28 @@ const IdolCardContext = createContext({
  *
  * @example
  * 1. 기본카드 사용법 예시
- *    <IdolCardList
- *      id={10}
- *      src={'~'}
- *      location={'강남역 광고'}
- *      title={'민지 2025 첫 광고'}
- *    ></IdolCardList>
+ * <IdolCardList
+ *  id={10}
+ *  src={'~'}
+ *  location={'강남역 광고'}
+ *  title={'민지 2025 첫 광고'}
+ * ></IdolCardList>
  *
  * @example
  * 2. 후원카드 사용법 예시
- *    <IdolCardList
- *      id={10}
- *      src={'~'}
- *      location={'강남역 광고'}
- *      title={'민지 2025 첫 광고'}
- *      credit={6000}
- *      daysLeft={4}
- *      size={'s'} - 기본형 'm'
- *      button={button}
- *    >
- *      <IdolCardList.IdolCardFooter />
- *    </IdolCardList>
+ * <IdolCardList
+ *  id={10}
+ *  src={'~'}
+ *  location={'강남역 광고'}
+ *  title={'민지 2025 첫 광고'}
+ *  credit={6000}
+ *  targetCredit={12000}
+ *  deadline={'2025-07-21T23:59:59.000Z'}
+ *  size={'s'} - 기본형 'm'
+ *  button={button}
+ * >
+ *  <IdolCardList.IdolCardFooter />
+ * </IdolCardList>
  *
  */
 const IdolCardList = ({
@@ -77,7 +81,8 @@ const IdolCardList = ({
   location,
   title,
   credit,
-  daysLeft,
+  targetCredit,
+  deadline,
   onClick,
   size = 'm',
   button = null,
@@ -89,7 +94,8 @@ const IdolCardList = ({
     location,
     title,
     credit,
-    daysLeft,
+    targetCredit,
+    deadline,
     onClick,
     size,
     button,
@@ -163,23 +169,25 @@ const IdolCardImg = () => {
  * - 후원 금액, 남은 일수, 진행률 표시
  */
 const IdolCardFooter = () => {
-  const { credit, daysLeft, progress = 15 } = useContext(IdolCardContext);
+  const { credit, targetCredit, deadline } = useContext(IdolCardContext);
+  // 음수일 경우 0으로 처리
+  const safeCredit = Math.max(credit, 0);
 
   return (
     <>
       <div className='caption-text flex items-center justify-between pb-4'>
         <span className='flex items-center text-[var(--color-brand-1)]'>
           <Credit />
-          <p className='pl-2'>{credit}</p>
+          <p className='pl-2'>{safeCredit}</p>
         </span>
-
-        <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
+        <span className='text-[var(--color-gray-300)]'>
+          {getDDayText(deadline)}
+        </span>
       </div>
-
       <div className='h-1 w-full overflow-hidden bg-[var(--color-white)]'>
         <div
           className='h-full bg-[var(--color-brand-1)]'
-          style={{ width: `${progress}%` }}
+          style={{ width: `${getDonationProgress(safeCredit, targetCredit)}%` }}
         ></div>
       </div>
     </>
