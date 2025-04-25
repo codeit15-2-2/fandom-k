@@ -6,7 +6,7 @@ import { getCharts } from '@apis/chartsApi';
  *
  * @param {'male' | 'female'} gender - 조회할 차트 성별 (남자/여자)
  * @returns {{
- *   chartDataList: Array,              // 현재까지 불러온 차트 데이터 리스트
+ *   chartDataList: Array<Chart>,       // 현재까지 불러온 차트 데이터 리스트
  *   nextCursor: number | null,         // 다음 페이지를 위한 커서 (null이면 더 이상 없음)
  *   isLoading: boolean,                // 데이터 로딩 중 여부
  *   fetchIdolData: (cursor?: number) => Promise<void>, // 차트 데이터 추가 로드 함수
@@ -14,8 +14,10 @@ import { getCharts } from '@apis/chartsApi';
  * }}
  */
 export const useChartPagination = (gender) => {
+  if (!gender) throw new Error('gender는 필수 파라미터입니다.');
+
   const [chartDataList, setChartDataList] = useState([]);
-  const [nextCursor, setNextCursor] = useState(0);
+  const [nextCursor, setNextCursor] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   /**
@@ -25,7 +27,6 @@ export const useChartPagination = (gender) => {
    */
   const getResponsivePageSize = () => {
     const width = window.innerWidth;
-    if (width <= 768) return 5;
     if (width <= 1024) return 5;
     return 10;
   };
@@ -35,7 +36,8 @@ export const useChartPagination = (gender) => {
    */
   const resetPagination = () => {
     setChartDataList([]);
-    setNextCursor(0);
+    setNextCursor(null);
+    setIsLoading(false);
   };
 
   /**
@@ -48,6 +50,7 @@ export const useChartPagination = (gender) => {
   const assignRanks = (idols) => {
     let currentRank = 1; // 현재 순위 (시작은 1위)
     return idols
+      .slice()
       .sort((a, b) => b.totalVotes - a.totalVotes) // totalVotes 기준 내림차순 정렬
       .map((idol, index, arr) => {
         if (index === 0) return { ...idol, rank: currentRank }; // 첫 번째 항목은 무조건 1위
