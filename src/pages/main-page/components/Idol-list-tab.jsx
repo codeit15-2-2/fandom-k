@@ -1,6 +1,5 @@
 import { cn } from '@utils/cn';
 import { Link, Navigate, Outlet, useMatch } from 'react-router-dom';
-import ChartHeader from './ChartHeader';
 
 const IdolListTab = () => {
   const maleMatch = useMatch('/main/male');
@@ -14,7 +13,6 @@ const IdolListTab = () => {
 
   return (
     <>
-      <ChartHeader />
       <div className='flex h-full flex-col bg-black md:max-w-5/8'>
         <div className='sub-content-text flex h-[4.2rem] w-full items-center justify-between text-white'>
           <Link
