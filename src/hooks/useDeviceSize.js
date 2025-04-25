@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
 const useMediaQuery = (query) => {
-  const [matches, setMatches] = useState(false);
+  if (typeof query !== 'string') {
+    throw new Error('미디어 쿼리는 string 타입이어야 합니다.');
+  }
+
+  const [matches, setMatches] = useState(
+    () => window.matchMedia(query).matches,
+  );
 
   useEffect(() => {
     const media = window.matchMedia(query);
