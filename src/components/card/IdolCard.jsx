@@ -2,6 +2,7 @@ import { useContext, createContext } from 'react';
 import { cn } from '@/utils/cn';
 import CardImg from '@components/common/CardImg';
 import Credit from '@assets/icons/icon_credit';
+import { getDonationProgress, getDDayText } from '@utils/donationCardUtils';
 
 /**
  * 카드 사이즈별 Tailwind 클래스 매핑
@@ -22,7 +23,8 @@ const IdolCardContext = createContext({
   location: '',
   title: '',
   credit: 0,
-  daysLeft: 0,
+  targetCredit: 0,
+  deadline: '',
   onClick: () => {},
   size: 'm',
   button: null,
@@ -33,14 +35,15 @@ const IdolCardContext = createContext({
  * - 기본 카드 및 후원 카드 구성을 하나로 합성한 재사용 가능한 카드 컴포넌트입니다.
  * - 내부적으로 context를 통해 하위 컴포넌트에 데이터를 공유합니다.
  * @component
- * 
+ *
  * @param {Object} props
  * @param {number} props.id - [기본카드 | 후원카드] 아이돌 ID
  * @param {string} props.src - [기본카드 | 후원카드] 카드 이미지 URL
  * @param {string} props.location - [기본카드 | 후원카드] 후원 장소
  * @param {string} props.title - [기본카드 | 후원카드] 후원 제목
  * @param {number} props.credit - [후원카드] 모인 후원 금액
- * @param {number} props.daysLeft - [후원카드] 후원 마감까지 남은 일수
+ * @param {number} props.targetCredit - [후원카드] 목표 후원 금액
+ * @param {string} props.deadline - [후원카드] 후원 마감 날짜
  * @param {Function} props.onClick - [후원카드] 버튼 클릭 시 실행되는 핸들러
  * @param {'s'|'m'} props.size - [후원카드] 카드 크기 (기본값 'm')
  * @param {() => JSX.Element} props.button - [후원카드] 이미지 위에 띄울 버튼 컴포넌트
@@ -48,31 +51,28 @@ const IdolCardContext = createContext({
  *
  * @example
  * 1. 기본카드 사용법 예시
- *    <IdolCardList
- *      id={10}
- *      src={'~'}
- *      location={'강남역 광고'}
- *      title={'민지 2025 첫 광고'}
- *    ></IdolCardList>
+ * <IdolCardList
+ *  id={10}
+ *  src={'~'}
+ *  location={'강남역 광고'}
+ *  title={'민지 2025 첫 광고'}
+ * ></IdolCardList>
  *
  * @example
  * 2. 후원카드 사용법 예시
- *    <IdolCardList
- *      id={10}
- *      src={'~'}
- *      location={'강남역 광고'}
- *      title={'민지 2025 첫 광고'}
- *      credit={6000}
- *      daysLeft={4}
- *      size={'s'} - 기본형 'm'
- *      button={() => (
- *        <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
- *          <Button onClick={() => console.log('후원 클릭')} />
- *        </div>
- *      )}
- *    >
- *      <IdolCardList.IdolCardFooter />
- *    </IdolCardList>
+ * <IdolCardList
+ *  id={10}
+ *  src={'~'}
+ *  location={'강남역 광고'}
+ *  title={'민지 2025 첫 광고'}
+ *  credit={6000}
+ *  targetCredit={12000}
+ *  deadline={'2025-07-21T23:59:59.000Z'}
+ *  size={'s'} - 기본형 'm'
+ *  button={button}
+ * >
+ *  <IdolCardList.IdolCardFooter />
+ * </IdolCardList>
  *
  */
 const IdolCardList = ({
@@ -81,7 +81,8 @@ const IdolCardList = ({
   location,
   title,
   credit,
-  daysLeft,
+  targetCredit,
+  deadline,
   onClick,
   size = 'm',
   button = null,
@@ -93,14 +94,15 @@ const IdolCardList = ({
     location,
     title,
     credit,
-    daysLeft,
+    targetCredit,
+    deadline,
     onClick,
     size,
     button,
   };
 
   const IdolCardWrapClassName = cn(
-    'w-full max-w-md overflow-hidden text-[var(--color-white)]',
+    'w-1/2 max-w-md overflow-hidden text-[var(--color-white)]',
     CARD_SIZE_STYLE[size],
   );
 
@@ -147,12 +149,16 @@ const IdolCardText = () => {
  * - 버튼은 외부에서 JSX 컴포넌트로 전달되며, 클릭 핸들러(onClick)도 함께 전달됩니다.
  */
 const IdolCardImg = () => {
-  const { src, title, button: Button, onClick } = useContext(IdolCardContext);
+  const { src, title, button, onClick } = useContext(IdolCardContext);
 
   return (
     <div className='relative'>
       <CardImg src={src} alt={title}>
-        {Button && <Button onClick={onClick} />}
+        {button && (
+          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
+            {button}
+          </div>
+        )}
       </CardImg>
     </div>
   );
@@ -163,23 +169,25 @@ const IdolCardImg = () => {
  * - 후원 금액, 남은 일수, 진행률 표시
  */
 const IdolCardFooter = () => {
-  const { credit, daysLeft, progress = 15 } = useContext(IdolCardContext);
+  const { credit, targetCredit, deadline } = useContext(IdolCardContext);
+  // 음수일 경우 0으로 처리
+  const safeCredit = Math.max(credit, 0);
 
   return (
     <>
       <div className='caption-text flex items-center justify-between pb-4'>
         <span className='flex items-center text-[var(--color-brand-1)]'>
           <Credit />
-          <p className='pl-2'>{credit}</p>
+          <p className='pl-2'>{safeCredit}</p>
         </span>
-
-        <span className='text-[var(--color-gray-300)]'>{daysLeft}일 남음</span>
+        <span className='text-[var(--color-gray-300)]'>
+          {getDDayText(deadline)}
+        </span>
       </div>
-
       <div className='h-1 w-full overflow-hidden bg-[var(--color-white)]'>
         <div
           className='h-full bg-[var(--color-brand-1)]'
-          style={{ width: `${progress}%` }}
+          style={{ width: `${getDonationProgress(safeCredit, targetCredit)}%` }}
         ></div>
       </div>
     </>

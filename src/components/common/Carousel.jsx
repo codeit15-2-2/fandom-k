@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
-import ChevronRight from '@assets/icons/icon_chevron-right';
-import ChevronLeft from '@assets/icons/icon_chevron-left';
 import { useCarousel } from '@hooks/useCarousel';
+import IdolCardList from '@components/card/IdolCard';
+import ChevronLeft from '@assets/icons/icon_chevron-left';
+import ChevronRight from '@assets/icons/icon_chevron-right';
+import { useState, useEffect } from 'react';
 
 /**
  * Carousel 컴포넌트
@@ -32,9 +34,29 @@ const Carousel = ({
   RenderComponent,
   slideToShow = 4, // 기본값으로 4개 표시
   gap = 4, // 아이템 간격
-  itemClassName = '', // 추가 스타일링을 위한 클래스
+  button,
   ...props
 }) => {
+  const [responsiveOffset, setResponsiveOffset] = useState(slideToShow);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setResponsiveOffset(4);
+      } else if (window.innerWidth >= 768) {
+        setResponsiveOffset(3);
+      } else if (window.innerWidth >= 640) {
+        setResponsiveOffset(2);
+      } else {
+        setResponsiveOffset(1);
+      }
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const {
     currentIndex,
     width,
@@ -42,13 +64,21 @@ const Carousel = ({
     isTransitioning,
     nextSlide,
     prevSlide,
-  } = useCarousel({ totalDataLength: data.length, offset: slideToShow });
+  } = useCarousel({
+    totalDataLength: data?.length,
+    offset: responsiveOffset,
+    data,
+  });
 
   // 아이템 너비 계산 (카드 너비를 이정하게 유지하고 싶다면)
-  const itemWidth = `calc((100% - ${(slideToShow - 1) * gap}px) / ${slideToShow})`;
+  const itemWidth = `calc((100% - ${(responsiveOffset - 1) * gap}px) / ${responsiveOffset})`;
+
+  console.log('data', data);
+
+  if (!data) return null;
 
   return (
-    <div className='relative overflow-hidden p-10'>
+    <div className='relative'>
       <motion.div
         ref={carouselRef}
         className={`flex ${gap > 0 ? `gap-${gap}` : ''}`}
@@ -56,33 +86,41 @@ const Carousel = ({
           x: currentIndex * -width,
         }}
         transition={{
-          type: 'spring',
-          stiffness: 300,
-          damping: 30,
+          type: 'tween',
           duration: 0.5,
         }}
       >
-        {data.map((item, index) => (
+        {data.map((item) => (
           <motion.div
             key={item.id}
             style={{ minWidth: itemWidth, width: itemWidth }}
-            className={itemClassName}
           >
-            <img src={item.img} />
-            {RenderComponent && <RenderComponent item={item} />}
+            {RenderComponent && (
+              <RenderComponent
+                id={item.id}
+                src={item.idol.profilePicture}
+                location={item.subtitle}
+                credit={item.receivedDonations}
+                title={item.title}
+                daysLeft='4'
+                button={button}
+              >
+                <IdolCardList.IdolCardFooter />
+              </RenderComponent>
+            )}
           </motion.div>
         ))}
       </motion.div>
 
       <button
-        className='absolute top-1/2 left-2 z-10 -translate-y-1/2 transform rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -left-10 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={prevSlide}
         disabled={isTransitioning}
       >
         <ChevronLeft />
       </button>
       <button
-        className='absolute top-1/2 right-2 z-10 -translate-y-1/2 transform rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -right-10 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
         onClick={nextSlide}
         disabled={isTransitioning}
       >
