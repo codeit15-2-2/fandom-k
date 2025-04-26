@@ -22,7 +22,7 @@ export default function MainPage() {
   const creditModal = useModal();
 
   return (
-    <div className='flex h-screen w-screen flex-col items-center px-20'>
+    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center p-20'>
       <MyCredit open={creditModal.open} credit={credit} />
       <DonateCarousel idolData={idolData} />
       <CreditModal
