@@ -1,6 +1,6 @@
 import { useCreditForm } from '@hooks/useCreditForm';
-import Input from '../common/Input';
-import CreditController from './CreditController';
+import Input from '@components/common/Input';
+import CreditController from '@components/credit-form/CreditController';
 import Button from '@components/common/Button';
 import CreditIcon from '@assets/icons/icon_credit';
 import { cn } from '@utils/cn';

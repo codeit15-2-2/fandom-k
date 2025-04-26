@@ -25,11 +25,11 @@ import { useState, useEffect } from 'react';
  * @returns {JSX.Element} 슬라이드 캐러셀 UI
  */
 
-const gap = 20;
-const slideToShow = 4;
+const GAP = 20;
+const SLIDETOSHOW = 4;
 
 const Carousel = ({ data, RenderComponent, button, ...props }) => {
-  const [responsiveOffset, setResponsiveOffset] = useState(slideToShow);
+  const [responsiveOffset, setResponsiveOffset] = useState(SLIDETOSHOW);
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,7 +63,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
   });
 
   // 아이템 너비 계산
-  const itemWidth = `calc((100% - ${(responsiveOffset - 1) * gap}px) / ${responsiveOffset})`;
+  const itemWidth = `calc((100% - ${(responsiveOffset - 1) * GAP}px) / ${responsiveOffset})`;
 
   if (!data) return null;
 
@@ -73,7 +73,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
         <motion.div
           ref={carouselRef}
           className='flex'
-          style={{ gap: `${gap}px` }}
+          style={{ gap: `${GAP}px` }}
           animate={{
             x: currentIndex * -width,
           }}
