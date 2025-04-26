@@ -1,9 +1,9 @@
-import Logo from '../../assets/images/img_fandom-k-logo.webp';
+import Logo from '@assets/logos/logo.png';
 import Default from '../../assets/images/img_default-profile.webp';
 import { Link } from 'react-router-dom';
 export default function Header() {
   return (
-    <header className='m-auto flex h-[5rem] w-full max-w-[120rem] justify-between bg-black p-20 sm:h-[8rem]'>
+    <header className='relative z-100 m-auto flex h-[5rem] w-full max-w-[120rem] justify-between bg-black p-20 sm:h-[8rem]'>
       <div></div>
       <Link to='/main' className='flex items-center justify-center'>
         <img

@@ -37,7 +37,7 @@ export default function MonthlyChartContent() {
       <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />
 
       {/* 더보기 버튼 (커서가 존재할 경우에만 노출)*/}
-      <div className='flex justify-center'>
+      <div className='mb-20 flex justify-center'>
         {nextCursor !== null && (
           <Button
             className='mt-20 mb-4' //추가 클래스네임
