@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import { getIdols } from '@apis/idolsApi';
 import { getStoredFavorites } from '@utils/storeFavorite';
 
-// 아이돌 get 요청, state들을 분리해놓기위한 만든 hook
+// 아이돌데이터 get 요청, state들을 분리해놓기위한 만든 hook
 const useMypageIdols = () => {
-
-  
   const [favorites, setFavorites] = useState([]); //선택후 추가된 아이돌들이 저장될 state
   const [idols, setIdols] = useState([]); //api요청을 통해 받은 아이돌데이터가 저장될 state
   const [nextCursor, setNextCursor] = useState(null); //데이터를 분할해서 받아오기위한 cursor state
