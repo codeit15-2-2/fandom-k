@@ -5,6 +5,8 @@ import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';
+import useModal from '@hooks/useModal';
+import DonateModal from '@pages/detail-page/components/DonateModal';
 
 const MainSection = ({
   id,
@@ -17,8 +19,10 @@ const MainSection = ({
   contents,
   englishName,
   idol,
-  isOpen,
+  isDonationOpen,
 }) => {
+  const { isOpen: isModalOpen, open, close } = useModal();
+
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
 
@@ -65,7 +69,7 @@ const MainSection = ({
                 credit={receivedDonations}
                 targetAmount={targetDonation}
                 size='m'
-                isOpen={isOpen}
+                isDonationOpen={isDonationOpen}
               >
                 <DonationInfo.InfoCredit />
                 <DonationInfo.InfoTargetAmount />
@@ -77,7 +81,7 @@ const MainSection = ({
                 createdAt={createdAt}
                 deadline={deadline}
                 size='m'
-                isOpen={isOpen}
+                isDonationOpen={isDonationOpen}
               >
                 <DonationInfo.InfoTimer />
                 <DonationInfo.InfoDeadline />
@@ -89,10 +93,23 @@ const MainSection = ({
                 color='pink'
                 size='full'
                 className='rounded hover:bg-black'
+                onClick={open}
               >
                 후원하기
               </Button>
             </motion.div>
+
+            <DonateModal
+              isOpen={isModalOpen}
+              close={close}
+              donateId={id}
+              cardItem={{
+                id: idol.id,
+                title: title,
+                subtitle: subtitle,
+                profilePicture: idol.profilePicture,
+              }}
+            />
           </div>
         </section>
       </div>

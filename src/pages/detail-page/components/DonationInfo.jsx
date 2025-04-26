@@ -21,7 +21,7 @@ const DonationContext = createContext({
   createdAt: '',
   deadline: '',
   size: 'l',
-  isOpen: null,
+  isDonationOpen: null,
 });
 
 /* 후원 정보 컴포넌트 사용법
@@ -47,7 +47,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  * @property {string} props.createdAt - [모집 기간] 모집 시작 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
  * @property {string} props.deadline - [모집 기간] 모집 마감 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
  * @property {'s' | 'm' | 'l'} [size] - [모집 금액 | 모집 기간] 사이즈 (default size: l)
- * @property {boolean} props.isOpen - [모집 금액 | 모집 기간] 후원 진행 여부
+ * @property {boolean} props.isDonationOpen - [모집 금액 | 모집 기간] 후원 진행 여부
  */
 
 /**
@@ -60,7 +60,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  *   credit={200000}
  *   targetAmount={300000}
  *   size='s'
- *   isOpen={true}>
+ *   isDonationOpen={true}>
  *   <DonationInfo.InfoCredit />
  *   <DonationInfo.InfoTargetAmount />
  * </DonationInfo>
@@ -74,7 +74,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  *   createdAt={'2025-03-19T00:00:00.891Z'}
  *   deadline={'2025-05-22T23:59:59.000Z'}
  *   size='l'
- *   isOpen={true}>
+ *   isDonationOpen={true}>
  *   <DonationInfo.InfoTimer />
  *   <DonationInfo.InfoDeadline />
  * </DonationInfo>
@@ -87,7 +87,7 @@ const DonationInfo = ({
   createdAt,
   deadline,
   size = 'l',
-  isOpen,
+  isDonationOpen,
   children,
 }) => {
   credit = safeNumber(credit);
@@ -100,7 +100,7 @@ const DonationInfo = ({
     createdAt,
     deadline,
     size,
-    isOpen,
+    isDonationOpen,
   };
 
   return (
@@ -130,7 +130,8 @@ const InfoSubTitle = () => {
 
 // 크레딧 정보 컴포넌트
 const InfoCredit = () => {
-  const { credit, targetAmount, size, isOpen } = useContext(DonationContext);
+  const { credit, targetAmount, size, isDonationOpen } =
+    useContext(DonationContext);
   let progress = Math.min(
     (credit / targetAmount) * MAX_PROGRESS_PERCENT,
     MAX_PROGRESS_PERCENT,
@@ -143,7 +144,7 @@ const InfoCredit = () => {
 
   return (
     <>
-      {isOpen ? (
+      {isDonationOpen ? (
         <p className={infoCreditClassNames}>{credit.toLocaleString()}</p>
       ) : (
         <p className={infoCreditClassNames}>모집 종료</p>
@@ -171,9 +172,13 @@ const InfoTargetAmount = () => {
 
 // 타이머 컴포넌트
 const InfoTimer = () => {
-  const { createdAt, deadline, size, isOpen } = useContext(DonationContext);
+  const { createdAt, deadline, size, isDonationOpen } =
+    useContext(DonationContext);
   const now = Date.now();
-  const { days, hours, minutes, seconds } = useCountdownTimer(deadline, isOpen);
+  const { days, hours, minutes, seconds } = useCountdownTimer(
+    deadline,
+    isDonationOpen,
+  );
   const progress = getElapsedProgress(createdAt, deadline, now);
 
   const infoTimerContentClassNames = cn(
@@ -205,7 +210,7 @@ const InfoTimer = () => {
 
   return (
     <>
-      {isOpen ? timerText : isClosedText}
+      {isDonationOpen ? timerText : isClosedText}
       <InfoProgressBar progress={safeNumber(progress)} />
     </>
   );

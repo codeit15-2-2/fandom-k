@@ -1,18 +1,23 @@
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
 import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
+import useModal from '@hooks/useModal';
+import DonateModal from '@pages/detail-page/components/DonateModal';
 
 const MainSection = ({
   id,
   title,
+  subtitle,
   targetDonation,
   createdAt,
   deadline,
   receivedDonations,
   englishName,
   idol,
-  isOpen,
+  isDonationOpen,
 }) => {
+  const { isOpen: isModalOpen, open, close } = useModal();
+
   return (
     <div className='flex h-screen w-screen flex-col items-center bg-black'>
       <div className='relative h-[calc(100vh_-_50rem)]'>
@@ -37,7 +42,7 @@ const MainSection = ({
           credit={receivedDonations}
           targetAmount={targetDonation}
           size='s'
-          isOpen={isOpen}
+          isDonationOpen={isDonationOpen}
         >
           <DonationInfo.InfoCredit />
           <DonationInfo.InfoTargetAmount />
@@ -49,7 +54,7 @@ const MainSection = ({
           createdAt={createdAt}
           deadline={deadline}
           size='s'
-          isOpen={isOpen}
+          isDonationOpen={isDonationOpen}
         >
           <DonationInfo.InfoTimer />
           <DonationInfo.InfoDeadline />
@@ -58,9 +63,26 @@ const MainSection = ({
 
       <div className='fixed bottom-0 z-50 flex h-[8rem] w-screen items-center justify-center bg-black backdrop-blur'>
         <div className='w-[90vw]'>
-          <Button color='pink' size='full' className='rounded hover:bg-black'>
+          <Button
+            color='pink'
+            size='full'
+            className='rounded hover:bg-black'
+            onClick={open}
+          >
             후원하기
           </Button>
+
+          <DonateModal
+            isOpen={isModalOpen}
+            close={close}
+            donateId={id}
+            cardItem={{
+              id: idol.id,
+              title: title,
+              subtitle: subtitle,
+              profilePicture: idol.profilePicture,
+            }}
+          />
         </div>
       </div>
     </div>

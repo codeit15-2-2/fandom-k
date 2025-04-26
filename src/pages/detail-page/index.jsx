@@ -19,13 +19,13 @@ export default function DetailPage() {
   const matchingDetail = donationDetailData.find(
     (detail) => detail.idolId === serverData.idol.id,
   );
-  const isOpen =
+  const isDonationOpen =
     serverData.status && new Date(serverData.deadline) > new Date();
 
   const detailData = {
     ...serverData,
     ...(matchingDetail || {}),
-    isOpen,
+    isDonationOpen,
   };
 
   // 데이터를 관리할 일이 생기면 useState로 관리
