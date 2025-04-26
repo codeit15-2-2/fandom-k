@@ -50,7 +50,6 @@ export default function MyPage() {
         </div>
       </AnimatePresence>
 
-      {/* 하단 고정 버튼 */}
       <FixedButton
         onClick={handleAddFavorites}
         isLoading={isLoading}

@@ -16,7 +16,7 @@ const IdolSelectSection = ({
 }) => {
   return (
     <div className='relative pb-[20rem]'>
-      <h2 className='mb-20 text-[1.8rem] font-bold sm:text-[2.4rem]'>
+      <h2 className='mb-20 text-[1.8rem] font-bold md:text-[2.4rem]'>
         관심 있는 아이돌을 추가해보세요.
       </h2>
 

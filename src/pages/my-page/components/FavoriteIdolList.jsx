@@ -4,10 +4,7 @@ import { cn } from '@utils/cn';
 import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import useWindowSize from '@hooks/useWindowSize';
 
-
-
 //추가된 아이돌들을 렌더링하는 컴포넌트
-
 
 const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
   const width = useWindowSize();
@@ -19,12 +16,11 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
     setIdols,
   });
 
-  //setTimeout으로 아직 관심있는 아이돌이 없습니다 늦게뜨게하기
   return (
-    <div className='min-h-[18rem]'>
+    <div className='min-h-[14rem] md:min-h-[20rem]'>
       <div
         className={cn(
-          'cursor-grab overflow-x-auto overflow-y-auto scroll-smooth whitespace-nowrap active:cursor-grabbing',
+          'cursor-grab overflow-x-auto overflow-y-auto scroll-smooth pb-6 whitespace-nowrap active:cursor-grabbing',
           width >= 1024 ? 'scrollbar-custom' : 'no-scrollbar',
         )}
       >
@@ -56,7 +52,7 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className='flex h-[16rem] w-full items-center justify-center text-[1.8rem] text-gray-400'
+                className='flex min-h-[12rem] w-full items-center justify-center text-[1.8rem] text-gray-400 md:min-h-[18rem]'
               >
                 아직 관심있는 아이돌이 없습니다.
               </motion.div>

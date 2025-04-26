@@ -1,6 +1,8 @@
 import Button from '@components/common/Button';
 import useWindowSize from '@hooks/useWindowSize';
 
+//하단 고정 버튼
+
 const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
   const width = useWindowSize();
 

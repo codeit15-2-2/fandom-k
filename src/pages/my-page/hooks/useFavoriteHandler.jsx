@@ -19,7 +19,7 @@ const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
       selectedIdols.includes(idol.id),
     );
 
-    // 중복된 id값을 가진 아이돌이 추가되는 것을 방지
+    // 중복된 id값을 가진 아이돌이 추가,리스트에 생성되는 것을 방지
     const newFavorites = [
       ...favorites,
       ...selectedIdolObjects.filter(
