@@ -1,6 +1,7 @@
 import { useCreditForm } from '@hooks/useCreditForm';
-import Input from '../common/Input';
-import CreditController from './CreditController';
+import Input from '@components/common/Input';
+import CreditController from '@components/credit-form/CreditController';
+import Button from '@components/common/Button';
 import CreditIcon from '@assets/icons/icon_credit';
 import { cn } from '@utils/cn';
 
@@ -83,13 +84,15 @@ const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
         handleAddAll={handleAddAll}
         isDonate={isDonate}
       />
-      <button //공용 버튼 컴포넌트로 바꾸기
+
+      <Button
+        color='pink'
         onClick={handleClick}
         disabled={error || input === ''}
-        className='bg-gradient-brand w-full cursor-pointer px-4 py-4'
+        className='w-full'
       >
         {isDonate ? '후원하기' : '충전하기'}
-      </button>
+      </Button>
     </div>
   );
 };

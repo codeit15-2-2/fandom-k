@@ -1,4 +1,37 @@
+import { getDonate } from '@apis/donateApi';
+import { useEffect, useState } from 'react';
+import DonateCarousel from './sections/DonateCarousel';
+import MyCredit from './components/MyCredit';
+import useModal from '@hooks/useModal';
+import CreditModal from './components/CreditModal';
+import useCredit from '@hooks/useCredit';
+import MonthlyChartSection from './sections/MonthlyChartSection';
 
 export default function MainPage() {
-  return <div>Main</div>;
+  const [idolData, setIdolData] = useState();
+  const { credit, handleChargeCredit } = useCredit();
+
+  useEffect(() => {
+    const fetchDonateData = async () => {
+      const result = await getDonate();
+      setIdolData(result.list);
+    };
+
+    fetchDonateData();
+  }, []);
+
+  const creditModal = useModal();
+
+  return (
+    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
+      <MyCredit open={creditModal.open} credit={credit} />
+      <DonateCarousel idolData={idolData} />
+      <CreditModal
+        creditModal={creditModal}
+        credit={credit}
+        handleChargeCredit={handleChargeCredit}
+      ></CreditModal>
+      <MonthlyChartSection />
+    </div>
+  );
 }
