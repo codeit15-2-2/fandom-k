@@ -1,7 +1,7 @@
 import { useCreditForm } from '@hooks/useCreditForm';
 import Input from '../common/Input';
 import CreditController from './CreditController';
-// import CreditIcon from '@assets/icons/icon_credit';
+import CreditIcon from '@assets/icons/icon_credit';
 import { cn } from '@utils/cn';
 
 /**

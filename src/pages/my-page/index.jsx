@@ -1,8 +1,9 @@
-import Header from '@components/layouts/Header';
-import FavoriteList from './components/FavoriteIdolList';
-import useMypageIdols from './hooks/useMyPageIdols';
-import IdolSelectList from './components/SelectIdolList';
 import { AnimatePresence, motion } from 'motion/react';
+import useMypageIdols from './hooks/useMyPageIdols';
+import FavoriteListSection from './sections/FavoriteListSection';
+import IdolSelectSection from './sections/SelectListSection';
+import FixedButton from './components/common/Button';
+import useFavoriteHandler from './hooks/useFavoriteHandler';
 
 export default function MyPage() {
   const {
@@ -16,21 +17,24 @@ export default function MyPage() {
     isError,
   } = useMypageIdols();
 
+  const { selectedIds, handleSelect, handleAddFavorites } = useFavoriteHandler({
+    idols,
+    favorites,
+    setFavorites,
+    setIdols,
+  });
+
   return (
     <div className='min-h-screen w-full bg-black text-white'>
       <AnimatePresence>
-        <motion.div
-          className='mx-auto max-w-[140rem] px-6 shadow-2xl shadow-pink-300/80 md:px-6 lg:px-6 xl:px-48'
-          transition={{ type: 'Spring', duration: 0.5 }}
-          layout
-        >
-          <FavoriteList
+        <div className='mx-auto max-w-[140rem] rounded-2xl px-6 md:px-6 lg:px-6 xl:px-48'>
+          <FavoriteListSection
             favorites={favorites}
             setIdols={setIdols}
             setFavorites={setFavorites}
           />
 
-          <IdolSelectList
+          <IdolSelectSection
             idols={idols}
             setIdols={setIdols}
             setFavorites={setFavorites}
@@ -39,9 +43,19 @@ export default function MyPage() {
             favorites={favorites}
             isLoading={isLoading}
             isError={isError}
+            handleSelect={handleSelect}
+            selectedIds={selectedIds}
           />
-        </motion.div>
+        </div>
       </AnimatePresence>
+
+      {/* 하단 고정 버튼 */}
+      <FixedButton
+        onClick={handleAddFavorites}
+        disabled={selectedIds}
+        isLoading={isLoading}
+        selectedIds={selectedIds}
+      ></FixedButton>
     </div>
   );
 }
