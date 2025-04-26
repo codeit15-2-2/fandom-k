@@ -4,6 +4,7 @@ import yellowSpark from '@assets/doodles/spark-yellow.webp';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
+import { motion } from 'motion/react';
 
 // 손목띠 스타일 상수
 const WRISTBAND_STYLES = [
@@ -90,15 +91,26 @@ const ChartHeader = () => (
 const ChartWristBandList = ({ bands }) => (
   <div className='-mt-20 flex flex-1 flex-col items-center justify-center gap-4'>
     {bands.map(({ idol, color, rotate, zIndex, translate, ranking }, index) => (
-      <WristBand
+      <motion.div
         key={idol.id || `band-${index}`}
-        color={color}
-        idol={idol}
-        ranking={ranking}
-        rotate={rotate}
-        zIndex={zIndex}
-        translates={translate}
-      />
+        initial={{ y: -1000 }} // 시작 위치
+        animate={{ y: 0 }} // 최종 위치
+        transition={{
+          type: 'spring',
+          stiffness: 30, // 스프링 강도
+          damping: 10, // 감쇠
+          delay: index * 0.5, // 각 카드에 딜레이 주기
+        }}
+      >
+        <WristBand
+          color={color}
+          idol={idol}
+          ranking={ranking}
+          rotate={rotate}
+          zIndex={zIndex}
+          translates={translate}
+        />
+      </motion.div>
     ))}
   </div>
 );
