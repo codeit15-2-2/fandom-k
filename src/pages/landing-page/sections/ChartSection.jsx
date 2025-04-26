@@ -1,5 +1,5 @@
 import WristBand from '@pages/landing-page/components/elements/wrist-band/WristBand';
-import yellowSpark from '@assets/doodles/spark-yellow.png';
+import yellowSpark from '@assets/doodles/spark-yellow.webp';
 
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';

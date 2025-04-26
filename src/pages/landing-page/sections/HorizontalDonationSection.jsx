@@ -1,6 +1,6 @@
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
-import handphone from '@assets/elements/elem_handphone.png';
+import handphone from '@assets/elements/elem_handphone.webp';
 
 const HorizontalDonationSection = () => {
   return (

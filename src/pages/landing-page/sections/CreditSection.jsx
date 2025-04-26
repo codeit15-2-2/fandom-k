@@ -2,7 +2,7 @@ import { cn } from '@libs/cn';
 import Button from '@pages/landing-page/components/common/Button';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import loopVideo from '@assets/loop.mp4';
-import logo from '@assets/logos/logo.png';
+import logo from '@assets/logos/logo.webp';
 import { Link } from 'react-router-dom';
 
 // 메인 크레딧 섹션

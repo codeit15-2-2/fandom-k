@@ -1,7 +1,7 @@
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
-import handphoneMobile from '@assets/elements/elem_handphone_mobile.png';
-import handphoneTablet from '@assets/elements/elem_handphone_tablet.png';
+import handphoneMobile from '@assets/elements/elem_handphone_mobile.webp';
+import handphoneTablet from '@assets/elements/elem_handphone_tablet.webp';
 
 const VerticalDonationSection = () => {
   return (

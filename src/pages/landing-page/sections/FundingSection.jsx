@@ -2,7 +2,8 @@ import FundingCard from '@pages/landing-page/components/elements/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
-import pinkArrow from '@assets/doodles/arrow-pink.png';
+import pinkArrow from '@assets/doodles/arrow-pink.webp';
+import { motion } from 'motion/react';
 
 // 카드 스타일 설정
 const FUNDING_CARD_STYLES = [
@@ -46,14 +47,25 @@ const FundingCardList = ({ idols }) => (
     {idols.map((idol, index) => {
       const style = getFundingCardStyle(index);
       return (
-        <FundingCard
-          key={idol.id || idol.name}
-          image={idol.image}
-          title={idol.title}
-          location={idol.location}
-          rotate={style.rotate}
-          translate={style.translate}
-        />
+        <motion.div
+          key={`circle-${idol.id || idol.name}-${index}`}
+          initial={{ x: 3000, opacity: 1 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{
+            type: 'spring', // 스프링 애니메이션
+            stiffness: 80,
+            damping: 30,
+            delay: index * 0.1, // 각 카드에 대해 약간의 딜레이를 줘서 자연스럽게 펼쳐지게 함
+          }}
+        >
+          <FundingCard
+            image={idol.image}
+            title={idol.title}
+            location={idol.location}
+            rotate={style.rotate}
+            translate={style.translate}
+          />
+        </motion.div>
       );
     })}
   </div>
