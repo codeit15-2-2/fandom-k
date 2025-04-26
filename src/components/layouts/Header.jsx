@@ -1,11 +1,29 @@
 import Logo from '@assets/logos/logo.png';
 import Default from '../../assets/images/img_default-profile.webp';
 import { Link } from 'react-router-dom';
+import useCredit from '@hooks/useCredit';
+import CreditIcon from '@assets/icons/icon_credit';
+import useModal from '@hooks/useModal';
+import CreditModal from '@pages/main-page/components/CreditModal';
+import PlusIcon from '@assets/icons/icon_plus';
 export default function Header() {
+  const { credit, handleChargeCredit } = useCredit();
+  const creditModal = useModal();
   return (
-    <header className='relative z-101 m-auto flex h-[5rem] w-full justify-center bg-black p-10 sm:h-[8rem]'>
-      <div className='absolute top-0 z-101 m-auto flex h-[8rem] w-full max-w-[120rem] justify-between bg-black sm:h-[8rem]'>
-        <div></div>
+    <header className='relative z-101 m-auto flex h-[5rem] w-full items-center justify-center bg-black p-10 sm:h-[8rem]'>
+      <div className='absolute top-0 z-101 m-auto flex h-[8rem] w-full max-w-[120rem] items-center justify-between bg-black px-20 sm:h-[8rem]'>
+        <div
+          onClick={creditModal.open}
+          className='p- cursor-pointer rounded-full border-[1.5px] border-white/50 px-4 py-3'
+        >
+          <p className='flex items-center text-xl font-bold text-white sm:text-xl'>
+            <CreditIcon className='mr-2 h-6 w-6' />
+            {credit || '0'}
+            <span className='hover:text-brand-1 transition-color ml-6 flex size-7 items-center justify-center rounded-full bg-white/30 leading-none text-black transition-all hover:bg-white'>
+              <PlusIcon />
+            </span>
+          </p>
+        </div>
         <Link to='/main' className='flex items-center justify-center'>
           <img
             src={Logo}
@@ -21,6 +39,11 @@ export default function Header() {
           />
         </Link>
       </div>
+      <CreditModal
+        creditModal={creditModal}
+        credit={credit}
+        handleChargeCredit={handleChargeCredit}
+      ></CreditModal>
     </header>
   );
 }

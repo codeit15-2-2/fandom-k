@@ -31,8 +31,8 @@ export default function MainPage() {
   const creditModal = useModal();
 
   return (
-    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
-      <MyCredit open={creditModal.open} credit={credit} />
+    <div className='mx-auto my-20 flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
+      {/* <MyCredit open={creditModal.open} credit={credit} /> */}
       <DonateCarousel
         idolData={idolData}
         isLoading={isLoading}
