@@ -1,3 +1,5 @@
+
+import { useLocation, useParams } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
 import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import PCMainSection from './sections/pc/MainSection';
@@ -6,6 +8,12 @@ import MobileMainSection from './sections/mobile/MainSection';
 import MobileDetailSection from './sections/mobile/DetailSection';
 
 export default function DetailPage() {
+  const { id } = useParams();
+  const location = useLocation();
+  const item = location.state?.item;
+  console.log('데이터 확인', item);
+  console.log('아이디 확인', id);
+  
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
 
   if (isDesktop) {
