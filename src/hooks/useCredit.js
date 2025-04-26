@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const CREDIT_KEY = 'credit';
 
 const useCredit = () => {
-  const [credit, setCredit] = useState(200000);
+  const [credit, setCredit] = useState(0);
 
   useEffect(() => {
     const storedCredit = localStorage.getItem(CREDIT_KEY);

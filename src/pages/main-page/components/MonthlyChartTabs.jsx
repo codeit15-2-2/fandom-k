@@ -20,7 +20,7 @@ const MonthlyChartTabs = () => {
   ];
 
   return (
-    <div className='flex h-full flex-col bg-black md:max-w-5/8'>
+    <div className='flex h-full flex-col bg-black md:w-full'>
       <div className='sub-content-text flex h-[4.2rem] w-full items-center justify-between text-white'>
         {tabs.map(({ label, path, match }) => (
           <Link

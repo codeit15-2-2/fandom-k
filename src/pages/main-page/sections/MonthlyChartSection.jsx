@@ -3,10 +3,10 @@ import MonthlyChartTabs from '../components/MonthlyChartTabs';
 
 const MonthlyChartSection = ({ open }) => {
   return (
-    <>
-      <MonthlyChartHeader open={open} />
+    <div className='flex w-full max-w-[120rem] flex-col'>
+     <MonthlyChartHeader open={open} />
       <MonthlyChartTabs />
-    </>
+    </div>
   );
 };
 

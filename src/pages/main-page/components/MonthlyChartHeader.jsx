@@ -3,7 +3,7 @@ import IconChart from '@assets/icons/icon_chart';
 
 const MonthlyChartHeader = ({ open }) => {
   return (
-    <div className='mt-4 mb-8 flex items-baseline justify-between md:max-w-5/8'>
+    <div className='mt-4 mb-8 flex items-baseline justify-between md:w-full'>
       <h1 className='title-text text-white'>이달의 차트</h1>
       <Button
         className='mt-20 mb-4' //추가 클래스네임
