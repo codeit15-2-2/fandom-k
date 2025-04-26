@@ -8,11 +8,16 @@ import {
 } from '@constants/donationConstants';
 import { getElapsedProgress, formatDate } from '@utils/donationInfoUtils';
 
+const safeNumber = (value) => {
+  const num = Number(value);
+  return Number.isNaN(num) ? 0 : num;
+};
+
 const DonationContext = createContext({
   title: '',
   subTitle: '',
-  credit: '',
-  targetAmount: '',
+  credit: 0,
+  targetAmount: 0,
   createdAt: '',
   deadline: '',
   size: 'l',
@@ -85,6 +90,8 @@ const DonationInfo = ({
   isOpen,
   children,
 }) => {
+  credit = safeNumber(credit);
+  targetAmount = safeNumber(targetAmount);
   const contextValue = {
     title,
     subTitle,
@@ -124,7 +131,7 @@ const InfoSubTitle = () => {
 // 크레딧 정보 컴포넌트
 const InfoCredit = () => {
   const { credit, targetAmount, size, isOpen } = useContext(DonationContext);
-  const progress = Math.min(
+  let progress = Math.min(
     (credit / targetAmount) * MAX_PROGRESS_PERCENT,
     MAX_PROGRESS_PERCENT,
   );
@@ -144,7 +151,7 @@ const InfoCredit = () => {
 
       <InfoProgressBar progress={progress}>
         <div className='bg-brand-2 z-100 ml-auto h-fit w-fit rounded-full px-3 py-1 text-[1rem] whitespace-nowrap'>
-          {progress.toFixed(1)} %
+          {safeNumber(progress).toFixed(1)} %
         </div>
       </InfoProgressBar>
     </>
@@ -199,7 +206,7 @@ const InfoTimer = () => {
   return (
     <>
       {isOpen ? timerText : isClosedText}
-      <InfoProgressBar progress={progress} />
+      <InfoProgressBar progress={safeNumber(progress)} />
     </>
   );
 };
@@ -222,7 +229,7 @@ const InfoProgressBar = ({ progress, children }) => {
     <div className='relative mt-5 mb-1 h-4 w-full rounded-full'>
       <div
         className='bg-gradient-brand absolute z-1 flex h-4 items-center rounded-full'
-        style={{ width: `${progress}%` }} // tailwindcss는 동적으로 스타일을 줄 수 없습니다.
+        style={{ width: `${progress}%` }}
       >
         {children}
       </div>
