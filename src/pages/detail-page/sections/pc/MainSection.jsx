@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@components/DonationInfo';
-import MainTitle from '../../components/MainTitle';
+import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';

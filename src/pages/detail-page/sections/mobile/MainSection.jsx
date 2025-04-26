@@ -1,5 +1,5 @@
 import DonationInfo from '@components/DonationInfo';
-import MainTitle from '../../components/MainTitle';
+import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
 
 const MainSection = () => {
