@@ -18,7 +18,11 @@ const DonateCarousel = ({ idolData }) => {
             }
           />
         )}
-        button={<Button color='pink'>후원하기</Button>}
+        button={
+          <Button size='s' color='pink'>
+            후원하기
+          </Button>
+        }
       />
     </div>
   );

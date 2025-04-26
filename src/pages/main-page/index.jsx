@@ -5,6 +5,7 @@ import MyCredit from './components/MyCredit';
 import useModal from '@hooks/useModal';
 import CreditModal from './components/CreditModal';
 import useCredit from '@hooks/useCredit';
+import MonthlyChartSection from './sections/MonthlyChartSection';
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -22,7 +23,7 @@ export default function MainPage() {
   const creditModal = useModal();
 
   return (
-    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center p-20'>
+    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
       <MyCredit open={creditModal.open} credit={credit} />
       <DonateCarousel idolData={idolData} />
       <CreditModal
@@ -30,6 +31,7 @@ export default function MainPage() {
         credit={credit}
         handleChargeCredit={handleChargeCredit}
       ></CreditModal>
+      <MonthlyChartSection />
     </div>
   );
 }
