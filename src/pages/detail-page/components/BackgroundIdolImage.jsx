@@ -1,15 +1,15 @@
 const BackgroundIdolImage = ({ imgSrc }) => {
   return (
-    <div className='absolute inset-0 hidden md:block'>
-      <img
-        src={imgSrc}
-        alt='아이돌 이미지'
-        className='h-full w-full object-cover'
-      />
-
-      <div className='absolute inset-0 bg-gradient-to-r from-transparent to-black/80'></div>
-      <div className='absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black'></div>
-    </div>
+    <div
+      className='absolute inset-0 hidden bg-cover bg-center md:block'
+      style={{
+        backgroundImage: `
+        linear-gradient(to right, transparent, rgba(0,0,0,0.8)),
+        linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), black),
+        url(${imgSrc})
+      `,
+      }}
+    />
   );
 };
 
