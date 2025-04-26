@@ -3,6 +3,7 @@ import Button from '@pages/landing-page/components/common/Button';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import loopVideo from '@assets/loop.mp4';
 import logo from '@assets/logos/logo.png';
+import { Link } from 'react-router-dom';
 
 // 메인 크레딧 섹션
 const CreditSection = () => (
@@ -44,7 +45,9 @@ const CreditDescription = () => (
         <span>에서 시작해보세요</span>
       </p>
     </div>
-    <Button>크레딧 받고 시작하기</Button>
+    <Link to='/main'>
+      <Button>크레딧 받고 시작하기</Button>
+    </Link>
   </div>
 );
 export default CreditSection;

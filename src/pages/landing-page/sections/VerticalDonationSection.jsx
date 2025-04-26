@@ -5,7 +5,7 @@ import handphoneTablet from '@assets/elements/elem_handphone_tablet.png';
 
 const VerticalDonationSection = () => {
   return (
-    <div className={cn(SNAP_ITEM, 'bg-gradient-brand-2')}>
+    <div className={cn(SNAP_ITEM, 'from-brand-1 to-brand-2 bg-gradient-to-br')}>
       {/*후원 설명 섹션 */}
       <div className='relative flex h-full min-h-[80rem] w-full flex-col items-center justify-center px-20 py-40 text-white'>
         <div className='flex h-full flex-col items-center gap-8'>

@@ -12,6 +12,7 @@ import {
   avatar5,
   avatar7,
 } from '@pages/landing-page/utils/getIdolAvatar';
+import { Link } from 'react-router-dom';
 
 // 배경 아이돌 동그라미 요소 관련 상수
 const IDOL_CIRCLES = [
@@ -91,7 +92,9 @@ const HeroHeader = () => (
           나를 설레게 했던 순간, 이제는 내가 보답할 때
         </span>
       </h1>
-      <Button>시작하기</Button>
+      <Link to='/main'>
+        <Button>시작하기</Button>
+      </Link>
     </div>
   </div>
 );
