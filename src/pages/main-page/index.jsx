@@ -11,14 +11,22 @@ import useCredit from '@hooks/useCredit';
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const { credit, handleChargeCredit } = useCredit();
 
-  useEffect(() => {
-    const fetchDonateData = async () => {
+  const fetchDonateData = async () => {
+    setIsLoading(true); // 데이터 로딩 시작
+    try {
       const result = await getDonate();
       setIdolData(result.list);
-    };
+    } catch (error) {
+      console.error('Failed to fetch donate data:', error);
+    } finally {
+      setIsLoading(false); // 데이터 로딩 완료 (성공 또는 실패 모두)
+    }
+  };
 
+  useEffect(() => {
     fetchDonateData();
   }, []);
 
@@ -26,9 +34,15 @@ export default function MainPage() {
   const voteModal = useModal();
 
   return (
+    <div className='mx-auto my-20 flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
+      {/* <MyCredit open={creditModal.open} credit={credit} /> */}
+      <DonateCarousel
+        idolData={idolData}
+        isLoading={isLoading}
+        fetchDonateData={fetchDonateData}
+      />
     <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
       <MyCredit open={creditModal.open} credit={credit} />
-      <DonateCarousel idolData={idolData} />
       <MonthlyChartSection open={voteModal.open} />
       <VoteModal voteModal={voteModal}></VoteModal>
       <CreditModal
