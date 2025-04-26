@@ -16,7 +16,7 @@ const MyCredit = ({ credit, open }) => {
         <div className='flex items-center'>
           <button
             onClick={open}
-            className='caption-text font-bold text-[#F96D69] sm:text-[1.6rem]'
+            className='caption-text cursor-pointer font-bold text-[#F96D69] sm:text-[1.6rem]'
           >
             충전하기
           </button>
