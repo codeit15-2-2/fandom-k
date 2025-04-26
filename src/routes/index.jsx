@@ -6,7 +6,7 @@ import MainPage from '@pages/main-page';
 import DetailPage from '@pages/detail-page';
 import MyPage from '@pages/my-page';
 import NotFoundPage from '@pages/not-found-page';
-import Content from '@pages/main-page/pages/Content';
+import MonthlyChartContent from '@pages/main-page/components/MonthlyChartContent';
 
 const router = createBrowserRouter([
   {
@@ -22,11 +22,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'female',
-            element: <Content />,
+            element: <MonthlyChartContent />,
           },
           {
             path: 'male',
-            element: <Content />,
+            element: <MonthlyChartContent />,
           },
         ],
       },

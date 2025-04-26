@@ -21,7 +21,7 @@ import { instance } from '@apis/instance';
  */
 
 /**
- * 이달의 차트 목룍을 불러옵니다.
+ * 이달의 차트 목록을 불러옵니다.
  * @param {object} [params] 요청 쿼리 파라미터
  * @param {'male'|'female'} params.gender - 성별 필터링 (필수)
  * @param {number} [params.cursor=0] - 페이지네이션을 위한 커서 (기본값: 0)
@@ -29,7 +29,9 @@ import { instance } from '@apis/instance';
  * @returns {Promise<GetChartListResponse>} - 차트 목록과 다음 커서 반환
  */
 
-const getCharts = async ({ gender, cursor = 0, pageSize = 10 } = {}) => {
+const getCharts = async ({ gender, cursor = 0, pageSize = 10 }) => {
+  if (!gender) throw new Error('gender는 필수 파라미터입니다.');
+
   try {
     const { data } = await instance.get(`/charts/${gender}`, {
       params: { gender, cursor, pageSize },
@@ -37,7 +39,8 @@ const getCharts = async ({ gender, cursor = 0, pageSize = 10 } = {}) => {
 
     return data;
   } catch (error) {
-    throw new Error(`차트 정보 불러오기 실패: ${error.message}`);
+    const errorMessage = error?.response?.data?.message || error.message;
+    throw new Error(`차트 정보 불러오기 실패: ${errorMessage}`);
   }
 };
 

@@ -1,4 +1,4 @@
-const Chart = () => {
+const IconChart = () => {
   return (
     <svg
       width='24'
@@ -41,4 +41,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default IconChart;
