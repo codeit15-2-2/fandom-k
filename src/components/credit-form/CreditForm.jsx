@@ -2,7 +2,7 @@ import { useCreditForm } from '@hooks/useCreditForm';
 import Input from '../common/Input';
 import CreditController from './CreditController';
 import Button from '@components/common/Button';
-// import CreditIcon from '@assets/icons/icon_credit';
+import CreditIcon from '@assets/icons/icon_credit';
 import { cn } from '@utils/cn';
 
 /**
@@ -75,9 +75,9 @@ const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
         onChange={handleInputChange}
         isError={error}
         errMsg={errMsg}
-        // icon={
-        //   <CreditIcon className='absolute top-1/2 right-8 h-10 w-10 -translate-y-1/2 object-contain' />
-        // }
+        icon={
+          <CreditIcon className='absolute top-1/2 right-8 h-10 w-10 -translate-y-1/2 object-contain' />
+        }
       />
       <CreditController
         handleAddAmount={handleAddAmount}
