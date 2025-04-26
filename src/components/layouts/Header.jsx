@@ -3,8 +3,8 @@ import Default from '../../assets/images/img_default-profile.webp';
 import { Link } from 'react-router-dom';
 export default function Header() {
   return (
-    <header className='relative z-101 m-auto flex h-[5rem] w-full justify-center bg-black p-20 sm:h-[10rem]'>
-      <div className='fixed top-0 z-101 m-auto flex h-[5rem] w-full max-w-[120rem] justify-between bg-black p-20 sm:h-[10rem]'>
+    <header className='relative z-101 m-auto flex h-[5rem] w-full justify-center bg-black p-10 sm:h-[8rem]'>
+      <div className='absolute top-0 z-101 m-auto flex h-[8rem] w-full max-w-[120rem] justify-between bg-black sm:h-[8rem]'>
         <div></div>
         <Link to='/main' className='flex items-center justify-center'>
           <img

@@ -16,7 +16,7 @@ const SkeletonIdolCard = ({ size = 'm' }) => {
     <div className={cardWrapClassName}>
       {/* 이미지 영역 */}
       <div className='relative'>
-        <div className='aspect-[3/4] w-full rounded bg-gray-700'></div>
+        <div className='aspect-[1/1] w-full rounded rounded-2xl bg-gray-700'></div>
       </div>
 
       {/* 텍스트 영역 */}
