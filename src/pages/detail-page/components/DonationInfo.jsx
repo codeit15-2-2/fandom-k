@@ -8,15 +8,20 @@ import {
 } from '@constants/donationConstants';
 import { getElapsedProgress, formatDate } from '@utils/donationInfoUtils';
 
+const safeNumber = (value) => {
+  const num = Number(value);
+  return Number.isNaN(num) ? 0 : num;
+};
+
 const DonationContext = createContext({
   title: '',
   subTitle: '',
-  credit: '',
-  targetAmount: '',
+  credit: 0,
+  targetAmount: 0,
   createdAt: '',
   deadline: '',
   size: 'l',
-  isOpen: null,
+  isDonationOpen: null,
 });
 
 /* 후원 정보 컴포넌트 사용법
@@ -42,7 +47,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  * @property {string} props.createdAt - [모집 기간] 모집 시작 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
  * @property {string} props.deadline - [모집 기간] 모집 마감 날짜 문자열 (ex. ISO 8601: YYYY-MM-DDTHH:mm:ss.sssZ)
  * @property {'s' | 'm' | 'l'} [size] - [모집 금액 | 모집 기간] 사이즈 (default size: l)
- * @property {boolean} props.isOpen - [모집 금액 | 모집 기간] 후원 진행 여부
+ * @property {boolean} props.isDonationOpen - [모집 금액 | 모집 기간] 후원 진행 여부
  */
 
 /**
@@ -55,7 +60,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  *   credit={200000}
  *   targetAmount={300000}
  *   size='s'
- *   isOpen={true}>
+ *   isDonationOpen={true}>
  *   <DonationInfo.InfoCredit />
  *   <DonationInfo.InfoTargetAmount />
  * </DonationInfo>
@@ -69,7 +74,7 @@ s, m, l로 size를 설정해 사용할 수 있습니다. 기본 사이즈는 'l'
  *   createdAt={'2025-03-19T00:00:00.891Z'}
  *   deadline={'2025-05-22T23:59:59.000Z'}
  *   size='l'
- *   isOpen={true}>
+ *   isDonationOpen={true}>
  *   <DonationInfo.InfoTimer />
  *   <DonationInfo.InfoDeadline />
  * </DonationInfo>
@@ -82,9 +87,11 @@ const DonationInfo = ({
   createdAt,
   deadline,
   size = 'l',
-  isOpen,
+  isDonationOpen,
   children,
 }) => {
+  credit = safeNumber(credit);
+  targetAmount = safeNumber(targetAmount);
   const contextValue = {
     title,
     subTitle,
@@ -93,7 +100,7 @@ const DonationInfo = ({
     createdAt,
     deadline,
     size,
-    isOpen,
+    isDonationOpen,
   };
 
   return (
@@ -123,8 +130,9 @@ const InfoSubTitle = () => {
 
 // 크레딧 정보 컴포넌트
 const InfoCredit = () => {
-  const { credit, targetAmount, size, isOpen } = useContext(DonationContext);
-  const progress = Math.min(
+  const { credit, targetAmount, size, isDonationOpen } =
+    useContext(DonationContext);
+  let progress = Math.min(
     (credit / targetAmount) * MAX_PROGRESS_PERCENT,
     MAX_PROGRESS_PERCENT,
   );
@@ -136,7 +144,7 @@ const InfoCredit = () => {
 
   return (
     <>
-      {isOpen ? (
+      {isDonationOpen ? (
         <p className={infoCreditClassNames}>{credit.toLocaleString()}</p>
       ) : (
         <p className={infoCreditClassNames}>모집 종료</p>
@@ -144,7 +152,7 @@ const InfoCredit = () => {
 
       <InfoProgressBar progress={progress}>
         <div className='bg-brand-2 z-100 ml-auto h-fit w-fit rounded-full px-3 py-1 text-[1rem] whitespace-nowrap'>
-          {progress.toFixed(1)} %
+          {safeNumber(progress).toFixed(1)} %
         </div>
       </InfoProgressBar>
     </>
@@ -164,9 +172,13 @@ const InfoTargetAmount = () => {
 
 // 타이머 컴포넌트
 const InfoTimer = () => {
-  const { createdAt, deadline, size, isOpen } = useContext(DonationContext);
+  const { createdAt, deadline, size, isDonationOpen } =
+    useContext(DonationContext);
   const now = Date.now();
-  const { days, hours, minutes, seconds } = useCountdownTimer(deadline, isOpen);
+  const { days, hours, minutes, seconds } = useCountdownTimer(
+    deadline,
+    isDonationOpen,
+  );
   const progress = getElapsedProgress(createdAt, deadline, now);
 
   const infoTimerContentClassNames = cn(
@@ -198,8 +210,8 @@ const InfoTimer = () => {
 
   return (
     <>
-      {isOpen ? timerText : isClosedText}
-      <InfoProgressBar progress={progress} />
+      {isDonationOpen ? timerText : isClosedText}
+      <InfoProgressBar progress={safeNumber(progress)} />
     </>
   );
 };
@@ -222,7 +234,7 @@ const InfoProgressBar = ({ progress, children }) => {
     <div className='relative mt-5 mb-1 h-4 w-full rounded-full'>
       <div
         className='bg-gradient-brand absolute z-1 flex h-4 items-center rounded-full'
-        style={{ width: `${progress}%` }} // tailwindcss는 동적으로 스타일을 줄 수 없습니다.
+        style={{ width: `${progress}%` }}
       >
         {children}
       </div>
