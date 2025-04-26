@@ -17,12 +17,13 @@ export default function MyPage() {
     isError,
   } = useMypageIdols();
 
-  const { selectedIds, handleSelect, handleAddFavorites } = useFavoriteHandler({
-    idols,
-    favorites,
-    setFavorites,
-    setIdols,
-  });
+  const { selectedIdols, handleSelect, handleAddFavorites } =
+    useFavoriteHandler({
+      idols,
+      favorites,
+      setFavorites,
+      setIdols,
+    });
 
   return (
     <div className='min-h-screen w-full bg-black text-white'>
@@ -44,7 +45,7 @@ export default function MyPage() {
             isLoading={isLoading}
             isError={isError}
             handleSelect={handleSelect}
-            selectedIds={selectedIds}
+            selectedIdols={selectedIdols}
           />
         </div>
       </AnimatePresence>
@@ -52,9 +53,8 @@ export default function MyPage() {
       {/* 하단 고정 버튼 */}
       <FixedButton
         onClick={handleAddFavorites}
-        disabled={selectedIds}
         isLoading={isLoading}
-        selectedIds={selectedIds}
+        selectedIdols={selectedIdols}
       ></FixedButton>
     </div>
   );

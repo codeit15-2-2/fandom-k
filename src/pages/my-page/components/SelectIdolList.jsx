@@ -5,10 +5,12 @@ import Button from '@components/common/Button';
 import useWindowSize from '@hooks/useWindowSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
+//추가될 아이돌들을 선택하는 컴포넌트
+
 const IdolSelectList = ({
   idols,
   handleSelect,
-  selectedIds,
+  selectedIdols,
   handleMoreIdols,
   hasMore,
   isError,
@@ -39,7 +41,7 @@ const IdolSelectList = ({
                 name={item.name}
                 group={item.group}
                 size={avatarSize}
-                selectedIds={selectedIds}
+                selectedIds={selectedIdols}
                 onItemClick={handleSelect}
               />
             </motion.div>

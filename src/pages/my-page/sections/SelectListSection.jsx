@@ -12,10 +12,10 @@ const IdolSelectSection = ({
   hasMore,
   isError,
   handleSelect,
-  selectedIds,
+  selectedIdols,
 }) => {
   return (
-    <div className='relative'>
+    <div className='relative pb-[20rem]'>
       <h2 className='mb-20 text-[1.8rem] font-bold sm:text-[2.4rem]'>
         관심 있는 아이돌을 추가해보세요.
       </h2>
@@ -24,7 +24,7 @@ const IdolSelectSection = ({
         <IdolSelectList
           idols={idols}
           handleSelect={handleSelect}
-          selectedIds={selectedIds}
+          selectedIdols={selectedIdols}
           handleMoreIdols={handleMoreIdols}
           hasMore={hasMore}
           isError={isError}

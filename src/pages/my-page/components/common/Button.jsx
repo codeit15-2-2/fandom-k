@@ -1,22 +1,27 @@
 import Button from '@components/common/Button';
+import useWindowSize from '@hooks/useWindowSize';
 
-//하단에 fixed를 통해 고정될 버튼 컴포넌트
+const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
+  const width = useWindowSize();
 
-const FixedButton = ({ size, onClick, isLoading, selectedIds }) => {
+  const buttonSize =
+    width < 1024
+      ? 'h-[42px] w-[295px]  py-[9px]'
+      : 'h-[43px] w-[477px]  py-[9px]';
+
   return (
-    <div className='fixed bottom-[0rem] left-1/2 mt-10 flex -translate-x-1/2 flex-col items-center justify-center'>
+    <div className='fixed bottom-0 z-990 flex h-[10rem] w-screen items-center justify-center bg-black'>
       <Button
         size='xl'
         color='pink'
         rounded
         onClick={onClick}
-        disabled={selectedIds?.length == 0}
+        disabled={selectedIdols.length === 0}
         isLoading={isLoading}
+        className={buttonSize}
       >
         추가하기
       </Button>
-      {/* 버튼 밑에요소 가리기 */}
-      <div className='h-[1rem] w-screen bg-black'></div>
     </div>
   );
 };
