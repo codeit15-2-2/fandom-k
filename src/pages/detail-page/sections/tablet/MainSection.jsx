@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
-import DonationInfo from '@components/DonationInfo';
+import DonationInfo from '@pages/detail-page/components/DonationInfo';
 import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
