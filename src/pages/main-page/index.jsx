@@ -4,8 +4,10 @@ import DonateCarousel from './sections/DonateCarousel';
 import MyCredit from './components/MyCredit';
 import useModal from '@hooks/useModal';
 import CreditModal from './components/CreditModal';
-import useCredit from '@hooks/useCredit';
 import MonthlyChartSection from './sections/MonthlyChartSection';
+import VoteModal from './components/VoteModal';
+import useCredit from '@hooks/useCredit';
+
 
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
@@ -29,6 +31,7 @@ export default function MainPage() {
   }, []);
 
   const creditModal = useModal();
+  const voteModal = useModal();
 
   return (
     <div className='mx-auto my-20 flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
@@ -38,12 +41,15 @@ export default function MainPage() {
         isLoading={isLoading}
         fetchDonateData={fetchDonateData}
       />
+    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
+      <MyCredit open={creditModal.open} credit={credit} />
+      <MonthlyChartSection open={voteModal.open} />
+      <VoteModal voteModal={voteModal}></VoteModal>
       <CreditModal
         creditModal={creditModal}
         credit={credit}
         handleChargeCredit={handleChargeCredit}
       ></CreditModal>
-      <MonthlyChartSection />
     </div>
   );
 }

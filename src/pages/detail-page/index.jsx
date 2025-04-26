@@ -1,30 +1,43 @@
-
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
 import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import PCMainSection from './sections/pc/MainSection';
 import TabletMainSection from './sections/tablet/MainSection';
 import MobileMainSection from './sections/mobile/MainSection';
 import MobileDetailSection from './sections/mobile/DetailSection';
+import donationDetailData from '@/mocks/donationDetailData.json';
 
 export default function DetailPage() {
-  const { id } = useParams();
-  const location = useLocation();
-  const item = location.state?.item;
-  console.log('데이터 확인', item);
-  console.log('아이디 확인', id);
-  
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
+  const location = useLocation();
+  const serverData = location.state?.item;
+
+  if (!serverData) {
+    return <div>해당되는 데이터가 없습니다.</div>;
+  }
+
+  const matchingDetail = donationDetailData.find(
+    (detail) => detail.idolId === serverData.idol.id,
+  );
+  const isDonationOpen =
+    serverData.status && new Date(serverData.deadline) > new Date();
+
+  const detailData = {
+    ...serverData,
+    ...(matchingDetail || {}),
+    isDonationOpen,
+  };
+
+  // 데이터를 관리할 일이 생기면 useState로 관리
+  // const [detailData, setDetailData] = useState(initialDetailData);
+
+  console.log('아이돌 id', serverData.idol.id);
 
   if (isDesktop) {
     return (
       <div>
-        <BackgroundIdolImage
-          imgSrc={
-            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
-          }
-        />
-        <PCMainSection />
+        <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
+        <PCMainSection {...detailData} />
       </div>
     );
   }
@@ -32,12 +45,8 @@ export default function DetailPage() {
   if (isTablet) {
     return (
       <div className='bg-black'>
-        <BackgroundIdolImage
-          imgSrc={
-            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
-          }
-        />
-        <TabletMainSection />
+        <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
+        <TabletMainSection {...detailData} />
       </div>
     );
   }
@@ -45,26 +54,11 @@ export default function DetailPage() {
   if (isMobile) {
     return (
       <div>
-        <MobileMainSection />
-        <MobileDetailSection />
+        <MobileMainSection {...detailData} />
+        <MobileDetailSection {...detailData} />
       </div>
     );
   }
 
   return <p className='text-white'>지원되지 않는 디바이스 환경입니다.</p>;
 }
-
-/* 받아올 데이터
-- 아이돌 사진
-- 아이돌 영문 이름
-- 후원 제목
-- 목표 크레딧
-- 현재 모인 크레딧
-- 후원 모집 시작 (createdAt)
-- 모집 종료 (deadline)
-- 후원 상세 내용
-- 아이돌 그룹명
-- 아이돌 이름
-- 후원 장소
-- 후원 Id (donateId)
-*/
