@@ -1,6 +1,7 @@
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
 import handphone from '@assets/elements/elem_handphone.webp';
+import { motion } from 'motion/react';
 
 const HorizontalDonationSection = () => {
   return (
@@ -21,7 +22,12 @@ const HorizontalDonationSection = () => {
             가까워지는
           </h1>
           <div className='mt-20 h-4 w-1/2 flex-1 rounded-full bg-white/30'>
-            <div className='h-4 w-5/6 rounded-full bg-white' />
+            <motion.div
+              className='h-4 rounded-full bg-white'
+              initial={{ width: 0 }}
+              animate={{ width: '90%' }}
+              transition={{ type: 'spring', damping: 50, stiffness: 30 }}
+            />
           </div>
           <h1 className='text-8xl font-semibold'>
             최애와
