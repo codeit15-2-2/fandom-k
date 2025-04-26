@@ -5,17 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { cn } from '@/utils/cn';
 import { useState, useEffect } from 'react';
 
-// 스켈레톤 카드 컴포넌트
+// 스켈레톤 카드 컴포넌트 - width prop을 받도록 수정
 const SkeletonIdolCard = ({ size = 'm' }) => {
-  // 카드 사이즈별 스타일 적용
-  const cardSizeStyle = {
-    s: 'w-[15.8rem]',
-    m: 'w-[28rem]',
-  };
-
+  // width는 더 이상 고정된 값이 아니라 외부에서 결정됨
   const cardWrapClassName = cn(
     'w-full overflow-hidden text-[var(--color-white)] animate-pulse',
-    cardSizeStyle[size],
   );
 
   return (
@@ -110,7 +104,7 @@ const ResponsiveSkeletonCarousel = () => {
   );
 };
 
-const DonateCarousel = ({ idolData, isLoading }) => {
+const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
   const navigate = useNavigate();
 
   return (
@@ -139,8 +133,13 @@ const DonateCarousel = ({ idolData, isLoading }) => {
             }
           />
         ) : (
-          <div className='flex h-72 w-full items-center justify-center rounded-lg bg-gray-800/30'>
-            <p className='text-gray-400'>표시할 후원 항목이 없습니다.</p>
+          <div className='flex h-100 w-full flex-col items-center justify-center gap-10 rounded-lg bg-gray-800/30'>
+            <p className='text-3xl text-gray-400'>
+              데이터를 불러오는 데 실패하였습니다.
+            </p>
+            <Button color='pink' size='m' onClick={fetchDonateData}>
+              다시 시도하기
+            </Button>
           </div>
         )}
       </div>
