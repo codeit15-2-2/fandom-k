@@ -8,7 +8,6 @@ import MonthlyChartSection from './sections/MonthlyChartSection';
 import VoteModal from './components/VoteModal';
 import useCredit from '@hooks/useCredit';
 
-
 export default function MainPage() {
   const [idolData, setIdolData] = useState();
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
@@ -34,14 +33,12 @@ export default function MainPage() {
   const voteModal = useModal();
 
   return (
-    <div className='mx-auto my-20 flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
-      {/* <MyCredit open={creditModal.open} credit={credit} /> */}
+    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
       <DonateCarousel
         idolData={idolData}
         isLoading={isLoading}
         fetchDonateData={fetchDonateData}
       />
-    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
       <MyCredit open={creditModal.open} credit={credit} />
       <MonthlyChartSection open={voteModal.open} />
       <VoteModal voteModal={voteModal}></VoteModal>
