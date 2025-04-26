@@ -5,6 +5,26 @@ import ChevronLeft from '@assets/icons/icon_chevron-left';
 import ChevronRight from '@assets/icons/icon_chevron-right';
 import { useState, useEffect } from 'react';
 
+/**
+ * Carousel 컴포넌트
+ *
+ * 슬라이드 형태로 콘텐츠를 보여주는 컴포넌트입니다.
+ * 한 번에 여러 개의 아이템을 보여줄 수 있으며, 좌우 화살표로 슬라이드를 이동할 수 있습니다.
+ *
+ *
+ * @param {Object} props - Carousel props
+ * @param {React.ComponentType<{ item: any }>} props.RenderComponent - 각 슬라이드에 렌더링할 컴포넌트. `item` prop을 받아야 합니다.
+ * @param {string} [props.itemClassName=''] - 각 슬라이드 아이템에 추가할 Tailwind CSS 클래스 또는 사용자 정의 클래스
+ * @example
+ * <Carousel
+ *   RenderComponent={({ item }) => <Card item={item} />} 컴포넌트는 함수형으로 작성해야 props를 넘겨줄 수 있음음
+ *   itemClassName="rounded-lg shadow-md"
+ * />
+ *
+ *
+ * @returns {JSX.Element} 슬라이드 캐러셀 UI
+ */
+
 const gap = 20;
 const slideToShow = 4;
 
