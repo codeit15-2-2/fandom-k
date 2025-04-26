@@ -57,10 +57,10 @@ const MainSection = ({
       ></motion.div>
 
       <div className='flex h-fit w-full justify-center overflow-hidden'>
-        <div className='grid h-[calc(100vh-8rem)] w-[95vw] grid-cols-3 grid-rows-4 gap-10'>
+        <div className='grid h-[calc(100vh-8rem)] w-[95vw] grid-cols-3 grid-rows-4 gap-10 md:h-[calc(100vh-10rem)]'>
           {/* 제목 + 본문 영역 */}
           <section
-            className='relative col-start-1 col-end-3 row-start-1 row-end-5 overflow-y-scroll'
+            className='relative col-start-1 col-end-3 row-start-1 row-end-5 overflow-y-scroll [&::-webkit-scrollbar]:hidden'
             ref={scrollAreaRef}
           >
             <div
@@ -76,7 +76,7 @@ const MainSection = ({
           </section>
 
           {/* 후원 정보, 버튼 영역 */}
-          <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 flex flex-col justify-between py-20'>
+          <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 ml-auto flex max-w-[50rem] flex-col justify-between py-20'>
             <motion.div
               className='sticky top-0 z-10 w-full'
               style={detailTitleAnimation}
