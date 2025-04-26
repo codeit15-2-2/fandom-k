@@ -6,7 +6,19 @@ import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';
 
-const MainSection = () => {
+const MainSection = ({
+  id,
+  title,
+  subtitle,
+  targetDonation,
+  createdAt,
+  deadline,
+  receivedDonations,
+  contents,
+  englishName,
+  idol,
+  isOpen,
+}) => {
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
 
@@ -26,20 +38,20 @@ const MainSection = () => {
             style={{ marginTop: `calc(100vh - 8rem - ${titleHeight}px)` }}
           >
             <div ref={titleRef}>
-              <MainTitle title='1주년 기념 팝업 카페' name='KARINA' size='l' />
+              <MainTitle title={title} name={englishName} size='l' />
             </div>
 
             <div className='my-20'>
               <DetailTitle
-                name='에스파 카리나'
-                title='1주년 기념 팝업 카페'
-                location='홍대 AK 플라자'
+                name={`${idol.group} ${idol.name}`}
+                title={title}
+                location={subtitle}
                 size='s'
               />
             </div>
 
             <div className='pb-10'>
-              <DetailContent />
+              <DetailContent contents={contents} />
             </div>
           </div>
         </section>
@@ -50,10 +62,10 @@ const MainSection = () => {
               <DonationInfo
                 title='모인 금액'
                 subTitle='크레딧'
-                credit={200000}
-                targetAmount={300000}
+                credit={receivedDonations}
+                targetAmount={targetDonation}
                 size='m'
-                isOpen={true}
+                isOpen={isOpen}
               >
                 <DonationInfo.InfoCredit />
                 <DonationInfo.InfoTargetAmount />
@@ -62,10 +74,10 @@ const MainSection = () => {
               <DonationInfo
                 title='모집 기간'
                 subTitle='남은 시간'
-                createdAt={'2025-03-19T00:00:00.891Z'}
-                deadline={'2025-05-22T23:59:59.000Z'}
+                createdAt={createdAt}
+                deadline={deadline}
                 size='m'
-                isOpen={true}
+                isOpen={isOpen}
               >
                 <DonationInfo.InfoTimer />
                 <DonationInfo.InfoDeadline />
