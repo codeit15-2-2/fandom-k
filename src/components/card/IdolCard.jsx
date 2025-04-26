@@ -1,4 +1,4 @@
-import { useContext, createContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import { cn } from '@/utils/cn';
 import CardImg from '@components/common/CardImg';
 import Credit from '@assets/icons/icon_credit';
@@ -151,12 +151,17 @@ const IdolCardText = () => {
 const IdolCardImg = () => {
   const { src, title, button, onClick } = useContext(IdolCardContext);
 
+  // 버튼에 onClick 핸들러 연결
+  const buttonWithHandler = button
+    ? React.cloneElement(button, { onClick })
+    : null;
+
   return (
     <div className='relative'>
       <CardImg src={src} alt={title}>
         {button && (
           <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
-            {button}
+            {buttonWithHandler}
           </div>
         )}
       </CardImg>
