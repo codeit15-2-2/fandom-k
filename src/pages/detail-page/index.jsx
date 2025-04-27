@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
 import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import PCMainSection from './sections/pc/MainSection';
@@ -13,7 +13,7 @@ export default function DetailPage() {
   const serverData = location.state?.item;
 
   if (!serverData) {
-    return <div>해당되는 데이터가 없습니다.</div>;
+    return <Navigate to='/error/404' />;
   }
 
   const matchingDetail = donationDetailData.find(
