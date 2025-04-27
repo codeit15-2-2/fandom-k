@@ -7,6 +7,7 @@ import DetailPage from '@pages/detail-page';
 import MyPage from '@pages/my-page';
 import NotFoundPage from '@pages/not-found-page';
 import MonthlyChartContent from '@pages/main-page/components/MonthlyChartContent';
+import DonationProvider from '@contexts/DonationContext';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'main',
-        element: <MainPage />,
+        element: (
+          <DonationProvider>
+            <MainPage />
+          </DonationProvider>
+        ),
         children: [
           {
             path: 'female',
@@ -32,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'main/:id',
-        element: <DetailPage />,
+        element: (
+          <DonationProvider>
+            <DetailPage />
+          </DonationProvider>
+        ),
       },
       {
         path: 'mypage',
