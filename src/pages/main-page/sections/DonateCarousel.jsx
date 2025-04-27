@@ -4,6 +4,7 @@ import Carousel from '@components/common/Carousel';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/utils/cn';
 import { useState, useEffect } from 'react';
+import { useDonation } from '@contexts/DonationContext';
 
 // 스켈레톤 카드 컴포넌트 - width prop을 받도록 수정
 const SkeletonIdolCard = ({ size = 'm' }) => {
@@ -106,6 +107,7 @@ const ResponsiveSkeletonCarousel = () => {
 
 const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
   const navigate = useNavigate();
+  const { setDonationData } = useDonation();
 
   return (
     <div className='flex w-full flex-col gap-10'>
@@ -121,9 +123,10 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
             RenderComponent={(props) => (
               <IdolCardList
                 {...props}
-                onClick={() =>
-                  navigate(`/main/${props.id}`, { state: { item: props.data } })
-                }
+                onClick={() => {
+                  setDonationData(props.data);
+                  navigate(`/main/${props.id}`);
+                }}
               />
             )}
             button={

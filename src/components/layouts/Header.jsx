@@ -1,4 +1,4 @@
-import Logo from '@assets/logos/logo.png';
+import Logo from '@assets/logos/logo.webp';
 import Default from '../../assets/images/img_default-profile.webp';
 import { Link } from 'react-router-dom';
 import useCredit from '@hooks/useCredit';

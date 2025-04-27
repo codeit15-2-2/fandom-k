@@ -63,14 +63,25 @@ const MainSection = ({
 
       <div className='fixed bottom-0 z-50 flex h-[8rem] w-screen items-center justify-center bg-black backdrop-blur'>
         <div className='w-[90vw]'>
-          <Button
-            color='pink'
-            size='full'
-            className='rounded hover:bg-black'
-            onClick={open}
-          >
-            후원하기
-          </Button>
+          {isDonationOpen ? (
+            <Button
+              color='pink'
+              size='full'
+              className='rounded hover:bg-black'
+              onClick={open}
+            >
+              후원하기
+            </Button>
+          ) : (
+            <Button
+              color='gray'
+              size='full'
+              className='rounded hover:bg-black'
+              disabled
+            >
+              모집 종료
+            </Button>
+          )}
 
           <DonateModal
             isOpen={isModalOpen}

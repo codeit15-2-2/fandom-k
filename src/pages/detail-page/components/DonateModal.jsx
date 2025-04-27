@@ -3,6 +3,7 @@ import { ContributeDonation } from '@apis/ContributeApi';
 import IdolCardList from '@components/card/IdolCard';
 import CreditForm from '@components/credit-form/CreditForm';
 import useCredit from '@hooks/useCredit';
+import { useDonation } from '@contexts/DonationContext';
 
 /**
  * DonateModal 컴포넌트
@@ -74,20 +75,21 @@ import useCredit from '@hooks/useCredit';
  *  cardItem.profilePicture
  *
  * 이렇게 불러올 예정입니다
- *
- *
- *
- *
- *
- *
  */
 
 const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
   const { credit, handleDonateCredit } = useCredit();
+  const { setDonationData } = useDonation();
 
   const donateCredit = async (amount) => {
     try {
       await ContributeDonation(donateId, { amount });
+
+      // Donation context에도 업데이트
+      setDonationData((prev) => ({
+        ...prev,
+        receivedDonations: String(Number(prev.receivedDonations) + amount),
+      }));
 
       handleDonateCredit(amount);
 

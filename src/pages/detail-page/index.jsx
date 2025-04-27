@@ -1,37 +1,34 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
 import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
-import PCMainSection from './sections/pc/MainSection';
-import TabletMainSection from './sections/tablet/MainSection';
-import MobileMainSection from './sections/mobile/MainSection';
-import MobileDetailSection from './sections/mobile/DetailSection';
+import PCMainSection from '@pages/detail-page/sections/pc/MainSection';
+import TabletMainSection from '@pages/detail-page/sections/tablet/MainSection';
+import MobileMainSection from '@pages/detail-page/sections/mobile/MainSection';
+import MobileDetailSection from '@pages/detail-page/sections/mobile/DetailSection';
 import donationDetailData from '@/mocks/donationDetailData.json';
+import { useDonation } from '@contexts/DonationContext';
 
 export default function DetailPage() {
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
-  const location = useLocation();
-  const serverData = location.state?.item;
+  const { donationData } = useDonation();
 
-  if (!serverData) {
+  if (!donationData) {
     return <Navigate to='/error/404' />;
   }
 
+  // 후원 상세 본문 데이터(JSON)과 매칭
   const matchingDetail = donationDetailData.find(
-    (detail) => detail.idolId === serverData.idol.id,
+    (detail) => detail.idolId === donationData.idol.id,
   );
+  // 후원이 가능한 상태인지 확인
   const isDonationOpen =
-    serverData.status && new Date(serverData.deadline) > new Date();
+    donationData.status && new Date(donationData.deadline) > new Date();
 
   const detailData = {
-    ...serverData,
+    ...(donationData || {}),
     ...(matchingDetail || {}),
     isDonationOpen,
   };
-
-  // 데이터를 관리할 일이 생기면 useState로 관리
-  // const [detailData, setDetailData] = useState(initialDetailData);
-
-  console.log('아이돌 id', serverData.idol.id);
 
   if (isDesktop) {
     return (
