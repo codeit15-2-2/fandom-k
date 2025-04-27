@@ -40,10 +40,9 @@ const MainTitle = ({ title, name, size = 's' }) => {
   );
 };
 
-export default MainTitle;
-// export default memo(MainTitle, (prev, next) => {
-//   if (prev.title !== next.title) return false;
-//   if (prev.name !== next.name) return false;
-//   if (prev.size !== next.size) return false;
-//   return true;
-// });
+export default memo(MainTitle, (prev, next) => {
+  if (prev.title !== next.title) return false;
+  if (prev.name !== next.name) return false;
+  if (prev.size !== next.size) return false;
+  return true;
+});
