@@ -21,7 +21,14 @@ const DonationProvider = ({ children }) => {
   // donationData가 변경될 때마다 localStorage에 저장
   useEffect(() => {
     if (donationData !== null) {
-      localStorage.setItem(STORAGE_KEY_DONATION, JSON.stringify(donationData));
+      try {
+        localStorage.setItem(
+          STORAGE_KEY_DONATION,
+          JSON.stringify(donationData),
+        );
+      } catch (error) {
+        console.error('donationData를 저장하는데 오류가 발생했습니다.', error);
+      }
     }
   }, [donationData]);
 
