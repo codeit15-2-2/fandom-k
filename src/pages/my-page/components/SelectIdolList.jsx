@@ -70,7 +70,7 @@ const IdolSelectList = ({
           className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'
         >
           {isLoading
-            ? '불러오는중'
+            ? '데이터 불러오는중'
             : '더 이상 추가할 수 있는 아이돌이 없습니다.'}
         </motion.div>
       )}
