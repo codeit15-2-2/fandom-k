@@ -4,56 +4,8 @@ import { useChartPagination } from '@hooks/useChartPagination';
 import Button from '@components/common/Button';
 import MonthlyChartList from './MonthlyChartList';
 import IdolList from '@components/vote/IdolList';
-
-/**
- * 스켈레톤 UI 컴포넌트
- * - 데이터 로딩 중 표시할 스켈레톤 UI
- */
-const IdolSkeleton = () => {
-  return (
-    <div className='animate-pulse border-b border-gray-100 p-5'>
-      <div className='flex items-center'>
-        <div className='h-[7rem] w-[7rem] rounded-full bg-gray-700'></div>
-        <div className='ml-4 flex-1'>
-          <div className='mb-2 h-[2rem] w-[10rem] rounded bg-gray-700'></div>
-        </div>
-        <div className='h-8 w-10 rounded bg-gray-700'></div>
-      </div>
-    </div>
-  );
-};
-
-/**
- * 스켈레톤 목록 컴포넌트
- * - 지정된 수만큼 스켈레톤 아이템을 생성
- */
-const SkeletonList = ({ count = 10 }) => {
-  return (
-    <div className='grid w-full grid-cols-1 gap-5 md:grid-cols-2'>
-      {Array(count)
-        .fill(0)
-        .map((_, index) => (
-          <IdolSkeleton key={`skeleton-${index}`} />
-        ))}
-    </div>
-  );
-};
-
-const ErrorMessage = ({ onRetry }) => {
-  return (
-    <div className='flex min-h-[500px] w-full flex-col items-center justify-center py-10'>
-      <div className='mb-4 text-xl font-bold text-red-500'>
-        데이터를 불러오는데 실패했습니다
-      </div>
-      <p className='mb-6 text-gray-600'>
-        잠시 후 다시 시도하거나 아래 버튼을 클릭해주세요.
-      </p>
-      <Button color='pink' size='m' btnType='button' onClick={onRetry}>
-        다시 시도하기
-      </Button>
-    </div>
-  );
-};
+import ErrorMessage from './ChartErrorMessage';
+import { SkeletonList } from './IdolSkeleton';
 
 /**
  * 이달의 차트 콘텐츠 페이지
@@ -74,7 +26,6 @@ export default function MonthlyChartContent() {
     resetPagination,
   } = useChartPagination(gender);
 
-  // 재시작 함수수
   const loadData = async (cursor = 0) => {
     return await fetchIdolData(cursor);
   };
@@ -85,20 +36,18 @@ export default function MonthlyChartContent() {
     loadData(0);
   }, [gender]);
 
-  // 첫 로딩 시
-  // const isInitialLoading =
-  //   isLoading && (!chartDataList || chartDataList.length === 0);
+  let content;
+  if (isLoading) {
+    content = <SkeletonList />;
+  } else if (!chartDataList || chartDataList.length === 0) {
+    content = <ErrorMessage onRetry={loadData} />;
+  } else {
+    content = <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />;
+  }
 
   return (
-    <div className='flex min-h-[500px] flex-col'>
-      {/* 첫 로딩 시에는 스켈레톤 UI 표시, 그 외에는 아이돌 목록 표시 */}
-      {isLoading ? (
-        <SkeletonList />
-      ) : !chartDataList || chartDataList.length === 0 ? (
-        <ErrorMessage onRetry={loadData} />
-      ) : (
-        <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />
-      )}
+    <div className='flex min-h-[50rem] flex-col'>
+      {content}
 
       {/* 더보기 버튼 (커서가 존재할 경우에만 노출)*/}
       <div className='mb-20 flex justify-center'>

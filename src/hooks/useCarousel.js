@@ -11,8 +11,9 @@ import { useEffect, useRef, useState, useCallback } from 'react';
  * @property {number} width - 각 캐러셀 항목의 너비 (픽셀셀)
  */
 
+const DURATION = 500;
+
 export const useCarousel = ({ totalDataLength, offset, data, gap = '20' }) => {
-  const DURATION = 500;
   // 보여줄 페이지 위치
   const [currentIndex, setCurrentIndex] = useState(0);
   const [width, setWidth] = useState(200);

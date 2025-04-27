@@ -9,7 +9,7 @@
 
 const MonthlyChartList = ({ idolData, IdolList }) => {
   return (
-    <div className='grid w-full grid-cols-1 gap-5 border-2 md:grid-cols-2'>
+    <div className='grid w-full grid-cols-1 gap-5 md:grid-cols-2'>
       {idolData.map((idol) => (
         <div className='border-b border-gray-100 p-5 text-white' key={idol.id}>
           <IdolList
