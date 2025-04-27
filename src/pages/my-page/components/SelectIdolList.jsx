@@ -14,6 +14,7 @@ const IdolSelectList = ({
   handleMoreIdols,
   hasMore,
   isError,
+  isLoading,
 }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l';
@@ -62,9 +63,16 @@ const IdolSelectList = ({
           </Button>
         </div>
       ) : (
-        <div className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'>
-          더 이상 추가할 수 있는 아이돌이 없습니다.
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'
+        >
+          {isLoading
+            ? '불러오는중'
+            : '더 이상 추가할 수 있는 아이돌이 없습니다.'}
+        </motion.div>
       )}
     </AnimatePresence>
   );

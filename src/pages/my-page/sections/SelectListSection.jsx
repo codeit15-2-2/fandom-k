@@ -13,6 +13,7 @@ const IdolSelectSection = ({
   isError,
   handleSelect,
   selectedIdols,
+  isLoading,
 }) => {
   return (
     <div className='relative pb-[20rem]'>
@@ -28,6 +29,7 @@ const IdolSelectSection = ({
           handleMoreIdols={handleMoreIdols}
           hasMore={hasMore}
           isError={isError}
+          isLoading={isLoading}
         />
       </div>
     </div>
