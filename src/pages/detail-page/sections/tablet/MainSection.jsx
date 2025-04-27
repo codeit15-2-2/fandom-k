@@ -89,14 +89,25 @@ const MainSection = ({
             </div>
 
             <motion.div style={{ y: donationButtonY }}>
-              <Button
-                color='pink'
-                size='full'
-                className='rounded hover:bg-black'
-                onClick={open}
-              >
-                후원하기
-              </Button>
+              {isDonationOpen ? (
+                <Button
+                  color='pink'
+                  size='full'
+                  className='rounded hover:bg-black'
+                  onClick={open}
+                >
+                  후원하기
+                </Button>
+              ) : (
+                <Button
+                  color='gray'
+                  size='full'
+                  className='rounded hover:bg-black'
+                  disabled
+                >
+                  모집 종료
+                </Button>
+              )}
             </motion.div>
 
             <DonateModal
