@@ -10,7 +10,11 @@ import { useDonation } from '@contexts/DonationContext';
 
 export default function DetailPage() {
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
-  const { donationData } = useDonation();
+  const { donationData, isLoading } = useDonation();
+
+  if (isLoading) {
+    return <div className='text-white'>Loading...</div>;
+  }
 
   if (!donationData) {
     return <Navigate to='/error/404' />;
