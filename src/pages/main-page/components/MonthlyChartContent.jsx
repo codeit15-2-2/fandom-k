@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useChartPagination } from '@hooks/useChartPagination';
 import Button from '@components/common/Button';
@@ -39,6 +39,22 @@ const SkeletonList = ({ count = 10 }) => {
   );
 };
 
+const ErrorMessage = ({ onRetry }) => {
+  return (
+    <div className='flex min-h-[500px] w-full flex-col items-center justify-center py-10'>
+      <div className='mb-4 text-xl font-bold text-red-500'>
+        데이터를 불러오는데 실패했습니다
+      </div>
+      <p className='mb-6 text-gray-600'>
+        잠시 후 다시 시도하거나 아래 버튼을 클릭해주세요.
+      </p>
+      <Button color='pink' size='m' btnType='button' onClick={onRetry}>
+        다시 시도하기
+      </Button>
+    </div>
+  );
+};
+
 /**
  * 이달의 차트 콘텐츠 페이지
  * - 성별(gender)에 따라 차트 데이터를 요청해 리스트로 출력
@@ -58,21 +74,28 @@ export default function MonthlyChartContent() {
     resetPagination,
   } = useChartPagination(gender);
 
+  // 재시작 함수수
+  const loadData = async (cursor = 0) => {
+    return await fetchIdolData(cursor);
+  };
+
   // gender가 바뀌면 초기화 후 첫 페이지 데이터를 재요청
   useEffect(() => {
     resetPagination();
-    fetchIdolData(0);
+    loadData(0);
   }, [gender]);
 
-  // 첫 로딩 시 (아직 데이터가 없고 로딩 중인 경우) 스켈레톤 UI 표시
-  const isInitialLoading =
-    isLoading && (!chartDataList || chartDataList.length === 0);
+  // 첫 로딩 시
+  // const isInitialLoading =
+  //   isLoading && (!chartDataList || chartDataList.length === 0);
 
   return (
     <div className='flex min-h-[500px] flex-col'>
       {/* 첫 로딩 시에는 스켈레톤 UI 표시, 그 외에는 아이돌 목록 표시 */}
-      {isInitialLoading ? (
+      {isLoading ? (
         <SkeletonList />
+      ) : !chartDataList || chartDataList.length === 0 ? (
+        <ErrorMessage onRetry={loadData} />
       ) : (
         <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />
       )}
