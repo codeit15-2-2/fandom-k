@@ -1,3 +1,4 @@
+import { Navigate, useLocation } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
 import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
 import PCMainSection from '@pages/detail-page/sections/pc/MainSection';
@@ -12,7 +13,7 @@ export default function DetailPage() {
   const { donationData } = useDonation();
 
   if (!donationData) {
-    return <div>해당되는 데이터가 없습니다.</div>;
+    return <Navigate to='/error/404' />;
   }
 
   // 후원 상세 본문 데이터(JSON)과 매칭

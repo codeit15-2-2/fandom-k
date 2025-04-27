@@ -46,9 +46,23 @@ const router = createBrowserRouter([
       {
         path: 'mypage',
         element: <MyPage />,
+        children: [
+          {
+            index: true,
+            element: <MyPage />,
+          },
+          {
+            path: '*',
+            element: <NotFoundPage />,
+          },
+        ],
       },
       {
         path: '*',
+        element: <NotFoundPage />,
+      },
+      {
+        path: 'error/404',
         element: <NotFoundPage />,
       },
     ],
