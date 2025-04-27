@@ -13,6 +13,25 @@ const validatePath = (donationData) => {
   return donationData.id === Number(lastSegment);
 };
 
+const createDetailData = (donationData) => {
+  if (!donationData) return null;
+
+  // 후원 상세 본문 데이터(JSON)과 매칭
+  const matchingDetail = donationDetailData.find(
+    (detail) => detail.idolId === donationData.idol.id,
+  );
+
+  // 후원이 가능한 상태인지 확인
+  const isDonationOpen =
+    donationData.status && new Date(donationData.deadline) > new Date();
+
+  return {
+    ...(donationData || {}),
+    ...(matchingDetail || {}),
+    isDonationOpen,
+  };
+};
+
 export default function DetailPage() {
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
   const { donationData, isLoading } = useDonation();
@@ -28,20 +47,9 @@ export default function DetailPage() {
     return <Navigate to='/error/404' />;
   }
 
-  // 후원 상세 본문 데이터(JSON)과 매칭
-  const matchingDetail = donationDetailData.find(
-    (detail) => detail.idolId === donationData.idol.id,
-  );
-  // 후원이 가능한 상태인지 확인
-  const isDonationOpen =
-    donationData.status && new Date(donationData.deadline) > new Date();
+  const detailData = createDetailData(donationData);
 
-  const detailData = {
-    ...(donationData || {}),
-    ...(matchingDetail || {}),
-    isDonationOpen,
-  };
-
+  // 적응형 디자인
   if (isDesktop) {
     return (
       <div>
