@@ -100,6 +100,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
                   title={item.title}
                   deadline={item.deadline}
                   button={button}
+                  status={item.status}
                 >
                   <IdolCardList.IdolCardFooter />
                 </RenderComponent>
