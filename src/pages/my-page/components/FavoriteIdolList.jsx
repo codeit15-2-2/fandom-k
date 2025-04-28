@@ -9,7 +9,7 @@ import usePreventScrollBar from '../hooks/usePreventScrollBar';
 
 const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
   const { isDesktop } = useDeviceSize();
-  const avatarSize = isDesktop - 2 ? 'm' : 'l';
+  const avatarSize = isDesktop ? 'l' : 'm';
 
   const { handleRemoveFavorite } = useFavoriteHandler({
     favorites,
@@ -20,7 +20,7 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
   const onAnimate = usePreventScrollBar(favorites);
 
   return (
-    <div className='min-h-[14rem] md:min-h-[20rem]'>
+    <div className='min-h-[20rem] md:min-h-[22rem]'>
       <div
         className={cn(
           'scrollbar-custom cursor-grab overflow-y-hidden scroll-smooth pb-6 whitespace-nowrap active:cursor-grabbing',
@@ -33,15 +33,16 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
               favorites.map((fav, index) => (
                 <motion.div
                   key={fav.id}
-                  className='mr-10 inline-flex flex-col items-center'
+                  className='mr-10 inline-flex flex-col items-center pb-12'
                   initial={{ x: 100, y: 0, rotate: 0, opacity: 0 }}
                   animate={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-                  exit={{ opacity: 0, scale: 1.0 }}
+                  exit={{ opacity: 0 }}
+                  layout
                   transition={{
                     type: 'spring',
-                    stiffness: 100,
+                    stiffness: 140,
                     damping: 20,
-                    delay: index * 0.1,
+                    delay: index * 0.001,
                   }}
                 >
                   <AvatarProfile
@@ -62,7 +63,7 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className='flex min-h-[15rem] w-full items-center justify-center text-[1.8rem] text-gray-400 md:min-h-[18rem]'
+                className='flex min-h-[18rem] w-full items-center justify-center text-[1.8rem] text-gray-400 md:min-h-[20rem]'
               >
                 아직 관심있는 아이돌이 없습니다.
               </motion.div>

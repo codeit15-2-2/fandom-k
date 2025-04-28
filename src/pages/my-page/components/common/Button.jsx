@@ -10,7 +10,7 @@ const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
     : 'h-[42px] w-[295px]  py-[9px]';
 
   return (
-    <div className='fixed bottom-0 z-990 flex h-[10rem] w-screen items-center justify-center bg-black'>
+    <div className='fixed bottom-0 z-990 flex h-[10rem] w-screen items-center justify-center bg-gradient-to-b from-transparent to-black'>
       <Button
         size='xl'
         color='pink'
