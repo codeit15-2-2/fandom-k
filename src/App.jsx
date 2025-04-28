@@ -1,7 +1,7 @@
 import Footer from '@components/layouts/Footer';
 import Header from '@components/layouts/Header';
 import { Outlet } from 'react-router-dom';
-import { CreditProvider } from '@contexts/creditContext';
+import { CreditProvider } from '@contexts/CreditContext';
 
 export default function App() {
   return (
