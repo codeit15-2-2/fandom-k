@@ -43,7 +43,7 @@ const Input = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={cn(
-            'sub-content-text bg-navy w-full rounded-xl border-2 px-4 py-2 pr-12 text-white transition-all',
+            'sub-content-text bg-navy w-full rounded-xl border-2 px-4 py-5 pr-12 text-white transition-all md:py-6',
             isError ? 'border-red-500 focus:outline-0' : 'border-white',
           )}
         />
