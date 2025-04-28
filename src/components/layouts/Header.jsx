@@ -17,7 +17,7 @@ export default function Header() {
   const handleCharge = (amount) => {
     try {
       handleChargeCredit(amount);
-      showSuccess(`${amount.toLocaleString()}원 크레딧 충전이 완료되었습니다!`);
+      showSuccess(`${amount.toLocaleString()}크레딧 충전이 완료되었습니다!`);
       creditModal.close();
     } catch (error) {
       showError('크레딧 충전에 실패했습니다. 다시 시도해주세요.');

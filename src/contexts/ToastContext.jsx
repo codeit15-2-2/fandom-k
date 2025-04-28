@@ -15,14 +15,12 @@ export const ToastProvider = ({ children }) => {
   const showSuccess = (message) => toast.success(message);
   const showError = (message) => toast.error(message);
   const showLoading = (message) => toast.loading(message);
-  const showCustom = (message, options) => toast(message, options);
   const dismiss = toast.dismiss;
 
   const value = {
     showSuccess,
     showError,
     showLoading,
-    showCustom,
     dismiss,
   };
 

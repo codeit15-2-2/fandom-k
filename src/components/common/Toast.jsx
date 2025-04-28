@@ -2,26 +2,11 @@ import { Toaster } from 'react-hot-toast';
 
 /**
  * @fileoverview 전역적으로 사용되는 토스트 메시지 컴포넌트
- * @module components/common/Toast
  * @requires react-hot-toast
  *
  * @description
  * 이 컴포넌트는 애플리케이션 전역에서 사용되는 토스트 메시지를 표시합니다.
  * 하단 중앙에 위치하며, 성공/실패/로딩 등의 다양한 상태에 따른 스타일을 제공합니다.
- * Tailwind CSS를 사용하여 스타일링됩니다.
- *
- * @example
- * // App.jsx에서 사용 예시
- * import Toast from '@components/common/Toast';
- *
- * function App() {
- *   return (
- *     <>
- *       <OtherComponents />
- *       <Toast />
- *     </>
- *   );
- * }
  */
 const Toast = () => {
   return (
