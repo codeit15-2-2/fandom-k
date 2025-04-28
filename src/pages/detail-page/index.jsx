@@ -17,9 +17,6 @@ const TabletMainSection = lazy(
 const MobileMainSection = lazy(
   () => import('@pages/detail-page/sections/mobile/MainSection'),
 );
-const MobileDetailSection = lazy(
-  () => import('@pages/detail-page/sections/mobile/DetailSection'),
-);
 
 const validatePath = (donationData) => {
   const lastSegment = location.pathname.split('/').filter(Boolean).at(-1);
@@ -85,7 +82,6 @@ export default function DetailPage() {
     return (
       <Suspense fallback={<div>Loading...</div>}>
         <MobileMainSection {...detailData} />
-        <MobileDetailSection {...detailData} />
       </Suspense>
     );
   }
