@@ -1,6 +1,3 @@
-import useWindowSize from '@hooks/useWindowSize';
-import Button from '@components/common/Button';
-import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import { lazy } from 'react';
 
 const IdolSelectList = lazy(() => import('../components/SelectIdolList'));

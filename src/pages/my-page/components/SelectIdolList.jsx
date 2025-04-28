@@ -17,7 +17,7 @@ const IdolSelectList = ({
   isLoading,
 }) => {
   const { isDesktop } = useDeviceSize();
-  const avatarSize = isDesktop - 1 ? 'l' : 'm';
+  const avatarSize = isDesktop - 2 ? 'm' : 'l';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({

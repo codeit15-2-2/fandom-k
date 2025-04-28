@@ -9,7 +9,7 @@ import usePreventScrollBar from '../hooks/usePreventScrollBar';
 
 const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
   const { isDesktop } = useDeviceSize();
-  const avatarSize = isDesktop ? 'l' : 'm';
+  const avatarSize = isDesktop - 2 ? 'm' : 'l';
 
   const { handleRemoveFavorite } = useFavoriteHandler({
     favorites,
