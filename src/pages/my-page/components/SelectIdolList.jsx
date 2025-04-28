@@ -5,6 +5,7 @@ import Button from '@components/common/Button';
 import useWindowSize from '@hooks/useWindowSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
+
 //추가될 아이돌들을 선택하는 컴포넌트
 
 const IdolSelectList = ({
@@ -14,9 +15,10 @@ const IdolSelectList = ({
   handleMoreIdols,
   hasMore,
   isError,
+  isLoading,
 }) => {
   const width = useWindowSize();
-  const avatarSize = width < 1024 ? 'm' : 'l';
+  const avatarSize = width < 1025 ? 'm' : 'l';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({
@@ -62,9 +64,16 @@ const IdolSelectList = ({
           </Button>
         </div>
       ) : (
-        <div className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'>
-          더 이상 추가할 수 있는 아이돌이 없습니다.
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'
+        >
+          {isLoading
+            ? '데이터 불러오는중'
+            : '더 이상 추가할 수 있는 아이돌이 없습니다.'}
+        </motion.div>
       )}
     </AnimatePresence>
   );

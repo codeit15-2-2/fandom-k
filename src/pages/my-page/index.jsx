@@ -1,7 +1,12 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { lazy } from 'react';
+const FavoriteListSection = lazy(
+  () => import('./sections/FavoriteListSection'),
+);
+
+const IdolSelectSection = lazy(() => import('./sections/SelectListSection'));
 import useMypageIdols from './hooks/useMyPageIdols';
-import FavoriteListSection from './sections/FavoriteListSection';
-import IdolSelectSection from './sections/SelectListSection';
+
 import FixedButton from './components/common/Button';
 import useFavoriteHandler from './hooks/useFavoriteHandler';
 

@@ -1,10 +1,11 @@
-import FavoriteIdolList from '../components/FavoriteIdolList';
+import { lazy } from 'react';
+
 import MiddleDivider from '../components/MiddleDivider';
+
+const FavoriteIdolList = lazy(() => import('../components/FavoriteIdolList'));
 
 //화면상단 관심있는 아이돌로 추가된 아이돌들이 나타나는 섹션
 //FavoriteIdolList 컴포넌트를 렌더링함
-
-
 
 const FavoriteListSection = ({ favorites, setFavorites, setIdols }) => {
   return (

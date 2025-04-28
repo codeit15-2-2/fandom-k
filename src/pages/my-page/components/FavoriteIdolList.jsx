@@ -1,12 +1,14 @@
 import AvatarProfile from '@components/favorites/AvatarProfile';
-import { AnimatePresence, motion } from 'motion/react';
+import { animate, AnimatePresence, motion } from 'motion/react';
 import { cn } from '@utils/cn';
 import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import useWindowSize from '@hooks/useWindowSize';
+import usePreventScrollBar from '../hooks/usePreventScrollBar';
+
 
 //추가된 아이돌들을 렌더링하는 컴포넌트
 
-const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
+const FavoriteIdolList =  ({ favorites, setFavorites, setIdols }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l'; // 화면 크기에 따라 props에 들어갈 size 값 변경
 
@@ -16,23 +18,32 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
     setIdols,
   });
 
+  const onAnimate = usePreventScrollBar(favorites);
+
   return (
     <div className='min-h-[14rem] md:min-h-[20rem]'>
       <div
         className={cn(
-          'cursor-grab overflow-x-auto overflow-y-auto scroll-smooth pb-6 whitespace-nowrap active:cursor-grabbing',
-          width >= 1024 ? 'scrollbar-custom' : 'no-scrollbar',
+          'scrollbar-custom cursor-grab overflow-y-hidden scroll-smooth pb-6 whitespace-nowrap active:cursor-grabbing',
+          onAnimate ? 'overflow-x-auto' : 'overflow-x-hidden',
         )}
       >
         <div className='flex px-2'>
           <AnimatePresence>
             {favorites && favorites.length > 0 ? (
-              favorites.map((fav) => (
+              favorites.map((fav, index) => (
                 <motion.div
                   key={fav.id}
                   className='mr-10 inline-flex flex-col items-center'
+                  initial={{ x: 100, y: 0, rotate: 0, opacity: 0 }}
+                  animate={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
                   exit={{ opacity: 0, scale: 1.0 }}
-                  transition={{ type: 'Spring', duration: 0.4 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 20,
+                    delay: index * 0.1,
+                  }}
                 >
                   <AvatarProfile
                     id={fav.id}
@@ -51,8 +62,8 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className='flex min-h-[12rem] w-full items-center justify-center text-[1.8rem] text-gray-400 md:min-h-[18rem]'
+                transition={{ delay: 1, duration: 0.5 }}
+                className='flex min-h-[15rem] w-full items-center justify-center text-[1.8rem] text-gray-400 md:min-h-[18rem]'
               >
                 아직 관심있는 아이돌이 없습니다.
               </motion.div>

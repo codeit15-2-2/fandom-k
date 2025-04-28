@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import CreditContext from '@contexts/creditContext';
+import { useEffect, useContext } from 'react';
 
 const CREDIT_KEY = 'credit';
 
 const useCredit = () => {
-  const [credit, setCredit] = useState(0);
+  const { credit, setCredit } = useContext(CreditContext);
 
   useEffect(() => {
     const storedCredit = localStorage.getItem(CREDIT_KEY);
