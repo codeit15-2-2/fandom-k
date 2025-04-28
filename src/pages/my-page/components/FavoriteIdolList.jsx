@@ -43,7 +43,7 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
                     stiffness: 140,
                     damping: 20,
                     delay: index * 0.001,
-                    layout: { duration: 1 },
+                    layout: { duration: 0.7 },
                   }}
                 >
                   <AvatarProfile
