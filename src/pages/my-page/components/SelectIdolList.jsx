@@ -2,9 +2,8 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import Button from '@components/common/Button';
-import useWindowSize from '@hooks/useWindowSize';
+import useDeviceSize from '@hooks/useDeviceSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
-
 
 //추가될 아이돌들을 선택하는 컴포넌트
 
@@ -17,8 +16,8 @@ const IdolSelectList = ({
   isError,
   isLoading,
 }) => {
-  const width = useWindowSize();
-  const avatarSize = width < 1025 ? 'm' : 'l';
+  const { isDesktop } = useDeviceSize();
+  const avatarSize = isDesktop ? 'l' : 'm';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({
@@ -30,7 +29,7 @@ const IdolSelectList = ({
   return (
     <AnimatePresence>
       {idols.length > 0 ? (
-        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8'>
+        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8 [@media(min-width:1024px)]:grid-cols-6 [@media(min-width:1025px)]:grid-cols-8'>
           {idols.map((item) => (
             <motion.div
               key={item.id}

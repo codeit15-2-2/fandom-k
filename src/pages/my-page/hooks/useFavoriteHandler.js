@@ -31,7 +31,7 @@ const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
     setStoredFavorites(newFavorites);
     setIdols((prev) => prev.filter((idol) => !selectedIdols.includes(idol.id)));
     setSelectedIdols([]);
-  }, [idols, selectedIdols, favorites, setFavorites, setIdols]);
+  }, [idols, selectedIdols, favorites]);
 
   // FavoriteList에서 아이돌을 삭제하는 로직
   const handleRemoveFavorite = useCallback(
@@ -43,7 +43,7 @@ const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
       setStoredFavorites(newFavorites);
       setIdols((prev) => [...prev, selectedFavIdol]);
     },
-    [favorites, setFavorites, setIdols],
+    [favorites],
   );
 
   return {
