@@ -4,10 +4,12 @@ import { cn } from '@utils/cn';
 import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import useDeviceSize from '@hooks/useDeviceSize';
 import usePreventScrollBar from '../hooks/usePreventScrollBar';
+import { useState } from 'react';
 
 //추가된 아이돌들을 렌더링하는 컴포넌트
 
 const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const { isDesktop } = useDeviceSize();
   const avatarSize = isDesktop ? 'l' : 'm';
 
@@ -19,6 +21,14 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
 
   const onAnimate = usePreventScrollBar(favorites);
 
+  const handleAnimationStart = () => {
+    setIsAnimating(true);
+  };
+
+  const handleAnimationEnd = () => {
+    setIsAnimating(false);
+  };
+
   return (
     <div className='min-h-[20rem] md:min-h-[22rem]'>
       <div
@@ -27,13 +37,16 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
           onAnimate ? 'overflow-x-auto' : 'overflow-x-hidden',
         )}
       >
-        <div className='flex px-2'>
+        <div
+          className='flex gap-x-6 px-2'
+          style={{ pointerEvents: isAnimating ? 'none' : 'auto' }} //애니메이션 진행중이면 클릭/터치막기
+        >
           <AnimatePresence>
             {favorites && favorites.length > 0 ? (
               favorites.map((fav, index) => (
                 <motion.div
                   key={fav.id}
-                  className='mr-10 inline-flex flex-col items-center pb-12'
+                  className='mr-10 inline-flex flex-col items-center gap-3 pb-12'
                   initial={{ x: 100, y: 0, rotate: 0, opacity: 0 }}
                   animate={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -45,6 +58,8 @@ const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
                     delay: index * 0.001,
                     layout: { duration: 0.7 },
                   }}
+                  onAnimationStart={handleAnimationStart}
+                  onAnimationComplete={handleAnimationEnd}
                 >
                   <AvatarProfile
                     id={fav.id}

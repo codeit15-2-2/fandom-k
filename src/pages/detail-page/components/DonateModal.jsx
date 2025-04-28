@@ -116,7 +116,7 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={close} title='후원하기'>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col items-center gap-4'>
         <IdolCardList
           id={cardItem.id}
           src={cardItem.profilePicture}
