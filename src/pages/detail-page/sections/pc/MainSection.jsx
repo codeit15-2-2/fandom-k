@@ -60,18 +60,20 @@ const MainSection = ({
         <div className='grid h-[calc(100vh-8rem)] w-[95vw] grid-cols-3 grid-rows-4 gap-10 md:h-[calc(100vh-10rem)]'>
           {/* 제목 + 본문 영역 */}
           <section
-            className='relative col-start-1 col-end-3 row-start-1 row-end-5 overflow-y-scroll [&::-webkit-scrollbar]:hidden'
+            className='relative col-start-1 col-end-3 row-start-1 row-end-5 snap-y snap-mandatory overflow-y-scroll scroll-smooth [&::-webkit-scrollbar]:hidden'
             ref={scrollAreaRef}
           >
             <div
               className='absolute w-full'
               style={{ top: `calc(100vh - 8rem - ${titleHeight}px)` }}
             >
-              <div className='h-fit' ref={titleRef}>
+              <div className='h-fit snap-end' ref={titleRef}>
                 <MainTitle title={title} name={englishName} size='l' />
               </div>
 
-              <DetailContent contents={contents} />
+              <div className='pb-10 snap-start'>
+                <DetailContent contents={contents} />
+              </div>
             </div>
           </section>
 
