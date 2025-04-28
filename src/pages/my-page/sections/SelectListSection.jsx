@@ -1,7 +1,9 @@
 import useWindowSize from '@hooks/useWindowSize';
 import Button from '@components/common/Button';
 import useFavoriteHandler from '../hooks/useFavoriteHandler';
-import IdolSelectList from '../components/SelectIdolList';
+import { lazy } from 'react';
+
+const IdolSelectList = lazy(() => import('../components/SelectIdolList'));
 
 //화면하단 아이돌들을 선택하는 섹션
 //SelectIdolList 컴포넌트를 렌더링함

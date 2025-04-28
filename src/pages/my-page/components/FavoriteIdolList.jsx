@@ -5,9 +5,10 @@ import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import useWindowSize from '@hooks/useWindowSize';
 import usePreventScrollBar from '../hooks/usePreventScrollBar';
 
+
 //추가된 아이돌들을 렌더링하는 컴포넌트
 
-const FavoriteIdolList = ({ favorites, setFavorites, setIdols }) => {
+const FavoriteIdolList =  ({ favorites, setFavorites, setIdols }) => {
   const width = useWindowSize();
   const avatarSize = width < 1024 ? 'm' : 'l'; // 화면 크기에 따라 props에 들어갈 size 값 변경
 

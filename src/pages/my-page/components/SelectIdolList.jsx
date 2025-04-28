@@ -5,6 +5,7 @@ import Button from '@components/common/Button';
 import useWindowSize from '@hooks/useWindowSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
+
 //추가될 아이돌들을 선택하는 컴포넌트
 
 const IdolSelectList = ({
@@ -17,7 +18,7 @@ const IdolSelectList = ({
   isLoading,
 }) => {
   const width = useWindowSize();
-  const avatarSize = width < 1024 ? 'm' : 'l';
+  const avatarSize = width < 1025 ? 'm' : 'l';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({

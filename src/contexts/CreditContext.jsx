@@ -1,0 +1,20 @@
+import { createContext, useState } from 'react';
+
+//전역적으로 Credit state 관리하기위한 Context
+
+const CreditContext = createContext({
+  credit: 0,
+  setCredit: () => {},
+});
+
+export const CreditProvider = ({ children }) => {
+  const [credit, setCredit] = useState(0);
+
+  return (
+    <CreditContext.Provider value={{ credit, setCredit }}>
+      {children}
+    </CreditContext.Provider>
+  );
+};
+
+export default CreditContext;
