@@ -71,6 +71,7 @@ const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
       <p className='sub-content-text'>내 크레딧: {credit.toLocaleString()}</p>
       <Input
         value={input}
+        type='text'
         placeholder='크레딧 입력'
         onChange={handleInputChange}
         isError={error}
