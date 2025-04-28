@@ -80,7 +80,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
           }}
           transition={{
             type: 'tween',
-            duration: 0.5,
+            duration: 0.3,
           }}
         >
           {data.map((item) => (

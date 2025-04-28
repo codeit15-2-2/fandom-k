@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 /**
@@ -32,6 +33,16 @@ import { createPortal } from 'react-dom';
  */
 
 const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
+  // 간단하게 body 스크롤 막기
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isOpen]);
   return createPortal(
     <AnimatePresence mode='wait'>
       {isOpen && (
