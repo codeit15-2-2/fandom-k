@@ -56,7 +56,7 @@ const MainSection = ({
         ref={donationInfoRef}
       ></motion.div>
 
-      <div className='flex h-fit w-full justify-center overflow-hidden'>
+      <div className='flex justify-center w-full overflow-hidden h-fit'>
         <div className='grid h-[calc(100vh-8rem)] w-[95vw] grid-cols-3 grid-rows-4 gap-10 md:h-[calc(100vh-10rem)]'>
           {/* 제목 + 본문 영역 */}
           <section
@@ -76,7 +76,7 @@ const MainSection = ({
           </section>
 
           {/* 후원 정보, 버튼 영역 */}
-          <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 ml-auto flex max-w-[50rem] flex-col justify-between py-20'>
+          <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 ml-auto flex w-full max-w-[40rem] flex-col justify-between py-20'>
             <motion.div
               className='sticky top-0 z-10 w-full'
               style={detailTitleAnimation}
@@ -91,7 +91,7 @@ const MainSection = ({
             </motion.div>
 
             <motion.div
-              className='sticky top-0 z-10 flex w-full flex-col gap-10'
+              className='sticky top-0 z-10 flex flex-col w-full gap-10'
               style={donationInfoAnimation}
               ref={donationInfoRef}
             >
