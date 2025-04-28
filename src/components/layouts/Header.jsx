@@ -6,9 +6,24 @@ import CreditIcon from '@assets/icons/icon_credit';
 import useModal from '@hooks/useModal';
 import CreditModal from '@pages/main-page/components/CreditModal';
 import PlusIcon from '@assets/icons/icon_plus';
+import { useToast } from '@contexts/ToastContext';
+
 export default function Header() {
   const { credit, handleChargeCredit } = useCredit();
   const creditModal = useModal();
+  const { showSuccess, showError } = useToast();
+
+  // 크레딧 충전 핸들러
+  const handleCharge = (amount) => {
+    try {
+      handleChargeCredit(amount);
+      showSuccess(`${amount.toLocaleString()}크레딧 충전이 완료되었습니다!`);
+      creditModal.close();
+    } catch (error) {
+      showError('크레딧 충전에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <header className='relative z-101 m-auto flex h-[5rem] w-full items-center justify-center bg-black p-10 sm:h-[8rem]'>
       <div className='absolute top-0 z-101 m-auto flex h-[8rem] w-full max-w-[120rem] items-center justify-between bg-black px-20 sm:h-[8rem]'>
@@ -42,7 +57,7 @@ export default function Header() {
       <CreditModal
         creditModal={creditModal}
         credit={credit}
-        handleChargeCredit={handleChargeCredit}
+        handleChargeCredit={handleCharge}
       ></CreditModal>
     </header>
   );

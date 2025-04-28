@@ -6,12 +6,14 @@ import Button from '@components/common/Button';
 import { createVote } from '@apis/voteApi';
 import useCredit from '@hooks/useCredit';
 import VoteModalFooter from './VoteModalFooter';
+import { useToast } from '@contexts/ToastContext';
 
 const VoteModal = ({ voteModal, cursor = 0 }) => {
   const VOTE_CREDIT_AMOUNT = 1000;
   const [gender, setGender] = useState('female');
   const [selectedId, setSelectedId] = useState(null);
   const { credit, handleDonateCredit } = useCredit();
+  const { showLoading, showSuccess, showError, dismiss } = useToast();
 
   const {
     chartDataList,
@@ -33,20 +35,34 @@ const VoteModal = ({ voteModal, cursor = 0 }) => {
 
   // 투표 버튼 클릭 처리
   const handleVote = async () => {
-    if (!selectedId) return alert('아이돌을 선택해주세요.');
+    if (!selectedId) {
+      showError('아이돌을 선택해주세요.');
+      return;
+    }
+
+    const loadingId = showLoading('투표를 처리 중입니다...');
 
     try {
       const res = await createVote(selectedId);
       console.log('투표 완료', res);
 
+      // 선택된 아이돌의 이름 찾기
+      const selectedIdol = chartDataList.find((idol) => idol.id === selectedId);
+      const idolName = selectedIdol?.name || '선택한 아이돌';
+
       handleDonateCredit(VOTE_CREDIT_AMOUNT);
       setSelectedId(null);
+
+      // 로딩 토스트 제거 후 성공 토스트 표시
+      dismiss(loadingId);
+      showSuccess(`${idolName}에게 투표가 완료되었습니다!`);
 
       // 투표 성공 후 모달 닫기
       voteModal.close();
     } catch (error) {
       console.log('투표 실패', error.message);
-      alert('투표에 실패했습니다. 다시 시도해주세요.');
+      dismiss(loadingId);
+      showError('투표에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -80,7 +96,7 @@ const VoteModal = ({ voteModal, cursor = 0 }) => {
         >
           투표하기
         </Button>
-        <VoteModalFooter/>
+        <VoteModalFooter />
       </Modal>
     </>
   );
