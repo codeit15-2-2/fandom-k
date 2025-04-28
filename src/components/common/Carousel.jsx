@@ -60,6 +60,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
     totalDataLength: data?.length,
     offset: responsiveOffset,
     data,
+    gap: GAP,
   });
 
   // 아이템 너비 계산
@@ -75,7 +76,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
           className='flex'
           style={{ gap: `${GAP}px` }}
           animate={{
-            x: currentIndex * -width,
+            x: -currentIndex * (width + GAP),
           }}
           transition={{
             type: 'tween',
