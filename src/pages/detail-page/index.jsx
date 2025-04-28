@@ -1,12 +1,25 @@
 import { Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
 import useDeviceSize from '@hooks/useDeviceSize';
-import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
-import PCMainSection from '@pages/detail-page/sections/pc/MainSection';
-import TabletMainSection from '@pages/detail-page/sections/tablet/MainSection';
-import MobileMainSection from '@pages/detail-page/sections/mobile/MainSection';
-import MobileDetailSection from '@pages/detail-page/sections/mobile/DetailSection';
 import donationDetailData from '@/mocks/donationDetailData.json';
 import { useDonation } from '@contexts/DonationContext';
+
+const BackgroundIdolImage = lazy(
+  () => import('@pages/detail-page/components/BackgroundIdolImage'),
+);
+const PCMainSection = lazy(
+  () => import('@pages/detail-page/sections/pc/MainSection'),
+);
+const TabletMainSection = lazy(
+  () => import('@pages/detail-page/sections/tablet/MainSection'),
+);
+const MobileMainSection = lazy(
+  () => import('@pages/detail-page/sections/mobile/MainSection'),
+);
+const MobileDetailSection = lazy(
+  () => import('@pages/detail-page/sections/mobile/DetailSection'),
+);
 
 const validatePath = (donationData) => {
   const lastSegment = location.pathname.split('/').filter(Boolean).at(-1);
@@ -52,28 +65,28 @@ export default function DetailPage() {
   // 적응형 디자인
   if (isDesktop) {
     return (
-      <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
         <PCMainSection {...detailData} />
-      </div>
+      </Suspense>
     );
   }
 
   if (isTablet) {
     return (
-      <div className='bg-black'>
+      <Suspense fallback={<div>Loading...</div>}>
         <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
         <TabletMainSection {...detailData} />
-      </div>
+      </Suspense>
     );
   }
 
   if (isMobile) {
     return (
-      <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <MobileMainSection {...detailData} />
         <MobileDetailSection {...detailData} />
-      </div>
+      </Suspense>
     );
   }
 
