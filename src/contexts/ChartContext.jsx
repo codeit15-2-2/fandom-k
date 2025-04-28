@@ -47,8 +47,9 @@ export const ChartProvider = ({ children }) => {
    * - 모바일, 태블릿: 5개
    * - PC: 10개
    */
+  const { isDesktop } = useDeviceSize();
+  
   const getResponsivePageSize = () => {
-    const { isDesktop } = useDeviceSize();
     if (isDesktop) return 10;
     return 5;
   };
