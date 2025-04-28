@@ -5,8 +5,24 @@ import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
 import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';
+import useModal from '@hooks/useModal';
+import DonateModal from '@pages/detail-page/components/DonateModal';
 
-const MainSection = () => {
+const MainSection = ({
+  id,
+  title,
+  subtitle,
+  targetDonation,
+  createdAt,
+  deadline,
+  receivedDonations,
+  contents,
+  englishName,
+  idol,
+  isDonationOpen,
+}) => {
+  const { isOpen: isModalOpen, open, close } = useModal();
+
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
 
@@ -26,20 +42,20 @@ const MainSection = () => {
             style={{ marginTop: `calc(100vh - 8rem - ${titleHeight}px)` }}
           >
             <div ref={titleRef}>
-              <MainTitle title='1주년 기념 팝업 카페' name='KARINA' size='l' />
+              <MainTitle title={title} name={englishName} size='l' />
             </div>
 
             <div className='my-20'>
               <DetailTitle
-                name='에스파 카리나'
-                title='1주년 기념 팝업 카페'
-                location='홍대 AK 플라자'
+                name={`${idol.group} ${idol.name}`}
+                title={title}
+                location={subtitle}
                 size='s'
               />
             </div>
 
             <div className='pb-10'>
-              <DetailContent />
+              <DetailContent contents={contents} />
             </div>
           </div>
         </section>
@@ -50,10 +66,10 @@ const MainSection = () => {
               <DonationInfo
                 title='모인 금액'
                 subTitle='크레딧'
-                credit={200000}
-                targetAmount={300000}
+                credit={receivedDonations}
+                targetAmount={targetDonation}
                 size='m'
-                isOpen={true}
+                isDonationOpen={isDonationOpen}
               >
                 <DonationInfo.InfoCredit />
                 <DonationInfo.InfoTargetAmount />
@@ -62,10 +78,10 @@ const MainSection = () => {
               <DonationInfo
                 title='모집 기간'
                 subTitle='남은 시간'
-                createdAt={'2025-03-19T00:00:00.891Z'}
-                deadline={'2025-05-22T23:59:59.000Z'}
+                createdAt={createdAt}
+                deadline={deadline}
                 size='m'
-                isOpen={true}
+                isDonationOpen={isDonationOpen}
               >
                 <DonationInfo.InfoTimer />
                 <DonationInfo.InfoDeadline />
@@ -73,14 +89,38 @@ const MainSection = () => {
             </div>
 
             <motion.div style={{ y: donationButtonY }}>
-              <Button
-                color='pink'
-                size='full'
-                className='rounded hover:bg-black'
-              >
-                후원하기
-              </Button>
+              {isDonationOpen ? (
+                <Button
+                  color='pink'
+                  size='full'
+                  className='rounded hover:bg-black'
+                  onClick={open}
+                >
+                  후원하기
+                </Button>
+              ) : (
+                <Button
+                  color='gray'
+                  size='full'
+                  className='rounded hover:bg-black'
+                  disabled
+                >
+                  모집 종료
+                </Button>
+              )}
             </motion.div>
+
+            <DonateModal
+              isOpen={isModalOpen}
+              close={close}
+              donateId={id}
+              cardItem={{
+                id: idol.id,
+                title: title,
+                subtitle: subtitle,
+                profilePicture: idol.profilePicture,
+              }}
+            />
           </div>
         </section>
       </div>

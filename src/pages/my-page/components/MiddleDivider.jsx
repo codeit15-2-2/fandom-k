@@ -1,5 +1,4 @@
-
-//피그마상 
+//중간 구분선 컴포넌트
 
 const MiddleDivider = () => {
   return (

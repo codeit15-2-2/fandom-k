@@ -1,70 +1,94 @@
+import { Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-import { useLocation, useParams } from 'react-router-dom';
 import useDeviceSize from '@hooks/useDeviceSize';
-import BackgroundIdolImage from '@pages/detail-page/components/BackgroundIdolImage';
-import PCMainSection from './sections/pc/MainSection';
-import TabletMainSection from './sections/tablet/MainSection';
-import MobileMainSection from './sections/mobile/MainSection';
-import MobileDetailSection from './sections/mobile/DetailSection';
+import donationDetailData from '@/mocks/donationDetailData.json';
+import { useDonation } from '@contexts/DonationContext';
+
+const BackgroundIdolImage = lazy(
+  () => import('@pages/detail-page/components/BackgroundIdolImage'),
+);
+const PCMainSection = lazy(
+  () => import('@pages/detail-page/sections/pc/MainSection'),
+);
+const TabletMainSection = lazy(
+  () => import('@pages/detail-page/sections/tablet/MainSection'),
+);
+const MobileMainSection = lazy(
+  () => import('@pages/detail-page/sections/mobile/MainSection'),
+);
+const MobileDetailSection = lazy(
+  () => import('@pages/detail-page/sections/mobile/DetailSection'),
+);
+
+const validatePath = (donationData) => {
+  const lastSegment = location.pathname.split('/').filter(Boolean).at(-1);
+  return donationData.id === Number(lastSegment);
+};
+
+const createDetailData = (donationData) => {
+  if (!donationData) return null;
+
+  // 후원 상세 본문 데이터(JSON)과 매칭
+  const matchingDetail = donationDetailData.find(
+    (detail) => detail.idolId === donationData.idol.id,
+  );
+
+  // 후원이 가능한 상태인지 확인
+  const isDonationOpen =
+    donationData.status && new Date(donationData.deadline) > new Date();
+
+  return {
+    ...(donationData || {}),
+    ...(matchingDetail || {}),
+    isDonationOpen,
+  };
+};
 
 export default function DetailPage() {
-  const { id } = useParams();
-  const location = useLocation();
-  const item = location.state?.item;
-  console.log('데이터 확인', item);
-  console.log('아이디 확인', id);
-  
   const { isDesktop, isTablet, isMobile } = useDeviceSize();
+  const { donationData, isLoading } = useDonation();
 
+  // context data는 원래 복원 전과 복원 후로 무조건 null이 한 번 출력되고, 그 다음에 데이터가 채워져서 정상 작동한다. => 데이터 null 방지용으로 isLoading 추가
+  if (isLoading) {
+    return <div className='text-white'>Loading...</div>;
+  }
+
+  // 유효한 url인지 검증
+  const isValidPath = validatePath(donationData);
+  if (!isValidPath) {
+    return <Navigate to='/error/404' />;
+  }
+
+  const detailData = createDetailData(donationData);
+
+  // 적응형 디자인
   if (isDesktop) {
     return (
-      <div>
-        <BackgroundIdolImage
-          imgSrc={
-            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
-          }
-        />
-        <PCMainSection />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
+        <PCMainSection {...detailData} />
+      </Suspense>
     );
   }
 
   if (isTablet) {
     return (
-      <div className='bg-black'>
-        <BackgroundIdolImage
-          imgSrc={
-            'https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp'
-          }
-        />
-        <TabletMainSection />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BackgroundIdolImage imgSrc={detailData.idol.profilePicture} />
+        <TabletMainSection {...detailData} />
+      </Suspense>
     );
   }
 
   if (isMobile) {
     return (
-      <div>
-        <MobileMainSection />
-        <MobileDetailSection />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MobileMainSection {...detailData} />
+        <MobileDetailSection {...detailData} />
+      </Suspense>
     );
   }
 
   return <p className='text-white'>지원되지 않는 디바이스 환경입니다.</p>;
 }
-
-/* 받아올 데이터
-- 아이돌 사진
-- 아이돌 영문 이름
-- 후원 제목
-- 목표 크레딧
-- 현재 모인 크레딧
-- 후원 모집 시작 (createdAt)
-- 모집 종료 (deadline)
-- 후원 상세 내용
-- 아이돌 그룹명
-- 아이돌 이름
-- 후원 장소
-- 후원 Id (donateId)
-*/

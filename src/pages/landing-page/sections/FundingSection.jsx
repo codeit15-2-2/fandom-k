@@ -2,7 +2,11 @@ import FundingCard from '@pages/landing-page/components/elements/FundingCard';
 import { SNAP_ITEM } from '@pages/landing-page/constants/layouts';
 import { cn } from '@libs/cn';
 import { getRandomIdols } from '@pages/landing-page/utils/getRandomIdols';
-import pinkArrow from '@assets/doodles/arrow-pink.png';
+import pinkArrow from '@assets/doodles/arrow-pink.webp';
+import { motion } from 'motion/react';
+import { useObserver } from '@pages/landing-page/hooks/useObserver';
+import logo from '@assets/logos/logo-stroked.webp';
+import { useState, useEffect, useMemo } from 'react';
 
 // 카드 스타일 설정
 const FUNDING_CARD_STYLES = [
@@ -14,60 +18,114 @@ const FUNDING_CARD_STYLES = [
   { rotate: 'rotate-10', translate: 'translate-y-15' },
 ];
 
-// 스타일 계산 유틸
-const getFundingCardStyle = (index) =>
-  FUNDING_CARD_STYLES[index % FUNDING_CARD_STYLES.length];
+// 애니메이션 설정
+const ANIMATION_CONFIG = {
+  header: {
+    type: 'spring',
+    stiffness: 80,
+    damping: 30,
+  },
+  cards: {
+    type: 'spring',
+    stiffness: 80,
+    damping: 30,
+  },
+};
 
 // 메인 펀딩 섹션
 const FundingSection = () => {
-  const randomIdols = getRandomIdols();
+  // 랜덤 아이돌 목록을 한 번만 생성하도록 useMemo 사용
+  const randomIdols = useMemo(() => getRandomIdols(), []);
+  const [setRef, isVisible] = useObserver();
+  const [isCardVisible, setIsCardVisible] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isVisible) {
+      timer = setTimeout(() => setIsCardVisible(true), 1000);
+    } else {
+      setIsCardVisible(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isVisible]);
 
   return (
-    <div className={cn(SNAP_ITEM, 'bg-white')}>
-      <FundingHeader />
-      <FundingCardList idols={randomIdols} />
-      <FundingDescription />
-    </div>
+    <motion.section ref={setRef} className={cn(SNAP_ITEM, 'relative bg-white')}>
+      <FundingHeader isVisible={isVisible} />
+      <FundingCardList idols={randomIdols} isVisible={isCardVisible} />
+      <FundingDescription isVisible={isVisible} />
+    </motion.section>
   );
 };
 
 // 헤더 섹션
-const FundingHeader = () => (
-  <div className='flex flex-1 flex-col items-center justify-center'>
+const FundingHeader = ({ isVisible }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+    transition={ANIMATION_CONFIG.header}
+    className='mb-24 flex flex-1 flex-col items-center justify-center gap-4'
+  >
+    <img src={logo} alt='로고 이미지' className='w-[18rem]' />
     <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[14rem]'>
       FUNDING
     </h1>
-  </div>
+  </motion.div>
 );
 
 // 카드 리스트 섹션
-const FundingCardList = ({ idols }) => (
-  <div className='z-10 flex items-start justify-center'>
-    {idols.map((idol, index) => {
-      const style = getFundingCardStyle(index);
-      return (
-        <FundingCard
-          key={idol.id || idol.name}
-          image={idol.image}
-          title={idol.title}
-          location={idol.location}
-          rotate={style.rotate}
-          translate={style.translate}
-        />
-      );
-    })}
-  </div>
-);
+const FundingCardList = ({ idols, isVisible }) => {
+  // 스타일 적용 유틸 함수
+  const getFundingCardStyle = (index) =>
+    FUNDING_CARD_STYLES[index % FUNDING_CARD_STYLES.length];
+
+  return (
+    <div className='z-10 flex items-start justify-center'>
+      {idols.map((idol, index) => {
+        const style = getFundingCardStyle(index);
+        return (
+          <motion.div
+            key={`funding-card-${idol.id || index}`}
+            initial={{ x: 400, y: 50, rotate: 15, opacity: 0 }}
+            animate={
+              isVisible
+                ? { x: 0, y: 0, rotate: 0, opacity: 1 }
+                : { x: 400, y: 50, rotate: 30, opacity: 0 }
+            }
+            transition={ANIMATION_CONFIG.cards}
+          >
+            <FundingCard
+              image={idol.image}
+              title={idol.title}
+              location={idol.location}
+              rotate={style.rotate}
+              translate={style.translate}
+            />
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
 
 // 설명 섹션
-const FundingDescription = () => (
-  <div className='mb-20 flex flex-1 flex-col items-center justify-center gap-8'>
-    <img src={pinkArrow} className='w-50 rotate-10 md:w-100' />
+const FundingDescription = ({ isVisible }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+    transition={ANIMATION_CONFIG.header}
+    className='mb-40 flex flex-1 flex-col items-center justify-center gap-8'
+  >
+    <img
+      src={pinkArrow}
+      alt='화살표'
+      className='h-24 w-24 rotate-5 md:h-48 md:w-60'
+    />
     <p className='text-center text-4xl font-semibold md:text-6xl'>
       진행중인 아티스트들의 <br />
       다양한 조공을 구경해보세요
     </p>
-  </div>
+  </motion.div>
 );
 
 export default FundingSection;

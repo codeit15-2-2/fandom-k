@@ -1,5 +1,3 @@
-// 아직 사용되지 않는 훅입니다 !!!
-
 import { useEffect, useState } from 'react';
 
 /**
@@ -12,7 +10,7 @@ import { useEffect, useState } from 'react';
  */
 
 export const useObserver = ({
-  threshold = 0.3,
+  threshold = 0.5,
   delay = 100,
   rootMargin = '0px',
 } = {}) => {

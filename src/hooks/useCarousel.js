@@ -11,8 +11,9 @@ import { useEffect, useRef, useState, useCallback } from 'react';
  * @property {number} width - 각 캐러셀 항목의 너비 (픽셀셀)
  */
 
-export const useCarousel = ({ totalDataLength, offset, data }) => {
-  const DURATION = 500;
+const DURATION = 500;
+
+export const useCarousel = ({ totalDataLength, offset, data, gap = '20' }) => {
   // 보여줄 페이지 위치
   const [currentIndex, setCurrentIndex] = useState(0);
   const [width, setWidth] = useState(200);
@@ -23,7 +24,9 @@ export const useCarousel = ({ totalDataLength, offset, data }) => {
 
   const calculateWidth = useCallback(() => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.offsetWidth / offset;
+      const totalGapWidth = gap * (offset - 1);
+      const cardWidth =
+        (carouselRef.current.offsetWidth - totalGapWidth) / offset;
       setWidth(cardWidth);
     }
   }, [offset]);

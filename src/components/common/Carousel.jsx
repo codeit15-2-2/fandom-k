@@ -26,10 +26,10 @@ import { useState, useEffect } from 'react';
  */
 
 const GAP = 20;
-const SLIDETOSHOW = 4;
+const SLIDE_TO_SHOW = 4;
 
 const Carousel = ({ data, RenderComponent, button, ...props }) => {
-  const [responsiveOffset, setResponsiveOffset] = useState(SLIDETOSHOW);
+  const [responsiveOffset, setResponsiveOffset] = useState(SLIDE_TO_SHOW);
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,6 +60,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
     totalDataLength: data?.length,
     offset: responsiveOffset,
     data,
+    gap: GAP,
   });
 
   // 아이템 너비 계산
@@ -75,7 +76,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
           className='flex'
           style={{ gap: `${GAP}px` }}
           animate={{
-            x: currentIndex * -width,
+            x: -currentIndex * (width + GAP),
           }}
           transition={{
             type: 'tween',
@@ -110,14 +111,14 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
 
       {/* 외부 버튼 */}
       <button
-        className='absolute top-1/2 -left-15 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -left-20 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 px-4 py-10 text-white'
         onClick={prevSlide}
         disabled={isTransitioning}
       >
         <ChevronLeft />
       </button>
       <button
-        className='absolute top-1/2 -right-15 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 p-2 text-white'
+        className='absolute top-1/2 -right-20 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 px-4 py-10 text-white'
         onClick={nextSlide}
         disabled={isTransitioning}
       >

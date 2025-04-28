@@ -1,6 +1,14 @@
-import FavoriteList from './components/FavoriteIdolList';
+import { AnimatePresence, motion } from 'motion/react';
+import { lazy } from 'react';
+const FavoriteListSection = lazy(
+  () => import('./sections/FavoriteListSection'),
+);
+
+const IdolSelectSection = lazy(() => import('./sections/SelectListSection'));
 import useMypageIdols from './hooks/useMyPageIdols';
-import IdolSelectList from './components/SelectIdolList';
+
+import FixedButton from './components/common/Button';
+import useFavoriteHandler from './hooks/useFavoriteHandler';
 
 export default function MyPage() {
   const {
@@ -14,26 +22,44 @@ export default function MyPage() {
     isError,
   } = useMypageIdols();
 
+  const { selectedIdols, handleSelect, handleAddFavorites } =
+    useFavoriteHandler({
+      idols,
+      favorites,
+      setFavorites,
+      setIdols,
+    });
+
   return (
     <div className='min-h-screen w-full bg-black text-white'>
-      <div className='mx-auto max-w-[140rem] px-6 shadow-2xl shadow-pink-300/60 md:px-6 lg:px-6 xl:px-48'>
-        <FavoriteList
-          favorites={favorites}
-          setIdols={setIdols}
-          setFavorites={setFavorites}
-        />
+      <AnimatePresence>
+        <div className='mx-auto max-w-[140rem] rounded-2xl px-6 md:px-6 lg:px-6 xl:px-48'>
+          <FavoriteListSection
+            favorites={favorites}
+            setIdols={setIdols}
+            setFavorites={setFavorites}
+          />
 
-        <IdolSelectList
-          idols={idols}
-          setIdols={setIdols}
-          setFavorites={setFavorites}
-          handleMoreIdols={() => fetchIdols(nextCursor)}
-          hasMore={!!nextCursor}
-          favorites={favorites}
-          isLoading={isLoading}
-          isError={isError}
-        />
-      </div>
+          <IdolSelectSection
+            idols={idols}
+            setIdols={setIdols}
+            setFavorites={setFavorites}
+            handleMoreIdols={() => fetchIdols(nextCursor)}
+            hasMore={!!nextCursor}
+            favorites={favorites}
+            isLoading={isLoading}
+            isError={isError}
+            handleSelect={handleSelect}
+            selectedIdols={selectedIdols}
+          />
+        </div>
+      </AnimatePresence>
+
+      <FixedButton
+        onClick={handleAddFavorites}
+        isLoading={isLoading}
+        selectedIdols={selectedIdols}
+      ></FixedButton>
     </div>
   );
 }

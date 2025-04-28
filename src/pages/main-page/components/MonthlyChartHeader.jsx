@@ -1,7 +1,7 @@
 import Button from '@components/common/Button';
 import IconChart from '@assets/icons/icon_chart';
 
-const MonthlyChartHeader = () => {
+const MonthlyChartHeader = ({ open }) => {
   return (
     <div className='mt-4 mb-8 flex items-baseline justify-between md:w-full'>
       <h1 className='title-text text-white'>이달의 차트</h1>
@@ -10,9 +10,7 @@ const MonthlyChartHeader = () => {
         color='pink'
         size='xs'
         btnType='button'
-        onClick={() => {
-          console.log('모달');
-        }}
+        onClick={open}
       >
         <IconChart />
         <span className='ml-1'>차트 투표하기</span>

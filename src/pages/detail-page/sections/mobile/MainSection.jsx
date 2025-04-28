@@ -1,17 +1,37 @@
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
 import MainTitle from '@pages/detail-page/components/MainTitle';
 import Button from '@components/common/Button';
+import useModal from '@hooks/useModal';
+import DonateModal from '@pages/detail-page/components/DonateModal';
 
-const MainSection = () => {
+const MainSection = ({
+  id,
+  title,
+  subtitle,
+  targetDonation,
+  createdAt,
+  deadline,
+  receivedDonations,
+  englishName,
+  idol,
+  isDonationOpen,
+}) => {
+  const { isOpen: isModalOpen, open, close } = useModal();
+
   return (
     <div className='flex h-screen w-screen flex-col items-center bg-black'>
       <div className='relative h-[calc(100vh_-_50rem)]'>
-        <div className="h-[calc(100vh_-_50rem)] w-screen bg-[linear-gradient(to_right,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_100%),url('https://img.news-wa.com/img/upload/2025/02/09/NWC_20250209182654.png.webp')] bg-cover bg-center"></div>
+        <div
+          className='h-[calc(100vh_-_50rem)] w-screen bg-cover bg-center'
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%), url('${idol.profilePicture}')`,
+          }}
+        ></div>
         <div className='absolute bottom-0 h-full'>
           <div className='inset-0 z-10 h-full w-screen bg-gradient-to-b from-transparent via-black/40 to-black'></div>
         </div>
         <div className='absolute bottom-0 left-[5vw]'>
-          <MainTitle title='1주년 기념 팝업 카페' name='KARINA' size='s' />
+          <MainTitle title={title} name={englishName} size='s' />
         </div>
       </div>
 
@@ -19,10 +39,10 @@ const MainSection = () => {
         <DonationInfo
           title='모인 금액'
           subTitle='크레딧'
-          credit={200000}
-          targetAmount={300000}
+          credit={receivedDonations}
+          targetAmount={targetDonation}
           size='s'
-          isOpen={true}
+          isDonationOpen={isDonationOpen}
         >
           <DonationInfo.InfoCredit />
           <DonationInfo.InfoTargetAmount />
@@ -31,10 +51,10 @@ const MainSection = () => {
         <DonationInfo
           title='모집 기간'
           subTitle='남은 시간'
-          createdAt={'2025-03-19T00:00:00.891Z'}
-          deadline={'2025-05-22T23:59:59.000Z'}
+          createdAt={createdAt}
+          deadline={deadline}
           size='s'
-          isOpen={true}
+          isDonationOpen={isDonationOpen}
         >
           <DonationInfo.InfoTimer />
           <DonationInfo.InfoDeadline />
@@ -43,9 +63,37 @@ const MainSection = () => {
 
       <div className='fixed bottom-0 z-50 flex h-[8rem] w-screen items-center justify-center bg-black backdrop-blur'>
         <div className='w-[90vw]'>
-          <Button color='pink' size='full' className='rounded hover:bg-black'>
-            후원하기
-          </Button>
+          {isDonationOpen ? (
+            <Button
+              color='pink'
+              size='full'
+              className='rounded hover:bg-black'
+              onClick={open}
+            >
+              후원하기
+            </Button>
+          ) : (
+            <Button
+              color='gray'
+              size='full'
+              className='rounded hover:bg-black'
+              disabled
+            >
+              모집 종료
+            </Button>
+          )}
+
+          <DonateModal
+            isOpen={isModalOpen}
+            close={close}
+            donateId={id}
+            cardItem={{
+              id: idol.id,
+              title: title,
+              subtitle: subtitle,
+              profilePicture: idol.profilePicture,
+            }}
+          />
         </div>
       </div>
     </div>
