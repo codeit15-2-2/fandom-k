@@ -148,9 +148,7 @@ const HeroHeader = () => (
           나를 설레게 했던 순간, 이제는 내가 보답할 때
         </span>
       </h1>
-      <Link to='/main'>
-        <Button>시작하기</Button>
-      </Link>
+      <Button>시작하기</Button>
     </div>
   </motion.div>
 );
@@ -190,17 +188,6 @@ const HeroSection = () => {
         {/* 중앙 원들 렌더링 */}
         <CircleRender circles={CIRCLES_DATA.idol} isMoved={isMoved} />
         <CircleRender circles={CIRCLES_DATA.pink} isMoved={isMoved} />
-
-        {/* 초기 중앙 원 (애니메이션 시작 전에만 표시) - z-index를 더 높게 설정하고 absolute로 중앙에 배치 */}
-        {/* {!isMoved && (
-          <div
-            className={`absolute inset-0 z-50 flex items-center justify-center`}
-          >
-            <Circle size='lg' className='scale-110' />
-          </div>
-        )} */}
-
-        {/* 컨텐츠 영역 */}
         <HeroHeader />
         <TeamInfo />
       </div>

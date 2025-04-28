@@ -1,6 +1,13 @@
 import { cn } from '@libs/cn';
+import { useNavigate } from 'react-router-dom';
 
 const Button = ({ children }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.clear();
+    navigate('/main');
+  };
+
   return (
     <button
       className={cn(
@@ -11,6 +18,7 @@ const Button = ({ children }) => {
         // Responsive overrides
         'md:w-130 md:px-24 md:py-6 md:text-3xl',
       )}
+      onClick={handleClick}
     >
       {children}
     </button>
