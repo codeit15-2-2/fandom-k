@@ -2,9 +2,8 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import Button from '@components/common/Button';
-import useWindowSize from '@hooks/useWindowSize';
+import useDeviceSize from '@hooks/useDeviceSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
-
 
 //추가될 아이돌들을 선택하는 컴포넌트
 
@@ -17,8 +16,8 @@ const IdolSelectList = ({
   isError,
   isLoading,
 }) => {
-  const width = useWindowSize();
-  const avatarSize = width < 1025 ? 'm' : 'l';
+  const { isDesktop } = useDeviceSize();
+  const avatarSize = isDesktop - 1 ? 'l' : 'm';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({
