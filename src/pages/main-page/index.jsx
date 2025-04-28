@@ -1,5 +1,6 @@
 import { getDonate } from '@apis/donateApi';
 import { useEffect, useState } from 'react';
+import { ChartProvider } from '@contexts/ChartContext';
 import DonateCarousel from './sections/DonateCarousel';
 import MyCredit from './components/MyCredit';
 import useModal from '@hooks/useModal';
@@ -40,8 +41,12 @@ export default function MainPage() {
         fetchDonateData={fetchDonateData}
       />
       <MyCredit open={creditModal.open} credit={credit} />
-      <MonthlyChartSection open={voteModal.open} />
-      <VoteModal voteModal={voteModal}></VoteModal>
+
+      <ChartProvider>
+        <MonthlyChartSection open={voteModal.open} />
+        <VoteModal voteModal={voteModal}></VoteModal>
+      </ChartProvider>
+      
       <CreditModal
         creditModal={creditModal}
         credit={credit}
