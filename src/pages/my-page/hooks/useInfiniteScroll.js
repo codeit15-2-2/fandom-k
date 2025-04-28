@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-
 //IntersectionObserver를 사용한 무한 스크롤
 //화면을 아래로 내릴때 뷰포트에 loaderRef가 닿으면(나타나면)추가데이터를 불러오는 방식(handleMoreIdols())
 const useInfiniteScroll = ({
