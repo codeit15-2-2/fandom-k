@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react';
 import { setStoredFavorites } from '@utils/storeFavorite';
+import { useToast } from '@contexts/ToastContext';
 
 // 아이돌 리스트간의 추가, 삭제 로직을 커스텀 훅으로 분리
 
 const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
   const [selectedIdols, setSelectedIdols] = useState([]);
+  const { showSuccess } = useToast();
 
   // 추가할 아이돌들을 선택하는 로직
   const handleSelect = useCallback((id) => {
@@ -31,7 +33,14 @@ const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
     setStoredFavorites(newFavorites);
     setIdols((prev) => prev.filter((idol) => !selectedIdols.includes(idol.id)));
     setSelectedIdols([]);
-  }, [idols, selectedIdols, favorites, setFavorites, setIdols]);
+
+    // 토스트 알림 추가
+    if (selectedIdolObjects.length > 0) {
+      showSuccess(
+        `${selectedIdolObjects.length}명의 아이돌이 관심 목록에 추가되었습니다.`,
+      );
+    }
+  }, [idols, selectedIdols, favorites, setFavorites, setIdols, showSuccess]);
 
   // FavoriteList에서 아이돌을 삭제하는 로직
   const handleRemoveFavorite = useCallback(
@@ -42,8 +51,11 @@ const useFavoriteHandler = ({ idols, favorites, setFavorites, setIdols }) => {
       setFavorites(newFavorites);
       setStoredFavorites(newFavorites);
       setIdols((prev) => [...prev, selectedFavIdol]);
+
+      // 토스트 알림 추가
+      showSuccess(`${selectedFavIdol.name}님이 관심 목록에서 제거되었습니다.`);
     },
-    [favorites, setFavorites, setIdols],
+    [favorites, setFavorites, setIdols, showSuccess],
   );
 
   return {

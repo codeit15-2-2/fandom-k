@@ -4,6 +4,7 @@ import IdolCardList from '@components/card/IdolCard';
 import CreditForm from '@components/credit-form/CreditForm';
 import useCredit from '@hooks/useCredit';
 import { useDonation } from '@contexts/DonationContext';
+import { useToast } from '@contexts/ToastContext';
 
 /**
  * DonateModal 컴포넌트
@@ -80,8 +81,11 @@ import { useDonation } from '@contexts/DonationContext';
 const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
   const { credit, handleDonateCredit } = useCredit();
   const { setDonationData } = useDonation();
+  const { showLoading, showSuccess, showError, dismiss } = useToast();
 
   const donateCredit = async (amount) => {
+    const loadingId = showLoading('후원을 처리 중입니다...');
+
     try {
       await ContributeDonation(donateId, { amount });
 
@@ -92,11 +96,17 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
       }));
 
       handleDonateCredit(amount);
-
+      dismiss(loadingId);
+      showSuccess(
+        `${cardItem.title} ${amount.toLocaleString()} 크레딧 후원이 완료되었습니다!`,
+      );
       close();
     } catch (error) {
       console.error('후원 중 에러발생:', error);
-      alert(error.message || '후원실패');
+      dismiss(loadingId);
+      showError(
+        `후원에 실패했습니다. ${error.message || '다시 시도해주세요.'}`,
+      );
     }
   };
 
