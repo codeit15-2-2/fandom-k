@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getCharts } from '@apis/chartsApi';
+import useDeviceSize from '@hooks/useDeviceSize';
 
 // Context 생성
 const ChartContext = createContext(null);
@@ -47,9 +48,9 @@ export const ChartProvider = ({ children }) => {
    * - PC: 10개
    */
   const getResponsivePageSize = () => {
-    const width = window.innerWidth;
-    if (width <= 1024) return 5;
-    return 10;
+    const { isDesktop } = useDeviceSize();
+    if (isDesktop) return 10;
+    return 5;
   };
 
   /**
