@@ -2,6 +2,7 @@
 
 body {
   background-color: #02000e;
+  font-family: 'Pretendard', system-ui, sans-serif;
 }
 
 @theme {
@@ -62,6 +63,7 @@ body {
   @font-face {
     font-family: 'Pretendard';
     src: url('/fonts/PretendardVariable.woff2') format('woff2');
+    font-display: swap;
   }
 
   @font-face {

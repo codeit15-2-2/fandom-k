@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const DetailContent = ({ contents }) => {
   return (
     <div className='my-15'>
@@ -13,4 +15,7 @@ const DetailContent = ({ contents }) => {
   );
 };
 
-export default DetailContent;
+export default memo(DetailContent, (prev, next) => {
+  if (prev.contents !== next.contents) return false;
+  return true;
+});

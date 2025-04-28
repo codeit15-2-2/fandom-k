@@ -5,10 +5,12 @@ const STORAGE_KEY_DONATION = 'donationData';
 const DonationContext = createContext({
   donationData: null,
   setDonationData: () => {}, // 후원 정보 1개만 관리
+  isLoading: true,
 });
 
 const DonationProvider = ({ children }) => {
   const [donationData, setDonationData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // 처음 렌더링할 때 localStorage에서 불러옴
   useEffect(() => {
@@ -16,6 +18,7 @@ const DonationProvider = ({ children }) => {
     if (storedData) {
       setDonationData(JSON.parse(storedData));
     }
+    setIsLoading(false);
   }, []);
 
   // donationData가 변경될 때마다 localStorage에 저장
@@ -33,7 +36,9 @@ const DonationProvider = ({ children }) => {
   }, [donationData]);
 
   return (
-    <DonationContext.Provider value={{ donationData, setDonationData }}>
+    <DonationContext.Provider
+      value={{ donationData, setDonationData, isLoading }}
+    >
       {children}
     </DonationContext.Provider>
   );
