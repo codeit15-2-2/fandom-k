@@ -1,4 +1,4 @@
-import CreditContext from '@contexts/creditContext';
+import CreditContext from '@contexts/CreditContext';
 import { useEffect, useContext } from 'react';
 
 const CREDIT_KEY = 'credit';
