@@ -103,9 +103,7 @@ const CreditDescription = ({ isVisible }) => (
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay: 2.3 }}
     >
-      <Link to='/main'>
-        <Button>크레딧 받고 시작하기</Button>
-      </Link>
+      <Button>크레딧 받고 시작하기</Button>
     </motion.div>
   </motion.div>
 );
