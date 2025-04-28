@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'motion/react';
 import { createPortal } from 'react-dom';
 
 /**
@@ -31,30 +32,44 @@ import { createPortal } from 'react-dom';
  */
 
 const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   return createPortal(
-    <div className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-100 flex h-screen w-screen items-center justify-center bg-[#000000]/70'>
-      <div className='modal-content relative flex max-h-[100%] w-2xl max-w-[60rem] min-w-[40rem] flex-col rounded-2xl bg-[#181D26] p-10 text-white'>
-        <div className='flex justify-between'>
-          {title && <p className='content-text'>{title}</p>}
-          <button
-            className='content-text absolute top-9 right-10 z-99 cursor-pointer text-white/50'
-            onClick={onClose}
-            aria-label='모달 닫기'
+    <AnimatePresence mode='wait'>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-100 flex h-screen w-screen items-center justify-center bg-[#000000]/70'
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className='modal-content relative flex max-h-[100%] w-2xl max-w-[60rem] min-w-[40rem] flex-col rounded-2xl bg-[#181D26] p-10 text-white'
           >
-            &times;
-          </button>
-        </div>
-        <div className='my-4 flex flex-col items-center justify-center gap-5 py-3'>
-          {children}
-        </div>
-        {button}
-        {extra && (
-          <span className='caption-text mt-2 text-center'>{extra}</span>
-        )}
-      </div>
-    </div>,
+            <div className='flex justify-between'>
+              {title && <p className='content-text'>{title}</p>}
+              <button
+                className='content-text absolute top-9 right-10 z-99 cursor-pointer text-white/50'
+                onClick={onClose}
+                aria-label='모달 닫기'
+              >
+                &times;
+              </button>
+            </div>
+            <div className='my-4 flex flex-col items-center justify-center gap-5 py-3'>
+              {children}
+            </div>
+            {button}
+            {extra && (
+              <span className='caption-text mt-2 text-center'>{extra}</span>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
     document.body,
   );
 };
