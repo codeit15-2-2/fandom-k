@@ -100,11 +100,13 @@ const IdolList = ({
 
   return (
     <IdolContext.Provider value={contextValue}>
-      <div className='sub-content-text flex w-full items-center gap-4 [&>*:last-child]:ml-auto'>
-        <IdolImg selected={selectedId === id} />
-        <IdolRank />
-        {children}
-      </div>
+      <label className={onChange !== undefined ? 'cursor-pointer' : ''}>
+        <div className='sub-content-text flex w-full items-center gap-4 [&>*:last-child]:ml-auto'>
+          <IdolImg selected={selectedId === id} />
+          <IdolRank />
+          {children}
+        </div>
+      </label>
     </IdolContext.Provider>
   );
 };
