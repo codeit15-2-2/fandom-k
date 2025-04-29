@@ -102,7 +102,7 @@ const MainSection = ({
               style={donationInfoAnimation}
               ref={donationInfoRef}
             > */}
-              <div className='mt-20'>
+              <div className='mt-20 flex flex-col gap-10'>
                 <DonationInfo
                   title='모인 금액'
                   subTitle='크레딧'
