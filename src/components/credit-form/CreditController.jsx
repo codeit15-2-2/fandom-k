@@ -18,7 +18,7 @@ const CreditController = ({ handleAddAmount, handleAddAll, isDonate }) => {
       {CREDIT_INCREASE.map((increasement) => (
         <button
           key={increasement}
-          className='bg-navy cursor-pointer rounded-2xl px-4 py-4 text-[1.2rem] md:px-6 md:text-[1.4rem] lg:px-8 lg:py-4'
+          className='bg-navy cursor-pointer rounded-2xl px-4 py-3 text-[1.2rem] md:px-6 md:text-[1.4rem] lg:px-8 lg:py-3'
           onClick={() => handleAddAmount(increasement)}
         >
           +{increasement}
@@ -27,7 +27,7 @@ const CreditController = ({ handleAddAmount, handleAddAll, isDonate }) => {
 
       {isDonate && (
         <button
-          className='bg-navy cursor-pointer rounded-2xl px-4 py-4 text-[1.4rem] md:px-6 md:text-[1.6rem] lg:px-8 lg:py-4'
+          className='bg-navy cursor-pointer rounded-2xl px-4 py-3 text-[1.4rem] md:px-6 md:text-[1.6rem] lg:px-8 lg:py-3'
           onClick={handleAddAll}
         >
           전액

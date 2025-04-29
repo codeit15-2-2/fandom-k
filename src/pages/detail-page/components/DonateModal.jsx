@@ -1,5 +1,5 @@
 import Modal from '@components/common/Modal';
-import { ContributeDonation } from '@apis/ContributeApi';
+import { contributeDonation } from '@apis/contributeApi';
 import IdolCardList from '@components/card/IdolCard';
 import CreditForm from '@components/credit-form/CreditForm';
 import useCredit from '@hooks/useCredit';
@@ -87,7 +87,7 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
     const loadingId = showLoading('후원을 처리 중입니다...');
 
     try {
-      await ContributeDonation(donateId, { amount });
+      await contributeDonation(donateId, { amount });
 
       // Donation context에도 업데이트
       setDonationData((prev) => ({
@@ -116,7 +116,7 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={close} title='후원하기'>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col items-center gap-4'>
         <IdolCardList
           id={cardItem.id}
           src={cardItem.profilePicture}

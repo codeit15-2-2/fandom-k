@@ -40,8 +40,9 @@ export const useCreditForm = (credit, isDonate = false) => {
 
   //input값 onchange메소드
   const handleInputChange = (inputValue) => {
-    setInput(inputValue);
-    validateValue(inputValue);
+    const filteredText = inputValue.replace(/[^0-9]/g, ''); //숫자만 남기기위한 정규식
+    setInput(filteredText);
+    validateValue(filteredText);
   };
 
   //+100 +500 +100 버튼에 들어가는 메소드

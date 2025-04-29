@@ -8,7 +8,13 @@ const CreditContext = createContext({
 });
 
 export const CreditProvider = ({ children }) => {
-  const [credit, setCredit] = useState(0);
+  const InitialCredit = (() => {
+    const stored = localStorage.getItem('credit');
+    const parsed = Number(stored);
+    return isNaN(parsed) ? 0 : parsed;
+  })();
+
+  const [credit, setCredit] = useState(InitialCredit);
 
   return (
     <CreditContext.Provider value={{ credit, setCredit }}>

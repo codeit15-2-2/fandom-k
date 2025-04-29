@@ -29,7 +29,7 @@ const IdolSelectList = ({
   return (
     <AnimatePresence>
       {idols.length > 0 ? (
-        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8 [@media(min-width:1024px)]:grid-cols-6 [@media(min-width:1025px)]:grid-cols-8'>
+        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6'>
           {idols.map((item) => (
             <motion.div
               key={item.id}
@@ -50,7 +50,7 @@ const IdolSelectList = ({
           {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
         </div>
       ) : isError ? (
-        <div className='flex h-[24rem] flex-col items-center justify-center text-[1.8rem] text-red-500 md:text-[2.4rem]'>
+        <div className='text-brand-2 flex h-[24rem] flex-col items-center justify-center text-[1.8rem] md:text-[2.4rem]'>
           서버 요청 중 에러가 발생하였습니다.
           <Button
             color='pink'
