@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
@@ -29,22 +29,25 @@ const MainSection = ({
   const [titleRef, titleHeight] = useElementHeight();
   const scrollAreaRef = useRef(null);
   const detailTitleRef = useRef(null);
-  const donationInfoRef = useRef(null);
+  const [donationInfoRef, donationInfoHeight] = useElementHeight();
 
   const detailTitleAnimation = useScrollAnimation(
     scrollAreaRef,
     detailTitleRef,
-    ['-1000%', '0%'],
+    ['0px', '0px'],
+    true,
   );
   const donationInfoAnimation = useScrollAnimation(
     scrollAreaRef,
     donationInfoRef,
-    ['-150%', '0%'],
+    ['-150px', '0px'],
+    false,
   );
   const backgroundAnimation = useScrollAnimation(
     scrollAreaRef,
     donationInfoRef,
-    ['-300%', '0%'],
+    ['-300px', '0px'],
+    true,
   );
 
   return (
@@ -56,7 +59,7 @@ const MainSection = ({
         ref={donationInfoRef}
       ></motion.div>
 
-      <div className='flex justify-center w-full overflow-hidden h-fit'>
+      <div className='flex h-fit w-full justify-center overflow-hidden'>
         <div className='grid h-[calc(100vh-8rem)] w-[95vw] grid-cols-3 grid-rows-4 gap-10 md:h-[calc(100vh-10rem)]'>
           {/* 제목 + 본문 영역 */}
           <section
@@ -65,13 +68,13 @@ const MainSection = ({
           >
             <div
               className='absolute w-full'
-              style={{ top: `calc(100vh - 8rem - ${titleHeight}px)` }}
+              style={{ top: `calc(100vh - 10rem - ${titleHeight}px)` }}
             >
               <div className='h-fit snap-end' ref={titleRef}>
                 <MainTitle title={title} name={englishName} size='l' />
               </div>
 
-              <div className='pb-10 snap-start'>
+              <div className='snap-start pb-10'>
                 <DetailContent contents={contents} />
               </div>
             </div>
@@ -81,45 +84,49 @@ const MainSection = ({
           <section className='relative col-start-3 col-end-4 row-start-1 row-end-5 ml-auto flex w-full max-w-[40rem] flex-col justify-between py-20'>
             <motion.div
               className='sticky top-0 z-10 w-full'
-              style={detailTitleAnimation}
-              ref={detailTitleRef}
+              style={donationInfoAnimation}
+              ref={donationInfoRef}
             >
-              <DetailTitle
-                name={`${idol.group} ${idol.name}`}
-                title={title}
-                location={subtitle}
-                size='l'
-              />
-            </motion.div>
+              <motion.div style={detailTitleAnimation} ref={donationInfoRef}>
+                <DetailTitle
+                  name={`${idol.group} ${idol.name}`}
+                  title={title}
+                  location={subtitle}
+                  size='l'
+                />
+              </motion.div>
+              {/* </motion.div>
 
             <motion.div
               className='sticky top-0 z-10 flex flex-col w-full gap-10'
               style={donationInfoAnimation}
               ref={donationInfoRef}
-            >
-              <DonationInfo
-                title='모인 금액'
-                subTitle='크레딧'
-                credit={receivedDonations}
-                targetAmount={targetDonation}
-                size='l'
-                isDonationOpen={isDonationOpen}
-              >
-                <DonationInfo.InfoCredit />
-                <DonationInfo.InfoTargetAmount />
-              </DonationInfo>
+            > */}
+              <div className='mt-20'>
+                <DonationInfo
+                  title='모인 금액'
+                  subTitle='크레딧'
+                  credit={receivedDonations}
+                  targetAmount={targetDonation}
+                  size='l'
+                  isDonationOpen={isDonationOpen}
+                >
+                  <DonationInfo.InfoCredit />
+                  <DonationInfo.InfoTargetAmount />
+                </DonationInfo>
 
-              <DonationInfo
-                title='모집 기간'
-                subTitle='남은 시간'
-                createdAt={createdAt}
-                deadline={deadline}
-                size='l'
-                isDonationOpen={isDonationOpen}
-              >
-                <DonationInfo.InfoTimer />
-                <DonationInfo.InfoDeadline />
-              </DonationInfo>
+                <DonationInfo
+                  title='모집 기간'
+                  subTitle='남은 시간'
+                  createdAt={createdAt}
+                  deadline={deadline}
+                  size='l'
+                  isDonationOpen={isDonationOpen}
+                >
+                  <DonationInfo.InfoTimer />
+                  <DonationInfo.InfoDeadline />
+                </DonationInfo>
+              </div>
             </motion.div>
 
             <div>
