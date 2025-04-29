@@ -87,6 +87,7 @@ const IdolCardList = ({
   size = 'm',
   button = null,
   children,
+  status,
 }) => {
   const contextValue = {
     id,
@@ -99,6 +100,7 @@ const IdolCardList = ({
     onClick,
     size,
     button,
+    status,
   };
 
   const IdolCardWrapClassName = cn(
@@ -126,17 +128,17 @@ const IdolCardText = () => {
   const { location, title, size } = useContext(IdolCardContext);
 
   const locationClassName = cn(
-    'mb-2 text-[var(--color-gray-300)]',
+    'mb-2 text-[var(--color-gray-300)] truncate',
     size === 's' ? 'caption-text' : 'content-text',
   );
 
   const titleClassName = cn(
-    size === 's' ? 'sub-content-text' : 'text-[1.8rem]',
+    size === 's' ? 'sub-content-text truncate' : 'text-[1.8rem] truncate',
   );
 
   return (
     <div className='pt-2 pb-6'>
-      <p className={locationClassName}>{location}</p>
+      <p className={locationClassName} >{location}</p>
       <p className={titleClassName}>{title}</p>
     </div>
   );
@@ -149,18 +151,22 @@ const IdolCardText = () => {
  * - 버튼은 외부에서 JSX 컴포넌트로 전달되며, 클릭 핸들러(onClick)도 함께 전달됩니다.
  */
 const IdolCardImg = () => {
-  const { src, title, button, onClick } = useContext(IdolCardContext);
+  const { src, title, button, onClick, status } = useContext(IdolCardContext);
 
   // 버튼에 onClick 핸들러 연결
   const buttonWithHandler = button
-    ? React.cloneElement(button, { onClick })
+    ? React.cloneElement(button, {
+        onClick,
+        color: !status ? 'gray' : button.props.color, // status가 false면 color를 gray로
+        children: !status ? '상세 페이지 보기' : button.props.children, // 텍스트도 바꿔
+      })
     : null;
 
   return (
     <div className='relative'>
       <CardImg src={src} alt={title}>
         {button && (
-          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
+          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2 '>
             {buttonWithHandler}
           </div>
         )}

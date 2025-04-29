@@ -1,5 +1,9 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 
+/**
+ * 내부에서 elementRef를 만들고 그 요소의 높이를 반환한다.
+ * @returns [elementRef, height]
+ */
 const useElementHeight = () => {
   const elementRef = useRef(null);
   const [height, setHeight] = useState(0);

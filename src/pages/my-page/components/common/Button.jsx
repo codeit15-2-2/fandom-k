@@ -1,18 +1,16 @@
 import Button from '@components/common/Button';
-import useWindowSize from '@hooks/useWindowSize';
+import useDeviceSize from '@hooks/useDeviceSize';
 
-//하단 고정 버튼
+//하단 sticky 버튼
 
 const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
-  const width = useWindowSize();
-
-  const buttonSize =
-    width < 1024
-      ? 'h-[42px] w-[295px]  py-[9px]'
-      : 'h-[43px] w-[477px]  py-[9px]';
+  const { isDesktop } = useDeviceSize();
+  const buttonSize = isDesktop
+    ? 'h-[43px] w-[477px]  py-[9px]'
+    : 'h-[42px] w-[295px]  py-[9px]';
 
   return (
-    <div className='fixed bottom-0 z-990 flex h-[10rem] w-screen items-center justify-center bg-black'>
+    <div className='sticky bottom-0 z-990 flex h-[15rem] w-full items-center justify-center bg-gradient-to-b from-transparent to-black'>
       <Button
         size='xl'
         color='pink'

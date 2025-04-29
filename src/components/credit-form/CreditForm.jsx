@@ -68,9 +68,12 @@ const CreditForm = ({ isDonate = false, onClick, credit, className = '' }) => {
 
   return (
     <div className={cn('w-full max-w-[43rem] text-left text-white', className)}>
-      <p className='sub-content-text'>내 크레딧: {credit.toLocaleString()}</p>
+      <p className='text-[1.4rem] md:text-[1.6rem]'>
+        내 크레딧: {credit.toLocaleString()}
+      </p>
       <Input
         value={input}
+        type='text'
         placeholder='크레딧 입력'
         onChange={handleInputChange}
         isError={error}

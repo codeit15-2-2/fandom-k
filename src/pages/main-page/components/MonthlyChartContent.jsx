@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useChartPagination } from '@hooks/useChartPagination';
+import { useChartContext } from '@contexts/ChartContext';
 import Button from '@components/common/Button';
 import MonthlyChartList from './MonthlyChartList';
 import IdolList from '@components/vote/IdolList';
@@ -15,32 +15,41 @@ import { SkeletonList } from './IdolSkeleton';
 export default function MonthlyChartContent() {
   // 현재 URL 경로에 따라 성별 결정
   const location = useLocation();
-  const gender = location.pathname.includes('female') ? 'female' : 'male';
+  const urlGender = location.pathname.includes('female') ? 'female' : 'male';
 
   // 차트 페이징 관련 훅 (데이터, 로딩 상태, 요청 함수 등)
   const {
+    gender,
+    setGender,
     chartDataList,
-    nextCursor,
     isLoading,
     fetchIdolData,
-    resetPagination,
-  } = useChartPagination(gender);
+    nextCursor,
+  } = useChartContext();
 
-  const loadData = async (cursor = 0) => {
-    return await fetchIdolData(cursor);
+  // 초기 데이터 로딩 또는 재시도 함수
+  const loadInitialData = () => {
+    fetchIdolData(); // 커서 없이 호출하여 첫 페이지 데이터 로드
   };
 
-  // gender가 바뀌면 초기화 후 첫 페이지 데이터를 재요청
+  const loadMore = () => {
+    if (nextCursor !== null && !isLoading) {
+      fetchIdolData(nextCursor);
+    }
+  };
+
+  // URL이 변경되면 gender 값 업데이트
   useEffect(() => {
-    resetPagination();
-    loadData(0);
-  }, [gender]);
+    if (gender !== urlGender) {
+      setGender(urlGender);
+    }
+  }, [urlGender, gender, setGender]);
 
   let content;
   if (isLoading) {
     content = <SkeletonList />;
   } else if (!chartDataList || chartDataList.length === 0) {
-    content = <ErrorMessage onRetry={loadData} />;
+    content = <ErrorMessage onRetry={loadInitialData} />;
   } else {
     content = <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />;
   }
@@ -60,11 +69,7 @@ export default function MonthlyChartContent() {
             btnType='button'
             isLoading={isLoading}
             disabled={isLoading}
-            onClick={() => {
-              // 다음 페이지가 없을 때 호출되지 않도록
-              if (nextCursor === null) return;
-              fetchIdolData(nextCursor);
-            }}
+            onClick={loadMore}
           >
             {isLoading ? '로딩 중...' : '더보기'}
           </Button>

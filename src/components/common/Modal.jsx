@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 /**
@@ -32,6 +33,24 @@ import { createPortal } from 'react-dom';
  */
 
 const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
+  // 모달 외부 클릭 처리
+  const handleOverlayClick = (e) => {
+    // 오버레이 영역을 클릭했을 때만 모달 닫기 (모달 컨텐츠 클릭 시 닫히지 않도록)
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  // 간단하게 body 스크롤 막기
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isOpen]);
   return createPortal(
     <AnimatePresence mode='wait'>
       {isOpen && (
@@ -40,7 +59,8 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-100 flex h-screen w-screen items-center justify-center bg-[#000000]/70'
+          className='modal-overlay fixed top-0 right-0 bottom-0 left-0 z-102 flex h-screen w-screen items-center justify-center bg-[#000000]/70'
+          onClick={handleOverlayClick}
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -56,7 +76,7 @@ const Modal = ({ title, button, children, extra, isOpen, onClose }) => {
                 onClick={onClose}
                 aria-label='모달 닫기'
               >
-                &times;
+                <span className='text-5xl'>&times;</span>
               </button>
             </div>
             <div className='my-4 flex flex-col items-center justify-center gap-5 py-3'>

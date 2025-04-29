@@ -2,13 +2,13 @@ import { useEffect, useRef, useState, memo } from 'react';
 import { cn } from '@/utils/cn';
 
 const MAIN_TITLE_SIZE_STYLES = {
-  s: 'text-3xl',
+  s: 'text-[5vw]',
   m: 'text-4xl',
   l: 'text-5xl',
 };
 
 const MAIN_NAME_SIZE_STYLES = {
-  s: 'text-[10rem]',
+  s: 'text-[20vw]',
   m: 'text-[10rem]',
   l: 'text-[15rem]',
 };

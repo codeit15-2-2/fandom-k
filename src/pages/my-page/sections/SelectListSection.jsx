@@ -1,6 +1,3 @@
-import useWindowSize from '@hooks/useWindowSize';
-import Button from '@components/common/Button';
-import useFavoriteHandler from '../hooks/useFavoriteHandler';
 import { lazy } from 'react';
 
 const IdolSelectList = lazy(() => import('../components/SelectIdolList'));
@@ -18,7 +15,7 @@ const IdolSelectSection = ({
   isLoading,
 }) => {
   return (
-    <div className='relative pb-[20rem]'>
+    <div className='relative'>
       <h2 className='mb-20 text-[1.8rem] font-bold md:text-[2.4rem]'>
         관심 있는 아이돌을 추가해보세요.
       </h2>
