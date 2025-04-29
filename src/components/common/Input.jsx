@@ -44,12 +44,12 @@ const Input = ({
           placeholder={placeholder}
           className={cn(
             'sub-content-text bg-navy w-full rounded-xl border-2 px-4 py-5 pr-12 text-white transition-all md:py-6',
-            isError ? 'border-red-500 focus:outline-0' : 'border-white',
+            isError ? 'border-brand-2 focus:outline-0' : 'border-white',
           )}
         />
         {icon && icon}
       </div>
-      {isError && <p className='content-text mt-2.5 text-red-500'>{errMsg}</p>}
+      {isError && <p className='content-text text-brand-2 mt-2.5'>{errMsg}</p>}
     </div>
   );
 };

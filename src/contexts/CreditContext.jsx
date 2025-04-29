@@ -8,7 +8,7 @@ const CreditContext = createContext({
 });
 
 export const CreditProvider = ({ children }) => {
-  const [credit, setCredit] = useState(0);
+  const [credit, setCredit] = useState(localStorage.getItem('credit'));
 
   return (
     <CreditContext.Provider value={{ credit, setCredit }}>
