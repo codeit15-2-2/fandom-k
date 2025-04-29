@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useChartContext } from '@contexts/ChartContext';
 import Button from '@components/common/Button';
@@ -44,20 +44,12 @@ export default function MonthlyChartContent() {
       setGender(urlGender);
     }
   }, [urlGender, gender, setGender]);
-  let content;
-  if (isLoading) {
-    content = <SkeletonList />;
-  } else if (!chartDataList || chartDataList.length === 0) {
-    content = <ErrorMessage onRetry={loadInitialData} />;
-  } else {
-    content = <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />;
-  }
 
   let content;
   if (isLoading) {
     content = <SkeletonList />;
   } else if (!chartDataList || chartDataList.length === 0) {
-    content = <ErrorMessage onRetry={loadData} />;
+    content = <ErrorMessage onRetry={loadInitialData} />;
   } else {
     content = <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />;
   }
