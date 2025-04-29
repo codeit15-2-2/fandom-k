@@ -26,11 +26,17 @@ const MainSection = ({
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
 
-  const { scrollYProgress: donationButtonScroll } = useScroll();
+  // 후원하기 버튼이 후원 정보 컴포넌트 아래까지만 위치하도록 계산
+  const [infoSectionRef, infoSectionHeight] = useElementHeight();
+  const infoSectionStart = infoSectionRef.current?.offsetTop || 0;
+  const infoSectionEnd = infoSectionStart + infoSectionHeight;
+
+  const moveTargetY = -window.innerHeight + infoSectionEnd + 200;
+  const { scrollY: donationButtonScroll } = useScroll();
   const donationButtonY = useTransform(
     donationButtonScroll,
-    [0, 1],
-    ['0%', '-450%'],
+    [0, infoSectionEnd],
+    ['0%', `${moveTargetY}px`],
   );
 
   return (
@@ -62,7 +68,7 @@ const MainSection = ({
 
         <section className='relative col-start-3 col-end-4 row-start-1 row-end-5'>
           <div className='sticky top-[5rem] flex h-[calc(100vh-8rem)] flex-col justify-between py-15'>
-            <div className='flex flex-col gap-10'>
+            <div className='flex flex-col gap-10' ref={infoSectionRef}>
               <DonationInfo
                 title='모인 금액'
                 subTitle='크레딧'
