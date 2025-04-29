@@ -110,11 +110,11 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
   const { setDonationData } = useDonation();
 
   return (
-    <div className='flex w-full flex-col gap-10'>
+    <div className='mt-20 flex w-full flex-col gap-10'>
       <h1 className='title-text text-white'>후원을 기다리는 조공</h1>
 
       {/* 데이터 유무에 관계없이 일정한 높이를 가진 영역을 유지 */}
-      <div className='min-h-[360px] w-full'>
+      <div className='min-h-[360px] w-full px-20'>
         {isLoading ? (
           <ResponsiveSkeletonCarousel />
         ) : idolData && idolData.length > 0 ? (
@@ -130,7 +130,7 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
               />
             )}
             button={
-              <Button size='s' color='pink'>
+              <Button size='card' color='pink'>
                 후원하기
               </Button>
             }
