@@ -1,41 +1,33 @@
 import { useScroll, useTransform } from 'motion/react';
 
-/** 스크롤하면 요소가 나타나는 애니메이션
- * @param {React.RefObject|null|undefined} containerRef - 스크롤 기준이 될 컨테이너의 ref. 생략 시 브라우저 전체 기준.
- * @param {React.RefObject} targetRef - 애니메이션 대상 요소의 ref
- * @param {[string, string]} yRange - Y 위치 변화를 위한 transform 범위 (예: ['-100%', '0%'])
- * @param {[number, number]} [opacityRange=[0, 0.2]] - 스크롤 진행률 기준 opacity 변화 범위
- */
-/** 사용법 예시
- * @example
- * const detailTitleRef = useRef(null);
+/**
+ * 스크롤 위치에 따라 y 이동과 opacity 변화를 계산하는 커스텀 훅입니다.
  *
- * const detailTitleAnimation = useScrollAnimation(
- *   scrollAreaRef,
- *   detailTitleRef,
- *   ['-1000%', '0%'],
- * );
- *
- * <motion.div
- *   className='sticky top-0 z-10 w-full'
- *   style={detailTitleAnimation}
- *   ref={detailTitleRef}
- * >
+ * @param {React.RefObject<HTMLElement>} containerRef - 스크롤을 감지할 컨테이너 요소의 ref입니다. 설정하지 않으면 브라우저 전체 스크롤을 기준으로 합니다.
+ * @param {React.RefObject<HTMLElement>} targetRef - 스크롤 애니메이션을 적용할 대상 요소의 ref입니다.
+ * @param {[string, string]} yRange - 스크롤 이동에 따라 y축으로 변환할 값 범위입니다. 예: ['-100px', '0px']
+ * @param {boolean} [enableOpacity=false] - opacity 애니메이션을 적용할지 여부입니다.
+ * @param {[number, number]} [opacityInputRange=[0, 200]] - 스크롤 px 기준으로 opacity 변화를 시작하고 끝낼 구간입니다. 예: [0, 200]
+ * @param {[number, number]} [opacityOutputRange=[0, 1]] - opacity가 변하는 출력 범위입니다. 예: [0, 1]
  */
 const useScrollAnimation = (
-  containerRef = undefined, // 기본 값은 브라우저 화면 전체 영역. 원하는 영역의 ref를 받는다.
+  containerRef = undefined,
   targetRef,
   yRange,
-  opacityRange = [0, 0.2],
+  enableOpacity = false,
+  opacityInputRange = [0, 200],
+  opacityOutputRange = [0, 1],
 ) => {
-  const { scrollYProgress } = useScroll({
+  const { scrollY } = useScroll({
     container: containerRef,
     target: targetRef,
     offset: ['start end', 'start start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], yRange);
-  const opacity = useTransform(scrollYProgress, [0, opacityRange[1]], [0, 1]);
+  const y = useTransform(scrollY, [0, 1000], yRange);
+  const opacity = enableOpacity
+    ? useTransform(scrollY, opacityInputRange, opacityOutputRange)
+    : undefined;
 
   return { y, opacity };
 };
