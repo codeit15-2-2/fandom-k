@@ -66,7 +66,7 @@ const VoteModal = ({ voteModal }) => {
 
   const handleCloseModal = () => {
     voteModal.close();
-    setSelectedId(null);
+    handleSelectIdol(null);
   };
 
   return (

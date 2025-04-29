@@ -8,6 +8,7 @@ import MyPage from '@pages/my-page';
 import NotFoundPage from '@pages/not-found-page';
 import MonthlyChartContent from '@pages/main-page/components/MonthlyChartContent';
 import DonationProvider from '@contexts/DonationContext';
+import Footer from '@components/layouts/Footer';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         element: (
           <DonationProvider>
             <MainPage />
+            <Footer />
           </DonationProvider>
         ),
         children: [
@@ -45,7 +47,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'mypage',
-        element: <MyPage />,
+        element: (
+          <>
+            <MyPage />
+            <Footer />
+          </>
+        ),
         children: [
           {
             index: true,
@@ -53,17 +60,32 @@ const router = createBrowserRouter([
           },
           {
             path: '*',
-            element: <NotFoundPage />,
+            element: (
+              <>
+                <NotFoundPage />
+                <Footer />
+              </>
+            ),
           },
         ],
       },
       {
         path: '*',
-        element: <NotFoundPage />,
+        element: (
+          <>
+            <NotFoundPage />
+            <Footer />
+          </>
+        ),
       },
       {
         path: 'error/404',
-        element: <NotFoundPage />,
+        element: (
+          <>
+            <NotFoundPage />
+            <Footer />
+          </>
+        ),
       },
     ],
   },

@@ -136,11 +136,11 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
             }
           />
         ) : (
-          <div className='flex h-100 w-full flex-col items-center justify-center gap-10 rounded-lg bg-gray-800/30'>
+          <div className='flex h-100 w-full flex-col items-center justify-center gap-10 rounded-lg'>
             <p className='text-3xl text-gray-400'>
               데이터를 불러오는 데 실패하였습니다.
             </p>
-            <Button color='pink' size='m' onClick={fetchDonateData}>
+            <Button color='gray' size='xs' onClick={fetchDonateData}>
               다시 시도하기
             </Button>
           </div>
