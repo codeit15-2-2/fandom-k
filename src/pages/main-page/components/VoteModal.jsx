@@ -38,8 +38,7 @@ const VoteModal = ({ voteModal }) => {
     const loadingId = showLoading('투표를 처리 중입니다...');
 
     try {
-      const res = await createVote(selectedId);
-      console.log('투표 완료', res);
+      await createVote(selectedId);
 
       // 선택된 아이돌의 이름 찾기
       const selectedIdol = chartDataList.find((idol) => idol.id === selectedId);
@@ -65,11 +64,16 @@ const VoteModal = ({ voteModal }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    voteModal.close();
+    setSelectedId(null);
+  };
+
   return (
     <>
       <Modal
         isOpen={voteModal.isOpen}
-        onClose={voteModal.close}
+        onClose={handleCloseModal}
         title={
           <select
             value={modalGender}
