@@ -33,13 +33,15 @@ export default function MainPage() {
   const voteModal = useModal();
 
   return (
-    <div className='mx-auto flex h-screen w-screen max-w-[120rem] flex-col items-center px-20'>
-      <DonateCarousel
-        idolData={idolData}
-        isLoading={isLoading}
-        fetchDonateData={fetchDonateData}
-      />
-      <MonthlyChartSection open={voteModal.open} />
+    <div className='mx-auto flex min-h-screen w-screen max-w-[120rem] flex-col justify-between px-20'>
+      <div>
+        <DonateCarousel
+          idolData={idolData}
+          isLoading={isLoading}
+          fetchDonateData={fetchDonateData}
+        />
+        <MonthlyChartSection open={voteModal.open} />
+      </div>
       <VoteModal voteModal={voteModal}></VoteModal>
       <CreditModal
         creditModal={creditModal}

@@ -1,7 +1,7 @@
 import Button from '@components/common/Button';
 import useDeviceSize from '@hooks/useDeviceSize';
 
-//하단 고정 버튼
+//하단 sticky 버튼
 
 const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
   const { isDesktop } = useDeviceSize();
@@ -10,7 +10,7 @@ const FixedButton = ({ onClick, isLoading, selectedIdols }) => {
     : 'h-[42px] w-[295px]  py-[9px]';
 
   return (
-    <div className='fixed bottom-0 z-990 flex h-[10rem] w-screen items-center justify-center bg-gradient-to-b from-transparent to-black'>
+    <div className='sticky bottom-0 z-990 flex h-[15rem] w-full items-center justify-center bg-gradient-to-b from-transparent to-black'>
       <Button
         size='xl'
         color='pink'
