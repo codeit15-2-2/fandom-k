@@ -98,7 +98,7 @@ const DonateModal = ({ isOpen, close, donateId, cardItem }) => {
       handleDonateCredit(amount);
       dismiss(loadingId);
       showSuccess(
-        `${cardItem.title} ${amount.toLocaleString()} 크레딧 후원이 완료되었습니다!`,
+        `${cardItem.title}\n${amount.toLocaleString()} 크레딧 후원이 완료되었습니다!`,
       );
       close();
     } catch (error) {
