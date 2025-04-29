@@ -110,7 +110,7 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
   const { setDonationData } = useDonation();
 
   return (
-    <div className='my-20 flex w-full flex-col gap-10'>
+    <div className='mt-20 flex w-full flex-col gap-10'>
       <h1 className='title-text text-white'>후원을 기다리는 조공</h1>
 
       {/* 데이터 유무에 관계없이 일정한 높이를 가진 영역을 유지 */}
