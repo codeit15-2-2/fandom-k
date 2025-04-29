@@ -130,7 +130,7 @@ const DonateCarousel = ({ idolData, isLoading, fetchDonateData }) => {
               />
             )}
             button={
-              <Button size='s' color='pink'>
+              <Button size='card' color='pink'>
                 후원하기
               </Button>
             }

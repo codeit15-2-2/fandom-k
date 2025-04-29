@@ -5,6 +5,7 @@ const SIZE_STYLES = {
   m: 'h-[42px] w-[295px]  py-[9px]',
   s: 'h-[40px] w-[234px]  py-[8px]',
   xs: 'h-[31px] w-[142px]  py-[6px]',
+  card: `h-[4rem] w-[22rem] py-[8px]`
 };
 
 const COLOR_STYLES = {

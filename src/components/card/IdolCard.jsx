@@ -166,7 +166,7 @@ const IdolCardImg = () => {
     <div className='relative'>
       <CardImg src={src} alt={title}>
         {button && (
-          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
+          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2 '>
             {buttonWithHandler}
           </div>
         )}
