@@ -26,6 +26,11 @@ export default function MonthlyChartContent() {
     nextCursor,
   } = useChartContext();
 
+  // 초기 데이터 로딩 또는 재시도 함수
+  const loadInitialData = () => {
+    fetchIdolData(); // 커서 없이 호출하여 첫 페이지 데이터 로드
+  };
+
   const loadMore = () => {
     if (nextCursor !== null && !isLoading) {
       fetchIdolData(nextCursor);
@@ -38,6 +43,14 @@ export default function MonthlyChartContent() {
       setGender(urlGender);
     }
   }, [urlGender, gender, setGender]);
+  let content;
+  if (isLoading) {
+    content = <SkeletonList />;
+  } else if (!chartDataList || chartDataList.length === 0) {
+    content = <ErrorMessage onRetry={loadInitialData} />;
+  } else {
+    content = <MonthlyChartList idolData={chartDataList} IdolList={IdolList} />;
+  }
 
   return (
     <>
