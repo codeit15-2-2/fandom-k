@@ -41,9 +41,11 @@ export default function MainPage() {
           isLoading={isLoading}
           fetchDonateData={fetchDonateData}
         />
-        <MonthlyChartSection open={voteModal.open} />
+        <ChartProvider>
+          <MonthlyChartSection open={voteModal.open} />
+          <VoteModal voteModal={voteModal}></VoteModal>
+        </ChartProvider>
       </div>
-      <VoteModal voteModal={voteModal}></VoteModal>
       <CreditModal
         creditModal={creditModal}
         credit={credit}
