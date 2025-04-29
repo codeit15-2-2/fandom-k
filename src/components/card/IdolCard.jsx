@@ -128,7 +128,7 @@ const IdolCardText = () => {
   const { location, title, size } = useContext(IdolCardContext);
 
   const locationClassName = cn(
-    'mb-2 text-[var(--color-gray-300)]',
+    'mb-2 text-[var(--color-gray-300)] truncate',
     size === 's' ? 'caption-text' : 'content-text',
   );
 
