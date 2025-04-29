@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
@@ -9,6 +9,7 @@ import DetailContent from '@pages/detail-page/components/DetailContent';
 import useScrollAnimation from '@hooks/useScrollAnimation';
 import useModal from '@hooks/useModal';
 import DonateModal from '@pages/detail-page/components/DonateModal';
+import ViewDetailButton from '@pages/detail-page/components/ViewDetailButton';
 
 const MainSection = ({
   id,
@@ -24,6 +25,7 @@ const MainSection = ({
   isDonationOpen,
 }) => {
   const { isOpen: isModalOpen, open, close } = useModal();
+  const [isHovered, setIsHovered] = useState(false);
 
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
@@ -65,11 +67,17 @@ const MainSection = ({
           <section
             className='relative col-start-1 col-end-3 row-start-1 row-end-5 snap-y snap-mandatory overflow-y-scroll scroll-smooth [&::-webkit-scrollbar]:hidden'
             ref={scrollAreaRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             <div
               className='absolute w-full'
               style={{ top: `calc(100vh - 10rem - ${titleHeight}px)` }}
             >
+              <div className='absolute top-[-5rem] left-1/2 mb-10'>
+                <ViewDetailButton isVisible={isHovered} />
+              </div>
+
               <div className='h-fit snap-end' ref={titleRef}>
                 <MainTitle title={title} name={englishName} size='l' />
               </div>
@@ -95,13 +103,7 @@ const MainSection = ({
                   size='l'
                 />
               </motion.div>
-              {/* </motion.div>
 
-            <motion.div
-              className='sticky top-0 z-10 flex flex-col w-full gap-10'
-              style={donationInfoAnimation}
-              ref={donationInfoRef}
-            > */}
               <div className='mt-20 flex flex-col gap-10'>
                 <DonationInfo
                   title='모인 금액'

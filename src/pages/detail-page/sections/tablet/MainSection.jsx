@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
@@ -7,6 +8,7 @@ import DetailTitle from '@pages/detail-page/components/DetailTitle';
 import DetailContent from '@pages/detail-page/components/DetailContent';
 import useModal from '@hooks/useModal';
 import DonateModal from '@pages/detail-page/components/DonateModal';
+import ViewDetailButton from '@pages/detail-page/components/ViewDetailButton';
 
 const MainSection = ({
   id,
@@ -22,6 +24,7 @@ const MainSection = ({
   isDonationOpen,
 }) => {
   const { isOpen: isModalOpen, open, close } = useModal();
+  const [isHovered, setIsHovered] = useState(false);
 
   // ref를 통해 제목이 브라우저 가장 바닥에 위치한다. (absolute를 사용하면 제목 아래 본문과 이어지지 않는다.)
   const [titleRef, titleHeight] = useElementHeight();
@@ -42,11 +45,19 @@ const MainSection = ({
   return (
     <div className='relative flex h-fit w-full justify-center'>
       <div className='grid h-fit w-[90vw] grid-cols-3 grid-rows-4 gap-10'>
-        <section className='relative col-start-1 col-end-3 row-start-1 row-end-5'>
+        <section
+          className='relative col-start-1 col-end-3 row-start-1 row-end-5'
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <div
-            className='h-fit w-full'
+            className='relative h-fit w-full'
             style={{ marginTop: `calc(100vh - 8rem - ${titleHeight}px)` }}
           >
+            <div className='absolute top-[-5rem] left-1/2'>
+              <ViewDetailButton isVisible={isHovered} />
+            </div>
+
             <div ref={titleRef}>
               <MainTitle title={title} name={englishName} size='l' />
             </div>
