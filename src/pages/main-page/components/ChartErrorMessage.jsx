@@ -9,7 +9,7 @@ const ErrorMessage = ({ onRetry }) => {
       <p className='mb-6 text-2xl text-gray-50'>
         잠시 후 다시 시도하거나 아래 버튼을 클릭해주세요.
       </p>
-      <Button color='gray' size='full' btnType='button' onClick={onRetry}>
+      <Button color='gray' size='s' btnType='button' onClick={onRetry}>
         다시 시도하기
       </Button>
     </div>
