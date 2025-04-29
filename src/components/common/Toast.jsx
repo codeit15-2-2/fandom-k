@@ -29,7 +29,6 @@ const Toast = () => {
         style: {
           background: '#fff',
           color: '#363636',
-          borderRadius: '8px',
           padding: '20px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           fontSize: '1.3rem',
