@@ -6,7 +6,7 @@ import useCredit from '@hooks/useCredit';
 import VoteModalFooter from './VoteModalFooter';
 import { useChartContext } from '@contexts/ChartContext';
 
-const VoteModal = ({ voteModal, cursor = 0 }) => {
+const VoteModal = ({ voteModal }) => {
   const VOTE_CREDIT_AMOUNT = 1000;
   const { credit, handleDonateCredit } = useCredit();
 
@@ -14,6 +14,7 @@ const VoteModal = ({ voteModal, cursor = 0 }) => {
   const {
     modalGender,
     setModalGender,
+    chartDataList,
     selectedId,
     handleSelectIdol,
     fetchIdolData, // 메인 페이지 데이터 갱신용
@@ -22,7 +23,17 @@ const VoteModal = ({ voteModal, cursor = 0 }) => {
 
   // 투표 버튼 클릭 처리
   const handleVote = async () => {
-    if (!selectedId) return alert('아이돌을 선택해주세요.');
+    if (!selectedId) {
+      showError('아이돌을 선택해주세요.');
+      return;
+    }
+
+    if (credit <= VOTE_CREDIT_AMOUNT) {
+      showError('크레딧이 부족합니다.');
+      return;
+    }
+
+    const loadingId = showLoading('투표를 처리 중입니다...');
 
     try {
       const res = await createVote(selectedId);
