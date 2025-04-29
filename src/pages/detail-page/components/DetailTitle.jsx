@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { cn } from '@/utils/cn';
 
 const DETAIL_TITLE_WIDTH_STYLES = {
@@ -46,4 +47,10 @@ const DetailTitle = ({ name, title, location, size = 'l' }) => {
   );
 };
 
-export default DetailTitle;
+export default memo(DetailTitle, (prev, next) => {
+  if (prev.name !== next.name) return false;
+  if (prev.title !== next.title) return false;
+  if (prev.location !== next.location) return false;
+  if (prev.size !== next.size) return false;
+  return true;
+});

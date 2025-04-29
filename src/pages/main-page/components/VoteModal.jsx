@@ -5,10 +5,12 @@ import { createVote } from '@apis/voteApi';
 import useCredit from '@hooks/useCredit';
 import VoteModalFooter from './VoteModalFooter';
 import { useChartContext } from '@contexts/ChartContext';
+import { useToast } from '@contexts/ToastContext';
 
 const VoteModal = ({ voteModal }) => {
   const VOTE_CREDIT_AMOUNT = 1000;
   const { credit, handleDonateCredit } = useCredit();
+  const { showLoading, showSuccess, showError, dismiss } = useToast();
 
   // 모달용 상태와 함수 사용
   const {
@@ -39,8 +41,16 @@ const VoteModal = ({ voteModal }) => {
       const res = await createVote(selectedId);
       console.log('투표 완료', res);
 
+      // 선택된 아이돌의 이름 찾기
+      const selectedIdol = chartDataList.find((idol) => idol.id === selectedId);
+      const idolName = selectedIdol?.name || '선택한 아이돌';
+
       handleDonateCredit(VOTE_CREDIT_AMOUNT);
       handleSelectIdol(null);
+
+      // 로딩 토스트 제거 후 성공 토스트 표시
+      dismiss(loadingId);
+      showSuccess(`${idolName}에게 투표가 완료되었습니다!`);
 
       // 투표 성공 후 모달 닫기
       voteModal.close();
@@ -50,7 +60,8 @@ const VoteModal = ({ voteModal }) => {
       fetchIdolData(0);
     } catch (error) {
       console.log('투표 실패', error.message);
-      alert('투표에 실패했습니다. 다시 시도해주세요.');
+      dismiss(loadingId);
+      showError('투표에 실패했습니다. 다시 시도해주세요.');
     }
   };
 

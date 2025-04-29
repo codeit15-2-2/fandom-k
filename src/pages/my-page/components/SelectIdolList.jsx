@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import Button from '@components/common/Button';
-import useWindowSize from '@hooks/useWindowSize';
+import useDeviceSize from '@hooks/useDeviceSize';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 
 //추가될 아이돌들을 선택하는 컴포넌트
@@ -14,9 +14,10 @@ const IdolSelectList = ({
   handleMoreIdols,
   hasMore,
   isError,
+  isLoading,
 }) => {
-  const width = useWindowSize();
-  const avatarSize = width < 1024 ? 'm' : 'l';
+  const { isDesktop } = useDeviceSize();
+  const avatarSize = isDesktop ? 'l' : 'm';
   const loaderRef = useRef(null);
 
   useInfiniteScroll({
@@ -28,7 +29,7 @@ const IdolSelectList = ({
   return (
     <AnimatePresence>
       {idols.length > 0 ? (
-        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6 lg:grid-cols-8'>
+        <div className='grid grid-cols-3 gap-x-6 gap-y-10 md:grid-cols-6'>
           {idols.map((item) => (
             <motion.div
               key={item.id}
@@ -49,7 +50,7 @@ const IdolSelectList = ({
           {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
         </div>
       ) : isError ? (
-        <div className='flex h-[24rem] flex-col items-center justify-center text-[1.8rem] text-red-500 md:text-[2.4rem]'>
+        <div className='text-brand-2 flex h-[24rem] flex-col items-center justify-center text-[1.8rem] md:text-[2.4rem]'>
           서버 요청 중 에러가 발생하였습니다.
           <Button
             color='pink'
@@ -62,9 +63,16 @@ const IdolSelectList = ({
           </Button>
         </div>
       ) : (
-        <div className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'>
-          더 이상 추가할 수 있는 아이돌이 없습니다.
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className='flex h-[24rem] items-center justify-center text-[1.8rem] text-gray-400'
+        >
+          {isLoading
+            ? '데이터 불러오는중'
+            : '더 이상 추가할 수 있는 아이돌이 없습니다.'}
+        </motion.div>
       )}
     </AnimatePresence>
   );

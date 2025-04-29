@@ -10,6 +10,7 @@ import { cn } from '@utils/cn';
  * @param {boolean} [isError=false] - 에러 상태인지 여부
  * @param {string} [placeholder] - placeholder설정
  * @param {React.ReactNode} [icon] - input창 안에 표시할 아이콘
+ * @param {string} type - input Type
  *
  * @returns {JSX.Element}
  *
@@ -24,23 +25,31 @@ import { cn } from '@utils/cn';
  * />
  */
 
-const Input = ({ value, onChange, errMsg, isError, placeholder, icon }) => {
+const Input = ({
+  value,
+  onChange,
+  errMsg,
+  isError,
+  placeholder,
+  icon,
+  type = 'text',
+}) => {
   return (
     <div className='relative flex flex-col'>
       <div className='relative mt-2.5'>
         <input
-          type='text'
+          type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={cn(
-            'sub-content-text bg-navy w-full rounded-xl border-2 px-4 py-2 pr-12 text-white transition-all',
-            isError ? 'border-red-500 focus:outline-0' : 'border-white',
+            'sub-content-text bg-navy w-full rounded-xl border-2 px-4 py-5 pr-12 text-white transition-all md:py-6',
+            isError ? 'border-brand-2 focus:outline-0' : 'border-white',
           )}
         />
         {icon && icon}
       </div>
-      {isError && <p className='content-text mt-2.5 text-red-500'>{errMsg}</p>}
+      {isError && <p className='content-text text-brand-2 mt-2.5'>{errMsg}</p>}
     </div>
   );
 };

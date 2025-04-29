@@ -60,6 +60,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
     totalDataLength: data?.length,
     offset: responsiveOffset,
     data,
+    gap: GAP,
   });
 
   // 아이템 너비 계산
@@ -75,11 +76,11 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
           className='flex'
           style={{ gap: `${GAP}px` }}
           animate={{
-            x: currentIndex * -width,
+            x: -currentIndex * (width + GAP),
           }}
           transition={{
             type: 'tween',
-            duration: 0.5,
+            duration: 0.3,
           }}
         >
           {data.map((item) => (
@@ -99,6 +100,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
                   title={item.title}
                   deadline={item.deadline}
                   button={button}
+                  status={item.status}
                 >
                   <IdolCardList.IdolCardFooter />
                 </RenderComponent>

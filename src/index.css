@@ -2,6 +2,7 @@
 
 body {
   background-color: #02000e;
+  font-family: 'Pretendard', system-ui, sans-serif;
 }
 
 @theme {
@@ -41,27 +42,26 @@ body {
 }
 
 .scrollbar-custom::-webkit-scrollbar {
-  height: 20px;
+  height: 8px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-  width: 12px;
-  background-color: #21211d;
+  background-color: transparent;
 }
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #e57573);
-  border-radius: 6px;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #df7b79, transparent);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 @layer base {
   @font-face {
     font-family: 'Pretendard';
     src: url('/fonts/PretendardVariable.woff2') format('woff2');
+    font-display: swap;
   }
 
   @font-face {
