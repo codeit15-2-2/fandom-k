@@ -133,12 +133,12 @@ const IdolCardText = () => {
   );
 
   const titleClassName = cn(
-    size === 's' ? 'sub-content-text' : 'text-[1.8rem]',
+    size === 's' ? 'sub-content-text truncate' : 'text-[1.8rem] truncate',
   );
 
   return (
     <div className='pt-2 pb-6'>
-      <p className={locationClassName}>{location}</p>
+      <p className={locationClassName} >{location}</p>
       <p className={titleClassName}>{title}</p>
     </div>
   );
