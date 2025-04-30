@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
+import { useToast } from '@contexts/ToastContext';
+import { createVote } from '@apis/voteApi';
+import { useChartContext } from '@contexts/ChartContext';
 import Modal from '@components/common/Modal';
 import VoteIdolList from './VoteIdolList';
 import Button from '@components/common/Button';
-import { createVote } from '@apis/voteApi';
 import useCredit from '@hooks/useCredit';
 import VoteModalFooter from './VoteModalFooter';
-import { useChartContext } from '@contexts/ChartContext';
-import { useToast } from '@contexts/ToastContext';
 
 const VoteModal = ({ voteModal }) => {
   const VOTE_CREDIT_AMOUNT = 1000;
@@ -20,7 +21,9 @@ const VoteModal = ({ voteModal }) => {
     selectedId,
     handleSelectIdol,
     fetchIdolData, // 메인 페이지 데이터 갱신용
+    fetchModalIdolData,
     resetPagination,
+    resetModalPagination,
   } = useChartContext();
 
   // 투표 버튼 클릭 처리
@@ -30,7 +33,7 @@ const VoteModal = ({ voteModal }) => {
       return;
     }
 
-    if (credit <= VOTE_CREDIT_AMOUNT) {
+    if (credit < VOTE_CREDIT_AMOUNT) {
       showError('크레딧이 부족합니다.');
       return;
     }
@@ -66,8 +69,16 @@ const VoteModal = ({ voteModal }) => {
 
   const handleCloseModal = () => {
     voteModal.close();
-    setSelectedId(null);
+    handleSelectIdol(null);
   };
+
+  // 모달용 데이터 초기화 및 새로 불러오기
+  useEffect(() => {
+    if (voteModal.isOpen) {
+      resetModalPagination();
+      fetchModalIdolData(0);
+    }
+  }, [voteModal.isOpen]);
 
   return (
     <>

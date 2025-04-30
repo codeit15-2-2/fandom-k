@@ -16,7 +16,7 @@ const Toast = () => {
   const { isMobile } = useDeviceSize();
 
   // 디바이스 크기에 따른 토스트 위치 설정
-  const toastPosition = isMobile ? 'bottom-center' : 'bottom-center';
+  const toastPosition = isMobile ? 'top-center' : 'top-center';
 
   // 토스트 메시지의 공통 스타일 정의
   const baseToastStyle = {
@@ -42,6 +42,7 @@ const Toast = () => {
       containerStyle={{
         position: 'fixed',
         zIndex: 9999,
+        top: '100px',
       }}
       // 토스트 메시지의 기본 옵션 설정
       toastOptions={{

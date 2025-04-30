@@ -18,10 +18,10 @@ export const validateInput = (inputValue, credit, isDonate) => {
     };
   }
 
-  if (inputValue + credit > 1000000) {
+  if (!isDonate && inputValue + credit > 1000000) {
     return {
       isError: true,
-      errMsg: `최대로 보유가능한 크레딧양은 ${MAX_CREDIT_VALUE.toLocaleString()} 크레딧입니다.`,
+      errMsg: `최대로 보유가능한 크레딧은 ${MAX_CREDIT_VALUE.toLocaleString()} 크레딧입니다.`,
     };
   }
 

@@ -50,14 +50,13 @@ const IdolSelectList = ({
           {hasMore && <div ref={loaderRef} className='h-10 w-full'></div>}
         </div>
       ) : isError ? (
-        <div className='text-brand-2 flex h-[24rem] flex-col items-center justify-center text-[1.8rem] md:text-[2.4rem]'>
+        <div className='text-brand-2 flex h-[24rem] flex-col items-center justify-center gap-4 text-[1.4rem] md:text-[2.4rem]'>
           서버 요청 중 에러가 발생하였습니다.
           <Button
-            color='pink'
-            size='m'
+            color='gray'
+            size='xs'
             onClick={handleMoreIdols}
-            rounded
-            className='mt-3'
+            className='mt-3 py-8'
           >
             재요청하기
           </Button>
