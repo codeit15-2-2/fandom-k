@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, memo } from 'react';
 
 const IdolSelectList = lazy(() => import('../components/SelectIdolList'));
 
@@ -35,4 +35,4 @@ const IdolSelectSection = ({
   );
 };
 
-export default IdolSelectSection;
+export default memo(IdolSelectSection);

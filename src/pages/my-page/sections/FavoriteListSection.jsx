@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, memo } from 'react';
 
 import MiddleDivider from '../components/MiddleDivider';
 
@@ -31,4 +31,4 @@ const FavoriteListSection = ({ favorites, setFavorites, setIdols }) => {
   );
 };
 
-export default FavoriteListSection;
+export default memo(FavoriteListSection);
