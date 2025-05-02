@@ -233,7 +233,7 @@ const InfoProgressBar = ({ progress, children }) => {
   return (
     <div className='relative mt-5 mb-1 h-4 w-full rounded-full'>
       <div
-        className='bg-gradient-brand absolute z-1 flex h-4 items-center rounded-full'
+        className='bg-gradient-brand absolute z-1 flex h-4 items-center rounded-full text-black'
         style={{ width: `${progress}%` }}
       >
         {children}
