@@ -1,4 +1,5 @@
-import { lazy } from 'react';
+import { lazy, memo, Suspense } from 'react';
+import Spinner from '@assets/icons/icon_spinner';
 
 import MiddleDivider from '../components/MiddleDivider';
 
@@ -13,16 +14,18 @@ const FavoriteListSection = ({ favorites, setFavorites, setIdols }) => {
       <h2 className='text-shadow-2xl mt-20 text-[1.8rem] font-bold sm:text-[2.4rem]'>
         내가 관심있는 아이돌
       </h2>
+
       <div className='relative overflow-hidden'>
         <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-10 bg-gradient-to-r from-black to-transparent' />
-
         <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-10 bg-gradient-to-l from-black to-transparent' />
 
-        <FavoriteIdolList
-          favorites={favorites}
-          setFavorites={setFavorites}
-          setIdols={setIdols}
-        />
+     
+          <FavoriteIdolList
+            favorites={favorites}
+            setFavorites={setFavorites}
+            setIdols={setIdols}
+          />
+       
       </div>
 
       {/* 중간 구분선 */}
@@ -31,4 +34,4 @@ const FavoriteListSection = ({ favorites, setFavorites, setIdols }) => {
   );
 };
 
-export default FavoriteListSection;
+export default memo(FavoriteListSection);

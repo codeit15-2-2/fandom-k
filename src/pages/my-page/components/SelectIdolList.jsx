@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import AvatarProfile from '@components/favorites/AvatarProfile';
 import Button from '@components/common/Button';
