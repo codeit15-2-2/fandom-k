@@ -116,7 +116,42 @@ FANDOM-K는 팬과 아이돌 사이의 거리를 좁히고, 팬들이 더욱 적
 | **[박재현 (팀원)](https://github.com/justhighway)** | <img width="120" src="https://media.discordapp.net/attachments/1351822822653038634/1366987784752992316/image.png?ex=6812f215&is=6811a095&hm=7f9e96962a36a8f22703b66b5f89f55456312de83d899e42ed966ae527559b41&=&format=webp&quality=lossless&width=578&height=805" alt="박재현 사진">                           | 프로젝트 환경 설정<br>디자인 및 랜딩 페이지<br>토스트 메시지                   |
 | **[유용민 (팀원)](https://github.com/Yongmin0423)** | <img width="120" src="https://fine-saguaro-049.notion.site/image/attachment%3A606dbed9-a44a-429f-8974-83562ea4d684%3Aa0862465-f4b6-4f2f-bdd8-1ffab2a0d27a.png?table=block&id=1d5f9996-4a81-80b0-a2ff-da09e2edcdda&spaceId=f9c79b7d-edcb-448f-86d6-3e0c4cade001&width=2000&userId=&cache=v2" alt="유용민 사진"> | 공통 컴포넌트: Navbar, 모달창 등<br>메인 페이지: 캐러셀<br>배포                |
 
-## 7. Git 전략 및 컨벤션
+## 7. 개발 프로세스
+
+### ✅ 개발 흐름
+
+1. **기본 요구사항 완성** (1~2차 스프린트)
+
+   - 컴포넌트 스타일 개발 (컴포넌트 단위 분담)
+   - 기능 개발 (기능 단위 분담)
+
+2. **리팩토링** (3~4차 스프린트)
+   - 페이지 단위 또는 기능 단위로 리팩토링
+
+---
+
+### ✅ 기본 요구사항 완성
+
+1. **컴포넌트 스타일 개발**
+
+   - 기본 링크 연결, `onChange`, 유효성 검사 포함
+
+2. **기능 단위 개발**
+
+   - API 연결 등 실제 기능 구현
+
+3. **페이지 단위 완성**
+   - 기능이 포함된 컴포넌트를 레이아웃에 맞게 배치
+
+---
+
+### ✅ 리팩토링
+
+1. 모든 개발 완료 후 리팩토링 시작
+2. 기본 요구사항 외의 **추가 기능** 중점 개발 (예: 애니메이션)
+3. **선점제 방식**으로 리팩토링 진행 (R&R 사전 분담 없음)
+
+## 8. Git 전략 및 컨벤션
 
 ### 브랜치 전략
 
