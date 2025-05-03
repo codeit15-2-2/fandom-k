@@ -126,7 +126,7 @@ const IdolImg = ({ selected }) => {
 const IdolRank = () => {
   const { rank } = useContext(IdolContext);
 
-  return <p className='text-brand-1 m-0 opacity-60'>{rank}</p>;
+  return <p className='text-brand-1 m-0'>{rank}</p>;
 };
 
 // 아이돌 그룹명 및 이름 컴포넌트
