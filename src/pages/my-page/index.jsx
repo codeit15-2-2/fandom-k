@@ -1,10 +1,5 @@
-import { AnimatePresence, motion } from 'motion/react';
-import { lazy, memo, useCallback } from 'react';
-const FavoriteListSection = lazy(
-  () => import('./sections/FavoriteListSection'),
-);
-
-const IdolSelectSection = lazy(() => import('./sections/SelectListSection'));
+import FavoriteListSection from './sections/FavoriteListSection';
+import SelectListSection from './sections/SelectListSection';
 import useMypageIdols from './hooks/useMyPageIdols';
 
 import FixedButton from './components/common/Button';
@@ -30,12 +25,6 @@ export default function MyPage() {
       setIdols,
     });
 
-  const handleMoreIdols = useCallback(() => {
-    if (nextCursor) {
-      fetchIdols(nextCursor);
-    }
-  }, [nextCursor, fetchIdols]);
-
   return (
     <div className='relative min-h-screen w-full bg-black text-white'>
       <div className='mx-auto max-w-[140rem] rounded-2xl px-6 md:px-6 lg:px-6 xl:px-48'>
@@ -45,11 +34,13 @@ export default function MyPage() {
           setFavorites={setFavorites}
         />
 
-        <IdolSelectSection
+        <SelectListSection
           idols={idols}
           setIdols={setIdols}
           setFavorites={setFavorites}
-          handleMoreIdols={handleMoreIdols}
+          handleMoreIdols={() => {
+            fetchIdols(nextCursor);
+          }}
           hasMore={!!nextCursor}
           favorites={favorites}
           isLoading={isLoading}
