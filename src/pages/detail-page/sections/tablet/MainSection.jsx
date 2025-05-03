@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
 import MainTitle from '@pages/detail-page/components/MainTitle';
-import Button from '@components/common/Button';
-import DetailTitle from '@pages/detail-page/components/DetailTitle';
-import DetailContent from '@pages/detail-page/components/DetailContent';
 import useModal from '@hooks/useModal';
-import DonateModal from '@pages/detail-page/components/DonateModal';
-import ViewDetailButton from '@pages/detail-page/components/ViewDetailButton';
+
+const DonateModal = lazy(
+  () => import('@pages/detail-page/components/DonateModal'),
+);
+const ViewDetailButton = lazy(
+  () => import('@pages/detail-page/components/ViewDetailButton'),
+);
+const Button = lazy(() => import('@components/common/Button'));
+const DetailTitle = lazy(
+  () => import('@pages/detail-page/components/DetailTitle'),
+);
+const DetailContent = lazy(
+  () => import('@pages/detail-page/components/DetailContent'),
+);
 
 const MainSection = ({
   id,
@@ -55,7 +64,9 @@ const MainSection = ({
             style={{ marginTop: `calc(100vh - 8rem - ${titleHeight}px)` }}
           >
             <div className='absolute top-[-5rem] left-1/2'>
-              <ViewDetailButton isVisible={isHovered} />
+              <Suspense fallback={null}>
+                <ViewDetailButton isVisible={isHovered} />
+              </Suspense>
             </div>
 
             <div ref={titleRef}>
@@ -63,16 +74,20 @@ const MainSection = ({
             </div>
 
             <div className='my-20'>
-              <DetailTitle
-                name={`${idol.group} ${idol.name}`}
-                title={title}
-                location={subtitle}
-                size='s'
-              />
+              <Suspense fallback={null}>
+                <DetailTitle
+                  name={`${idol.group} ${idol.name}`}
+                  title={title}
+                  location={subtitle}
+                  size='s'
+                />
+              </Suspense>
             </div>
 
             <div className='pb-10'>
-              <DetailContent contents={contents} />
+              <Suspense fallback={null}>
+                <DetailContent contents={contents} />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -107,37 +122,43 @@ const MainSection = ({
 
             <motion.div style={{ y: donationButtonY }}>
               {isDonationOpen ? (
-                <Button
-                  color='pink'
-                  size='full'
-                  className='rounded hover:bg-black'
-                  onClick={open}
-                >
-                  후원하기
-                </Button>
+                <Suspense fallback={null}>
+                  <Button
+                    color='pink'
+                    size='full'
+                    className='rounded hover:bg-black'
+                    onClick={open}
+                  >
+                    후원하기
+                  </Button>
+                </Suspense>
               ) : (
-                <Button
-                  color='gray'
-                  size='full'
-                  className='rounded hover:bg-black'
-                  disabled
-                >
-                  모집 종료
-                </Button>
+                <Suspense fallback={null}>
+                  <Button
+                    color='gray'
+                    size='full'
+                    className='rounded hover:bg-black'
+                    disabled
+                  >
+                    모집 종료
+                  </Button>
+                </Suspense>
               )}
             </motion.div>
 
-            <DonateModal
-              isOpen={isModalOpen}
-              close={close}
-              donateId={id}
-              cardItem={{
-                id: idol.id,
-                title: title,
-                subtitle: subtitle,
-                profilePicture: idol.profilePicture,
-              }}
-            />
+            <Suspense fallback={null}>
+              <DonateModal
+                isOpen={isModalOpen}
+                close={close}
+                donateId={id}
+                cardItem={{
+                  id: idol.id,
+                  title: title,
+                  subtitle: subtitle,
+                  profilePicture: idol.profilePicture,
+                }}
+              />
+            </Suspense>
           </div>
         </section>
       </div>
