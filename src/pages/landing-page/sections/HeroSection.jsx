@@ -13,7 +13,6 @@ import {
   avatar7,
 } from '@pages/landing-page/utils/getIdolAvatar';
 import { useState, useMemo, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 // 서클 데이터 정의
@@ -148,7 +147,7 @@ const HeroHeader = () => (
           나를 설레게 했던 순간, 이제는 내가 보답할 때
         </span>
       </h1>
-      <Button>시작하기</Button>
+      <Button aria-label='시작하기'>시작하기</Button>
     </div>
   </motion.div>
 );
@@ -176,8 +175,21 @@ const HeroSection = () => {
 
   // 컴포넌트 마운트 후 다음 애니메이션 프레임에서 원들을 이동시킴
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setIsMoved(true));
-    return () => cancelAnimationFrame(frame);
+    // 안전하게 requestAnimationFrame 처리
+    let frameId = null;
+
+    const animateCircles = () => {
+      setIsMoved(true);
+    };
+
+    frameId = requestAnimationFrame(animateCircles);
+
+    // 클린업 함수에서 요청된 애니메이션 프레임 취소
+    return () => {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+    };
   }, []);
 
   return (

@@ -14,8 +14,13 @@ const LandingPage = () => {
     const mediaQuery = window.matchMedia('(min-width: 1024px)');
     const handleChange = (e) => setIsPC(e.matches);
     handleChange(mediaQuery); // initial check
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+
+    // addEventListener 대신 최신 API 사용
+    mediaQuery.onchange = handleChange;
+
+    return () => {
+      mediaQuery.onchange = null;
+    };
   }, []);
 
   return (

@@ -19,24 +19,46 @@ export const useObserver = ({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          observer.disconnect();
-        }
-      },
-      { threshold, rootMargin },
-    );
-    ref && observer.observe(ref);
-    return () => observer.disconnect();
+    let observer = null;
+
+    // ref가 null이 아닐 때만 observer 생성 및 관찰 시작
+    if (ref) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          // isIntersecting 상태 업데이트
+          setIsIntersecting(entry.isIntersecting);
+
+          // 요소가 보이면 observer 중단
+          if (entry.isIntersecting) {
+            observer.disconnect();
+          }
+        },
+        { threshold, rootMargin },
+      );
+
+      observer.observe(ref);
+    }
+
+    // 클린업 함수에서 observer가 존재할 경우만 disconnect
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
   }, [ref, threshold, rootMargin]);
 
   useEffect(() => {
+    let timeout = null;
+
     if (isIntersecting) {
-      const timeout = setTimeout(() => setIsVisible(true), delay);
-      return () => clearTimeout(timeout);
+      timeout = setTimeout(() => setIsVisible(true), delay);
     }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
   }, [isIntersecting, delay]);
 
   return [setRef, isVisible, setIsVisible];
