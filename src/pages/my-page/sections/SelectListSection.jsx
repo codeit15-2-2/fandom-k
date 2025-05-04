@@ -1,11 +1,12 @@
-import { lazy } from 'react';
+import Spinner from '@assets/icons/icon_spinner';
+import { lazy, memo, Suspense } from 'react';
 
 const IdolSelectList = lazy(() => import('../components/SelectIdolList'));
 
 //화면하단 아이돌들을 선택하는 섹션
 //SelectIdolList 컴포넌트를 렌더링함
 
-const IdolSelectSection = ({
+const SelectListSection = ({
   idols,
   handleMoreIdols,
   hasMore,
@@ -35,4 +36,4 @@ const IdolSelectSection = ({
   );
 };
 
-export default IdolSelectSection;
+export default memo(SelectListSection);

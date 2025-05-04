@@ -8,8 +8,9 @@ import Button from '@components/common/Button';
 import useCredit from '@hooks/useCredit';
 import VoteModalFooter from './VoteModalFooter';
 
+const VOTE_CREDIT_AMOUNT = 1000;
+
 const VoteModal = ({ voteModal }) => {
-  const VOTE_CREDIT_AMOUNT = 1000;
   const { credit, handleDonateCredit } = useCredit();
   const { showLoading, showSuccess, showError, dismiss } = useToast();
 
@@ -81,34 +82,32 @@ const VoteModal = ({ voteModal }) => {
   }, [voteModal.isOpen]);
 
   return (
-    <>
-      <Modal
-        isOpen={voteModal.isOpen}
-        onClose={handleCloseModal}
-        title={
-          <select
-            value={modalGender}
-            onChange={(e) => setModalGender(e.target.value)}
-            className='rounded border border-gray-600 bg-[#181D26] p-2 text-[var(--color-white)]'
-          >
-            <option value='female'>이달의 여자 아이돌</option>
-            <option value='male'>이달의 남자 아이돌</option>
-          </select>
-        }
-      >
-        <VoteIdolList isModal={true} />
-        <Button
-          className='w-full'
-          color='pink'
-          size='m'
-          btnType='button'
-          onClick={handleVote}
+    <Modal
+      isOpen={voteModal.isOpen}
+      onClose={handleCloseModal}
+      title={
+        <select
+          value={modalGender}
+          onChange={(e) => setModalGender(e.target.value)}
+          className='rounded border border-gray-600 bg-[#181D26] p-2 text-[var(--color-white)]'
         >
-          투표하기
-        </Button>
-        <VoteModalFooter />
-      </Modal>
-    </>
+          <option value='female'>이달의 여자 아이돌</option>
+          <option value='male'>이달의 남자 아이돌</option>
+        </select>
+      }
+    >
+      <VoteIdolList isModal={true} />
+      <Button
+        className='w-full'
+        color='pink'
+        size='m'
+        btnType='button'
+        onClick={handleVote}
+      >
+        투표하기
+      </Button>
+      <VoteModalFooter />
+    </Modal>
   );
 };
 

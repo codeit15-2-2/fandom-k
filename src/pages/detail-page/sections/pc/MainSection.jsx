@@ -1,15 +1,25 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
 import useElementHeight from '@hooks/useElementHeight';
 import DonationInfo from '@pages/detail-page/components/DonationInfo';
 import MainTitle from '@pages/detail-page/components/MainTitle';
-import Button from '@components/common/Button';
-import DetailTitle from '@pages/detail-page/components/DetailTitle';
-import DetailContent from '@pages/detail-page/components/DetailContent';
 import useScrollAnimation from '@hooks/useScrollAnimation';
 import useModal from '@hooks/useModal';
-import DonateModal from '@pages/detail-page/components/DonateModal';
-import ViewDetailButton from '@pages/detail-page/components/ViewDetailButton';
+
+// MainTitle은 LCP에 해당하기 때문에 Lazy Loading 처리 X
+const DonateModal = lazy(
+  () => import('@pages/detail-page/components/DonateModal'),
+);
+const ViewDetailButton = lazy(
+  () => import('@pages/detail-page/components/ViewDetailButton'),
+);
+const Button = lazy(() => import('@components/common/Button'));
+const DetailTitle = lazy(
+  () => import('@pages/detail-page/components/DetailTitle'),
+);
+const DetailContent = lazy(
+  () => import('@pages/detail-page/components/DetailContent'),
+);
 
 const MainSection = ({
   id,
@@ -75,15 +85,21 @@ const MainSection = ({
               style={{ top: `calc(100vh - 10rem - ${titleHeight}px)` }}
             >
               <div className='absolute top-[-5rem] left-1/2 mb-10'>
-                <ViewDetailButton isVisible={isHovered} />
+                <Suspense fallback={null}>
+                  <ViewDetailButton isVisible={isHovered} />
+                </Suspense>
               </div>
 
               <div className='h-fit snap-end' ref={titleRef}>
-                <MainTitle title={title} name={englishName} size='l' />
+                <Suspense fallback={null}>
+                  <MainTitle title={title} name={englishName} size='l' />
+                </Suspense>
               </div>
 
               <div className='snap-start pb-10'>
-                <DetailContent contents={contents} />
+                <Suspense fallback={null}>
+                  <DetailContent contents={contents} />
+                </Suspense>
               </div>
             </div>
           </section>
@@ -96,12 +112,14 @@ const MainSection = ({
               ref={donationInfoRef}
             >
               <motion.div style={detailTitleAnimation} ref={donationInfoRef}>
-                <DetailTitle
-                  name={`${idol.group} ${idol.name}`}
-                  title={title}
-                  location={subtitle}
-                  size='l'
-                />
+                <Suspense fallback={null}>
+                  <DetailTitle
+                    name={`${idol.group} ${idol.name}`}
+                    title={title}
+                    location={subtitle}
+                    size='l'
+                  />
+                </Suspense>
               </motion.div>
 
               <div className='mt-20 flex flex-col gap-10'>
@@ -133,36 +151,42 @@ const MainSection = ({
 
             <div>
               {isDonationOpen ? (
-                <Button
-                  color='pink'
-                  size='full'
-                  className='rounded hover:bg-black'
-                  onClick={open}
-                >
-                  후원하기
-                </Button>
+                <Suspense fallback={null}>
+                  <Button
+                    color='pink'
+                    size='full'
+                    className='rounded hover:bg-black'
+                    onClick={open}
+                  >
+                    후원하기
+                  </Button>
+                </Suspense>
               ) : (
-                <Button
-                  color='gray'
-                  size='full'
-                  className='rounded hover:bg-black'
-                  disabled
-                >
-                  모집 종료
-                </Button>
+                <Suspense fallback={null}>
+                  <Button
+                    color='gray'
+                    size='full'
+                    className='rounded hover:bg-black'
+                    disabled
+                  >
+                    모집 종료
+                  </Button>
+                </Suspense>
               )}
 
-              <DonateModal
-                isOpen={isModalOpen}
-                close={close}
-                donateId={id}
-                cardItem={{
-                  id: idol.id,
-                  title: title,
-                  subtitle: subtitle,
-                  profilePicture: idol.profilePicture,
-                }}
-              />
+              <Suspense fallback={null}>
+                <DonateModal
+                  isOpen={isModalOpen}
+                  close={close}
+                  donateId={id}
+                  cardItem={{
+                    id: idol.id,
+                    title: title,
+                    subtitle: subtitle,
+                    profilePicture: idol.profilePicture,
+                  }}
+                />
+              </Suspense>
             </div>
           </section>
         </div>

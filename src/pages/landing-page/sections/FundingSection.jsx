@@ -40,13 +40,20 @@ const FundingSection = () => {
   const [isCardVisible, setIsCardVisible] = useState(false);
 
   useEffect(() => {
-    let timer;
+    let timer = null;
+
     if (isVisible) {
       timer = setTimeout(() => setIsCardVisible(true), 1000);
     } else {
       setIsCardVisible(false);
     }
-    return () => clearTimeout(timer);
+
+    // 타이머 정리를 위한 클린업 함수
+    return () => {
+      if (timer !== null) {
+        clearTimeout(timer);
+      }
+    };
   }, [isVisible]);
 
   return (
@@ -64,9 +71,9 @@ const FundingHeader = ({ isVisible }) => (
     initial={{ opacity: 0, y: 50 }}
     animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
     transition={ANIMATION_CONFIG.header}
-    className='mb-24 flex flex-1 flex-col items-center justify-center gap-4'
+    className='mt-60 flex flex-1 flex-col items-center justify-end gap-4'
   >
-    <img src={logo} alt='로고 이미지' className='w-[18rem]' />
+    <img src={logo} alt='펜덤 케이 로고' className='w-[18rem]' />
     <h1 className='text-8xl font-extrabold tracking-tight text-black md:text-[14rem]'>
       FUNDING
     </h1>
@@ -80,12 +87,12 @@ const FundingCardList = ({ idols, isVisible }) => {
     FUNDING_CARD_STYLES[index % FUNDING_CARD_STYLES.length];
 
   return (
-    <div className='z-10 flex items-start justify-center'>
+    <div className='flex items-center justify-center'>
       {idols.map((idol, index) => {
         const style = getFundingCardStyle(index);
         return (
           <motion.div
-            key={`funding-card-${idol.id || index}`}
+            key={idol.id || `funding-card-${index}`}
             initial={{ x: 400, y: 50, rotate: 15, opacity: 0 }}
             animate={
               isVisible
@@ -118,7 +125,7 @@ const FundingDescription = ({ isVisible }) => (
   >
     <img
       src={pinkArrow}
-      alt='화살표'
+      alt='아래를 가리키는 핑크색 화살표'
       className='h-24 w-24 rotate-5 md:h-48 md:w-60'
     />
     <p className='text-center text-4xl font-semibold md:text-6xl'>

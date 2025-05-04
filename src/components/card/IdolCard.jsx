@@ -138,7 +138,7 @@ const IdolCardText = () => {
 
   return (
     <div className='pt-2 pb-6'>
-      <p className={locationClassName} >{location}</p>
+      <p className={locationClassName}>{location}</p>
       <p className={titleClassName}>{title}</p>
     </div>
   );
@@ -164,9 +164,9 @@ const IdolCardImg = () => {
 
   return (
     <div className='relative'>
-      <CardImg src={src} alt={title}>
+      <CardImg src={src} title={title}>
         {button && (
-          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2 '>
+          <div className='absolute bottom-[1rem] left-1/2 z-10 -translate-x-1/2'>
             {buttonWithHandler}
           </div>
         )}

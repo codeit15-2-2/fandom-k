@@ -115,6 +115,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
         className='absolute top-1/2 -left-20 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 px-4 py-10 text-white'
         onClick={prevSlide}
         disabled={isTransitioning}
+        aria-label='캐러셀 왼쪽으로 이동'
       >
         <ChevronLeft />
       </button>
@@ -122,6 +123,7 @@ const Carousel = ({ data, RenderComponent, button, ...props }) => {
         className='absolute top-1/2 -right-20 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/60 px-4 py-10 text-white'
         onClick={nextSlide}
         disabled={isTransitioning}
+        aria-label='캐러셀 오른쪽으로 이동'
       >
         <ChevronRight />
       </button>

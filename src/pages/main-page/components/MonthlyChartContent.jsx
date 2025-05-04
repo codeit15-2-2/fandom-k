@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useChartContext } from '@contexts/ChartContext';
 import Button from '@components/common/Button';
@@ -28,15 +28,15 @@ export default function MonthlyChartContent() {
   } = useChartContext();
 
   // 초기 데이터 로딩 또는 재시도 함수
-  const loadInitialData = () => {
+  const loadInitialData = useCallback(() => {
     fetchIdolData(); // 커서 없이 호출하여 첫 페이지 데이터 로드
-  };
+  }, [fetchIdolData]);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     if (nextCursor !== null && !isLoading) {
       fetchIdolData(nextCursor);
     }
-  };
+  }, [nextCursor, isLoading, fetchIdolData]);
 
   // URL이 변경되면 gender 값 업데이트
   useEffect(() => {

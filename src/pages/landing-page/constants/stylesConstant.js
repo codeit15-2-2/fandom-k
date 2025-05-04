@@ -1,4 +1,7 @@
-// 사용되지 않는 상수입니다 !!!
+/**
+ * @deprecated - 이 파일의 상수들은 현재 사용되지 않습니다.
+ * 새로운 스타일 적용시 constants/layouts.js를 참고하세요.
+ */
 
 const DEFAULT_STYLES = {
   SNAP_CONTAINER:
@@ -13,4 +16,5 @@ const BACKGROUND_STYLES = {
   FIXED: 'absolute inset-0 bg-cover bg-center',
 };
 
+// 사용되지 않는 상수이므로 직접 import하지 않도록 주의하세요
 export { DEFAULT_STYLES, BACKGROUND_STYLES };
